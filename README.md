@@ -1,3 +1,6 @@
 # Swiftfall
+Swiftfall is a wrapper written in Swift for the API Scryfall.
 
-A description of this package.
+[Documentation for Scryfall API.](https://scryfall.com/docs/api)
+
+Scryfall is API which handles information about the card game Magic: The Gathering. 
