@@ -39,8 +39,7 @@ class Tests: XCTestCase {
     }
     
     func testExactSpellSimpleSingleWord() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
         let exact = "Shock"
         let card = Swiftfall.getCard(exact: exact)
         card?.simplePrint()
@@ -80,6 +79,21 @@ class Tests: XCTestCase {
         let exact = "Flash"
         let card = Swiftfall.getCard(exact: exact)
         card?.simplePrint()
+    }
+    
+    func testVeryFuzzy(){
+        let fuzzy = "Black"
+        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
+    }
+    
+    func testExactVsFuzzy(){ // this fails because 
+        let exact = "Black Lotus"
+        let fuzzy = "Black"
+        let cardF = Swiftfall.getCard(fuzzy: fuzzy)
+        let cardE = Swiftfall.getCard(exact: exact)
+        cardF?.simplePrint()
+        cardE?.simplePrint()
     }
     
     func testPerformanceExample() {

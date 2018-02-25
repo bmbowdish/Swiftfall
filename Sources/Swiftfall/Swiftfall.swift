@@ -3,6 +3,20 @@ import Foundation
 class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
+    
+    public struct Error:Codable{
+        var code: String
+        var type: String
+        var status: Int
+        var details: String
+        
+        init(code:String,type: String,status:Int,details:String) {
+            self.code = code
+            self.type = type
+            self.status = status
+            self.details = details
+        }
+    }
 
     public struct Card:Codable {
         // Core Card Fields
@@ -51,7 +65,6 @@ class Swiftfall {
             if self.power != nil && self.toughness != nil {
                 print("\(simple)Power: \(power!)\nToughness: \(toughness!)\n")
             } else {print(simple)}
-            
         }
     }
     
@@ -116,8 +129,19 @@ class Swiftfall {
                 completion(decoded)
             }
             catch {
+                // Known Issues:
+                //  * Too broad of a request (needs handler) 
+                //
                 // Present an alert if the JSON data cannot be decoded.
-                print("\(error)")
+                do {
+                    let decoded:Error = try decoder.decode(Error.self, from: content)
+                    print("\nError: \(decoded.details)\n")
+                }
+                catch {
+                    print("Error: \(error)")
+                    completion(nil)
+                }
+                completion(nil)
             }
         }
         task.resume()
