@@ -70,6 +70,17 @@ class Tests: XCTestCase {
         card?.simplePrint()
     }
     
+    func testExactCreatureApostrophe(){
+        let exact = "Abu Ja'far"
+        let card = Swiftfall.getCard(exact: exact)
+        card?.simplePrint()
+    }
+    
+    func testExactNotMTGO(){
+        let exact = "Flash"
+        let card = Swiftfall.getCard(exact: exact)
+        card?.simplePrint()
+    }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -9,8 +9,8 @@ class Swiftfall {
         var id:String
         var oracle_id:String
         var multiverse_ids:[Int]
-        //var mtgo_id:Int
-        //var mtgo_foil_id:Int
+        var mtgo_id:Int?
+        var mtgo_foil_id:Int?
         var name:String
         
         //var uri:String
@@ -28,29 +28,13 @@ class Swiftfall {
         var colors:[String]
         
         
-        init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int,mtgo_foil_id:Int,name:String,
-             layout:String, cmc:Int, type_line:String, oracle_text:String, mana_cost:String , colors:[String]) {
-            self.id = id
-            self.oracle_id = oracle_id
-            self.multiverse_ids = multiverse_ids
-            //self.mtgo_id = mtgo_id
-            //self.mtgo_foil_id = mtgo_foil_id
-            self.name = name
-            self.layout = layout
-            self.cmc = cmc
-            self.type_line = type_line
-            self.oracle_text = oracle_text
-            self.mana_cost = mana_cost
-            self.colors = colors
-        }
-        
-        init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int,mtgo_foil_id:Int,name:String,
+        init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int?,mtgo_foil_id:Int?,name:String,
              layout:String, cmc:Int, type_line:String, oracle_text:String, mana_cost:String, power: String, toughness: String, colors:[String]) {
             self.id = id
             self.oracle_id = oracle_id
             self.multiverse_ids = multiverse_ids
-            //self.mtgo_id = mtgo_id
-            //self.mtgo_foil_id = mtgo_foil_id
+            self.mtgo_id = mtgo_id
+            self.mtgo_foil_id = mtgo_foil_id
             self.name = name
             self.layout = layout
             self.cmc = cmc
@@ -63,7 +47,7 @@ class Swiftfall {
         }
         
         public func simplePrint(){
-            var simple = "Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n"
+            let simple = "Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n"
             if self.power != nil && self.toughness != nil {
                 print("\(simple)Power: \(power!)\nToughness: \(toughness!)\n")
             } else {print(simple)}
@@ -74,7 +58,6 @@ class Swiftfall {
     // fuzzy
     public static func getCard(fuzzy: String) -> Card?
     {
-        print("Fuzzy!\n")
         let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "cards/named?fuzzy=\(encodeFuzz)"
 
@@ -86,12 +69,9 @@ class Swiftfall {
             stop = true
         }
         
-        // This is to stop thi
         while(!stop){
-            //print("stopped")
+            // Do this until parseCard is done
         }
-        
-        //card?.simplePrint()
         
         return card
     }
@@ -99,7 +79,6 @@ class Swiftfall {
     // exact
     public static func getCard(exact: String) -> Card?
     {
-        print("Exact!\n")
         let encodeExactly = exact.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "cards/named?exact=\(encodeExactly)"
         
@@ -111,19 +90,12 @@ class Swiftfall {
             stop = true
         }
         
-        // This is to stop thi
         while(!stop){
-            //print("stopped")
+            //Do this until parseCard is done
         }
-        
-        //card?.simplePrint()
         
         return card
     }
-    
-    //static func scryfallAPI(url:String) {
-    //
-    //}
     
     /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
     static func parseCard(call:String, completion: @escaping (Card?) -> ()) {
