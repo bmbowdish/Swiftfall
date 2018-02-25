@@ -6,7 +6,6 @@
 //
 
 import XCTest
-
 class Tests: XCTestCase {
     
     override func setUp() {
@@ -22,6 +21,12 @@ class Tests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        var fuzzy = "Shock"
+        var card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
+        fuzzy = "Flash"
+        card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
     }
     
     func testPerformanceExample() {

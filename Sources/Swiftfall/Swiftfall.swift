@@ -4,13 +4,13 @@ class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
 
-    struct Card:Codable {
+    public struct Card:Codable {
         // Core Card Fields
         var id:String
         var oracle_id:String
         var multiverse_ids:[Int]
-        var mtgo_id:Int
-        var mtgo_foil_id:Int
+        //var mtgo_id:Int
+        //var mtgo_foil_id:Int
         var name:String
         
         //var uri:String
@@ -18,25 +18,54 @@ class Swiftfall {
         //var prints_search_uri:String
         //var rulings_uri:String
         
+        var layout:String
+        var cmc:Int
+        var type_line:String
+        var oracle_text:String
+        var mana_cost:String
+        var colors:[String]
         
-        init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int,mtgo_foil_id:Int,name:String) {
+        
+        init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int,mtgo_foil_id:Int,name:String,
+             layout:String, cmc:Int, type_line:String, oracle_text:String, mana_cost:String , colors:[String]) {
             self.id = id
             self.oracle_id = oracle_id
             self.multiverse_ids = multiverse_ids
-            self.mtgo_id = mtgo_id
-            self.mtgo_foil_id = mtgo_foil_id
+            //self.mtgo_id = mtgo_id
+            //self.mtgo_foil_id = mtgo_foil_id
             self.name = name
+            self.layout = layout
+            self.cmc = cmc
+            self.type_line = type_line
+            self.oracle_text = oracle_text
+            self.mana_cost = mana_cost
+            self.colors = colors
+        }
+        
+        public func simplePrint(){
+            print("Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n")
         }
     }
     
     // fuzzy
-    static func card(fuzzy:String) -> Card?
+    public static func getCard(fuzzy: String) -> Card?
     {
+        let call = "cards/named?fuzzy=\(fuzzy)"
         var card: Card?
-        parseCard(call: fuzzy){
+        var stop = false
+        parseCard(call: call){
             (newcard:Card?) in
             card = newcard
+            stop = true
         }
+        
+        // This is to stop thi
+        while(!stop){
+            //print("stopped")
+        }
+        
+        //card?.simplePrint()
+        
         return card
     }
     
@@ -53,7 +82,8 @@ class Swiftfall {
                 print("Error: There was no data returned from JSON file.")
                 return
             }
-            
+    
+            //print("\(String(data: content,encoding: .utf8))")
             let decoder = JSONDecoder()
             do {
                 // Decode JSON file starting from Response struct.
