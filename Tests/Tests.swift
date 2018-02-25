@@ -18,16 +18,58 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testFuzzySpellSimpleSingleWord() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        var fuzzy = "Shock"
-        var card = Swiftfall.getCard(fuzzy: fuzzy)
-        card?.simplePrint()
-        fuzzy = "Flash"
-        card = Swiftfall.getCard(fuzzy: fuzzy)
+        let fuzzy = "Shock"
+        let card = Swiftfall.getCard(fuzzy: fuzzy)
         card?.simplePrint()
     }
+    
+    func testFuzzySpellSimpleMultiWord() {
+        let fuzzy = "Fatal Push"
+        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
+    }
+    
+    func testFuzzySpellApostrophe() {
+        let fuzzy = "Gaea's Blessing"
+        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
+    }
+    
+    func testExactSpellSimpleSingleWord() {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let exact = "Shock"
+        let card = Swiftfall.getCard(exact: exact)
+        card?.simplePrint()
+    }
+    
+    func testExactSpellSimpleMultiWord() {
+        let exact = "Fatal Push"
+        let card = Swiftfall.getCard(exact: exact)
+        card?.simplePrint()
+    }
+    
+    func testExactSpellApostrophe() {
+        let exact = "Gaea's Blessing"
+        let card = Swiftfall.getCard(exact: exact)
+        card?.simplePrint()
+    }
+    
+    func testFuzzyCreatureSimpleSingleWordStringPowerStringTough(){
+        let fuzzy = "Tarmogoyf"
+        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
+    }
+    
+    func testFuzzyCreatureSimpleSingleWord(){
+        let fuzzy = "Triskelion"
+        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        card?.simplePrint()
+    }
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -23,6 +23,8 @@ class Swiftfall {
         var type_line:String
         var oracle_text:String
         var mana_cost:String
+        var power: String?
+        var toughness: String?
         var colors:[String]
         
         
@@ -42,15 +44,65 @@ class Swiftfall {
             self.colors = colors
         }
         
+        init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int,mtgo_foil_id:Int,name:String,
+             layout:String, cmc:Int, type_line:String, oracle_text:String, mana_cost:String, power: String, toughness: String, colors:[String]) {
+            self.id = id
+            self.oracle_id = oracle_id
+            self.multiverse_ids = multiverse_ids
+            //self.mtgo_id = mtgo_id
+            //self.mtgo_foil_id = mtgo_foil_id
+            self.name = name
+            self.layout = layout
+            self.cmc = cmc
+            self.type_line = type_line
+            self.oracle_text = oracle_text
+            self.mana_cost = mana_cost
+            self.power = power
+            self.toughness = toughness
+            self.colors = colors
+        }
+        
         public func simplePrint(){
-            print("Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n")
+            var simple = "Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n"
+            if self.power != nil && self.toughness != nil {
+                print("\(simple)Power: \(power!)\nToughness: \(toughness!)")
+            } else {print(simple)}
+            
         }
     }
     
     // fuzzy
     public static func getCard(fuzzy: String) -> Card?
     {
-        let call = "cards/named?fuzzy=\(fuzzy)"
+        print("Fuzzy!\n")
+        let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "cards/named?fuzzy=\(encodeFuzz)"
+
+        var card: Card?
+        var stop = false
+        parseCard(call: call){
+            (newcard:Card?) in
+            card = newcard
+            stop = true
+        }
+        
+        // This is to stop thi
+        while(!stop){
+            //print("stopped")
+        }
+        
+        //card?.simplePrint()
+        
+        return card
+    }
+    
+    // exact
+    public static func getCard(exact: String) -> Card?
+    {
+        print("Exact!\n")
+        let encodeExactly = exact.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "cards/named?exact=\(encodeExactly)"
+        
         var card: Card?
         var stop = false
         parseCard(call: call){
@@ -75,6 +127,7 @@ class Swiftfall {
     
     /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
     static func parseCard(call:String, completion: @escaping (Card?) -> ()) {
+        
         let url = URL(string: "\(scryfall)\(call)")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
