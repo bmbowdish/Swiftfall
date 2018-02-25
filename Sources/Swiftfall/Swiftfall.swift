@@ -4,7 +4,7 @@ class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
     
-    public struct Error:Codable{
+    struct Error: Codable{
         var code: String
         var type: String
         var status: Int
@@ -15,6 +15,40 @@ class Swiftfall {
             self.type = type
             self.status = status
             self.details = details
+        }
+    }
+    
+    public struct Set: Codable {
+        var code: String
+        var mtgo: String?
+        var name: String
+        var uri: String
+        var scryfall_uri: String
+        var search_uri: String
+        var released_at: String
+        var set_type: String
+        var card_count: Int
+        var digital: Bool
+        var foil: Bool
+        var block_code: String
+        var block: String
+        var icon_svg_uri: String
+        
+        init(code: String, mtgo: String?, name: String, uri: String, scryfall_uri: String, search_uri: String, released_at: String, set_type: String, card_count: Int, digital: Bool, foil: Bool, block_code: String, block: String, icon_svg_uri: String){
+            self.code = code
+            self.mtgo = mtgo
+            self.name = name
+            self.uri = uri
+            self.scryfall_uri = scryfall_uri
+            self.search_uri = search_uri
+            self.released_at = released_at
+            self.set_type = set_type
+            self.card_count = card_count
+            self.digital = digital
+            self.foil = foil
+            self.block_code = block_code
+            self.block = block
+            self.icon_svg_uri = icon_svg_uri
         }
     }
 
@@ -41,9 +75,10 @@ class Swiftfall {
         var toughness: String?
         var colors:[String]
         
+        var purchase_uris: [String:String]
         
         init(id:String,oracle_id:String,multiverse_ids:[Int],mtgo_id:Int?,mtgo_foil_id:Int?,name:String,
-             layout:String, cmc:Int, type_line:String, oracle_text:String, mana_cost:String, power: String, toughness: String, colors:[String]) {
+             layout:String, cmc:Int, type_line:String, oracle_text:String, mana_cost:String, power: String, toughness: String, colors:[String], purchase_uris:[String:String]) {
             self.id = id
             self.oracle_id = oracle_id
             self.multiverse_ids = multiverse_ids
@@ -58,6 +93,7 @@ class Swiftfall {
             self.power = power
             self.toughness = toughness
             self.colors = colors
+            self.purchase_uris = purchase_uris
         }
         
         public func simplePrint(){
@@ -122,6 +158,7 @@ class Swiftfall {
             }
     
             //print("\(String(data: content,encoding: .utf8))")
+            
             let decoder = JSONDecoder()
             do {
                 // Decode JSON file starting from Response struct.
