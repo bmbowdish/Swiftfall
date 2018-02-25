@@ -107,6 +107,12 @@ class Tests: XCTestCase {
         }
     }
     
+    func testSetCode(){
+        let code = "KTK"
+        let set = Swiftfall.getSet(code: code)
+        set?.simplePrint()
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

@@ -16,6 +16,10 @@ class Swiftfall {
             self.status = status
             self.details = details
         }
+        
+        func simplePrint(){
+            print("Details:\(details)\n")
+        }
     }
     
     public struct Set: Codable {
@@ -49,6 +53,10 @@ class Swiftfall {
             self.block_code = block_code
             self.block = block
             self.icon_svg_uri = icon_svg_uri
+        }
+        
+        func simplePrint(){
+            print("Name: \(name) (\(code))\nBlock: \(block)\nNumber of Cards: \(card_count)\nRelease Date: \(released_at)\n")
         }
     }
 
@@ -172,7 +180,66 @@ class Swiftfall {
                 // Present an alert if the JSON data cannot be decoded.
                 do {
                     let decoded:Error = try decoder.decode(Error.self, from: content)
-                    print("\nError: \(decoded.details)\n")
+                    decoded.simplePrint()
+                }
+                catch {
+                    print("Error: \(error)")
+                    completion(nil)
+                }
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    // set
+    public static func getSet(code: String) -> Set?
+    {
+        let encodeExactly = code.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "sets/\(encodeExactly)"
+        
+        var set: Set?
+        var stop = false
+        parseCard(call: call){
+            (newset:Set?) in
+            set = newset
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return set
+    }
+    
+    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
+    static func parseCard(call:String, completion: @escaping (Set?) -> ()) {
+        
+        let url = URL(string: "\(scryfall)\(call)")
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            
+            guard let content = data else {
+                print("Error: There was no data returned from JSON file.")
+                return
+            }
+            
+            //print("\(String(data: content,encoding: .utf8))")
+            
+            let decoder = JSONDecoder()
+            do {
+                // Decode JSON file starting from Response struct.
+                let decoded:Set = try decoder.decode(Set.self, from: content)
+                completion(decoded)
+            }
+            catch {
+                // Known Issues:
+                //  * Too broad of a request (needs handler)
+                //
+                // Present an alert if the JSON data cannot be decoded.
+                do {
+                    let decoded:Error = try decoder.decode(Error.self, from: content)
+                    decoded.simplePrint()
                 }
                 catch {
                     print("Error: \(error)")
