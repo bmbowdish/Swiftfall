@@ -87,13 +87,30 @@ class Tests: XCTestCase {
         card?.simplePrint()
     }
     
-    func testExactVsFuzzy(){ // this fails because 
+    func testExactVsFuzzy(){
         let exact = "Black Lotus"
         let fuzzy = "Black"
         let cardF = Swiftfall.getCard(fuzzy: fuzzy)
         let cardE = Swiftfall.getCard(exact: exact)
         cardF?.simplePrint()
         cardE?.simplePrint()
+    }
+    
+    func testPurchaseURI(){
+        let fuzzy = "Black Lotus"
+        let cardF = Swiftfall.getCard(fuzzy: fuzzy)
+        cardF?.simplePrint()
+        if let ebay = cardF?.purchase_uris["ebay"] {
+            print(ebay)
+        }else{
+            print("Error: There isn't an ebay listing.")
+        }
+    }
+    
+    func testSetCode(){
+        let code = "KTK"
+        let set = Swiftfall.getSet(code: code)
+        set?.simplePrint()
     }
     
     func testPerformanceExample() {
