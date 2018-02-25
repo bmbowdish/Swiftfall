@@ -65,7 +65,7 @@ class Swiftfall {
         public func simplePrint(){
             var simple = "Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n"
             if self.power != nil && self.toughness != nil {
-                print("\(simple)Power: \(power!)\nToughness: \(toughness!)")
+                print("\(simple)Power: \(power!)\nToughness: \(toughness!)\n")
             } else {print(simple)}
             
         }
