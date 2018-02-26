@@ -407,6 +407,5 @@ public class Swiftfall {
         }
         task.resume()
     }
-    
 }
 
