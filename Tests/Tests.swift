@@ -18,6 +18,11 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
+    func testRandomCard(){
+        let card = Swiftfall.getRandomCard()
+        card?.simplePrint()
+    }
+    
     func testFuzzySpellSimpleSingleWord() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -124,10 +129,21 @@ class Tests: XCTestCase {
         setlist?.simplePrint()
     }
     
+    func testCardList(){
+        let cardlist = Swiftfall.getCardList()
+        cardlist?.simplePrint()
+    }
+    
+    func testCardListPageNumber(){
+        let cardlist = Swiftfall.getCardList(page:6)
+        cardlist?.simplePrint()
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
+            testSetList()
         }
     }
     
