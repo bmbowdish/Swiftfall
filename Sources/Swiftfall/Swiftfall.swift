@@ -10,13 +10,6 @@ public class Swiftfall {
         var status: Int
         var details: String
         
-        init(code:String,type: String,status:Int,details:String) {
-            self.code = code
-            self.type = type
-            self.status = status
-            self.details = details
-        }
-        
         func simplePrint(){
             print("Details:\(details)\n")
         }

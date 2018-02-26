@@ -22,7 +22,8 @@ let package = Package(
             name: "Swiftfall",
             dependencies: []),
         .testTarget(
-            name: "SwiftfallTests",
-            dependencies: ["Swiftfall"]),
+            name: "Tests",
+            dependencies: ["Swiftfall"],
+            path: "Tests"),
     ]
 )
