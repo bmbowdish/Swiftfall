@@ -113,6 +113,17 @@ class Tests: XCTestCase {
         set?.simplePrint()
     }
     
+    func testSetCodeNoBlock(){
+        let code = "EMA"
+        let set = Swiftfall.getSet(code: code)
+        set?.simplePrint()
+    }
+    
+    func testSetList(){
+        let setlist = Swiftfall.getSetList()
+        setlist?.simplePrint()
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
