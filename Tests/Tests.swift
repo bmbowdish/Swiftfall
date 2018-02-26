@@ -101,7 +101,7 @@ class Tests: XCTestCase {
         let cardF = Swiftfall.getCard(fuzzy: fuzzy)
         cardF?.simplePrint()
         if let ebay = cardF?.purchase_uris["ebay"] {
-            print(ebay)
+            print("\(ebay)\n")
         }else{
             print("Error: There isn't an ebay listing.")
         }
@@ -111,6 +111,17 @@ class Tests: XCTestCase {
         let code = "KTK"
         let set = Swiftfall.getSet(code: code)
         set?.simplePrint()
+    }
+    
+    func testSetCodeNoBlock(){
+        let code = "EMA"
+        let set = Swiftfall.getSet(code: code)
+        set?.simplePrint()
+    }
+    
+    func testSetList(){
+        let setlist = Swiftfall.getSetList()
+        setlist?.simplePrint()
     }
     
     func testPerformanceExample() {
