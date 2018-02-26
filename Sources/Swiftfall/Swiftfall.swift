@@ -1,6 +1,6 @@
 import Foundation
 
-class Swiftfall {
+public class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
     
@@ -31,6 +31,21 @@ class Swiftfall {
                 if let t_set = set{
                     print("Set Number: \(i)")
                     t_set.simplePrint()
+                    i = i + 1
+                }
+            }
+        }
+    }
+    
+    public struct CardList: Codable {
+        var data: [Card?]
+        
+        func simplePrint(){
+            var i = 0
+            for card in data {
+                if let t_card = card{
+                    print("\nCard Number: \(i)\n")
+                    t_card.simplePrint()
                     i = i + 1
                 }
             }
@@ -70,7 +85,7 @@ class Swiftfall {
         var multiverse_ids:[Int]
         var mtgo_id:Int?
         var mtgo_foil_id:Int?
-        var name:String
+        var name:String?
         
         var uri:String
         var scryfall_uri:String
@@ -79,20 +94,31 @@ class Swiftfall {
         
         var layout:String
         var cmc:Int
-        var type_line:String
-        var oracle_text:String
-        var mana_cost:String
+        var type_line:String?
+        var oracle_text:String?
+        var mana_cost:String?
         var power: String?
         var toughness: String?
-        var colors:[String]
+        var colors:[String]?
         
         var purchase_uris: [String:String]
         
         public func simplePrint(){
-            let simple = "Name: \(name)\nCost: \(mana_cost)\nType Line: \(type_line)\nOracle Text:\n\(oracle_text)\n"
+            if self.name != nil {
+                print("Name: \(name!)")
+            }
+            if self.mana_cost != nil {
+                print("Cost: \(mana_cost!)")
+            }
+            if self.type_line != nil {
+                print("Type Line: \(type_line!)")
+            }
+            if self.oracle_text != nil {
+                print("Oracle Text:\n\(oracle_text!)")
+            }
             if self.power != nil && self.toughness != nil {
-                print("\(simple)Power: \(power!)\nToughness: \(toughness!)\n")
-            } else {print(simple)}
+                print("Power: \(power!)\nToughness: \(toughness!)")
+            }
         }
     }
     
@@ -117,6 +143,7 @@ class Swiftfall {
         return card
     }
     
+    
     // exact
     public static func getCard(exact: String) -> Card?
     {
@@ -133,6 +160,26 @@ class Swiftfall {
         
         while(!stop){
             //Do this until parseCard is done
+        }
+        
+        return card
+    }
+    
+    // fuzzy
+    public static func getRandomCard() -> Card?
+    {
+        let call = "cards/random"
+        
+        var card: Card?
+        var stop = false
+        parseCard(call: call){
+            (newcard:Card?) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            // Do this until parseCard is done
         }
         
         return card
@@ -242,8 +289,8 @@ class Swiftfall {
         var setlist: SetList?
         var stop = false
         parseSetList(call: call){
-            (newset:SetList?) in
-            setlist = newset
+            (newsetlist:SetList?) in
+            setlist = newsetlist
             stop = true
         }
         
@@ -271,6 +318,78 @@ class Swiftfall {
             do {
                 // Decode JSON file starting from Response struct.
                 let decoded:SetList = try decoder.decode(SetList.self, from: content)
+                completion(decoded)
+            }
+            catch {
+                do {
+                    let decoded:Error = try decoder.decode(Error.self, from: content)
+                    decoded.simplePrint()
+                }
+                catch {
+                    print("Error: \(error)")
+                    
+                    completion(nil)
+                }
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    public static func getCardList() -> CardList?
+    {
+        let call = "cards/"
+        
+        var cardlist: CardList?
+        var stop = false
+        parseCardList(call: call){
+            (newcardlist:CardList?) in
+            cardlist = newcardlist
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return cardlist
+    }
+    
+    public static func getCardList(page:Int) -> CardList?
+    {
+        let call = "cards?page=\(page)"
+        
+        var cardlist: CardList?
+        var stop = false
+        parseCardList(call: call){
+            (newcardlist:CardList?) in
+            cardlist = newcardlist
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return cardlist
+    }
+    
+    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
+    static func parseCardList(call:String, completion: @escaping (CardList?) -> ()) {
+        
+        let url = URL(string: "\(scryfall)\(call)")
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            guard let content = data else {
+                print("Error: There was no data returned from JSON file.")
+                return
+            }
+            
+            //print("\(String(data: content,encoding: .utf8))")
+            
+            let decoder = JSONDecoder()
+            do {
+                // Decode JSON file starting from Response struct.
+                let decoded:CardList = try decoder.decode(CardList.self, from: content)
                 completion(decoded)
             }
             catch {
