@@ -89,20 +89,18 @@ public class Swiftfall {
         }
         
         var mtgo_id:Int?
-        public func getmtgoID() -> Int?
-        {
+        public func getmtgoID() -> Int?{
             return self.mtgo_id
         }
         
         var mtgo_foil_id:Int?
-        public func getmtgofoilID() -> Int?
-        {
+        public func getmtgofoilID() -> Int?{
             return self.mtgo_foil_id
         }
         
         var name:String?
-        public func getName(){
-            
+        public func getName() -> String?{
+            return self.name
         }
         
         var uri:String
