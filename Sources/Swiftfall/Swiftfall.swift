@@ -10,7 +10,7 @@ public class Swiftfall {
         var status: Int
         var details: String
         
-        func simplePrint(){
+        public func simplePrint(){
             print("Details:\(details)\n")
         }
     }
@@ -18,7 +18,7 @@ public class Swiftfall {
     public struct SetList: Codable {
         var data: [Set?]
         
-        func simplePrint(){
+        public func simplePrint(){
             var i = 0
             for set in data {
                 if let t_set = set{
@@ -33,7 +33,7 @@ public class Swiftfall {
     public struct CardList: Codable {
         var data: [Card?]
         
-        func simplePrint(){
+        public func simplePrint(){
             var i = 0
             for card in data {
                 if let t_card = card{
