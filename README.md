@@ -24,11 +24,14 @@ These are some functions you can call which will handle information from Scryfal
 
 ### Get a Card
 Swiftfall.getCard(fuzzy:String) -> Card? _(Fuzzy search)_
+
 Swiftfall.getCard(exact:String) -> Card? _(Exact search)_
+
 Swiftfall.getRandomCard() -> Card? _(Random Card)_
 
 ### Get a list of Cards
 Swiftfall.getCardList() -> CardList? _(The first page)_
+
 Swiftfall.getCardList(page:Int) -> CardList? _(Loads a specific page)_
 
 ### Get a Set
