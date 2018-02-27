@@ -139,6 +139,11 @@ class Tests: XCTestCase {
         cardlist?.simplePrint()
     }
     
+    func testGetter(){
+        let card = Swiftfall.getRandomCard()
+        print(card?.getName())
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
