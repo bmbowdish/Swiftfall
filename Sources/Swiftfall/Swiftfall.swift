@@ -10,7 +10,7 @@ public class Swiftfall {
         var status: Int
         var details: String
         
-        func simplePrint(){
+        public func simplePrint(){
             print("Details:\(details)\n")
         }
     }
@@ -18,7 +18,7 @@ public class Swiftfall {
     public struct SetList: Codable {
         var data: [Set?]
         
-        func simplePrint(){
+        public func simplePrint(){
             var i = 0
             for set in data {
                 if let t_set = set{
@@ -33,7 +33,7 @@ public class Swiftfall {
     public struct CardList: Codable {
         var data: [Card?]
         
-        func simplePrint(){
+        public func simplePrint(){
             var i = 0
             for card in data {
                 if let t_card = card{
@@ -61,7 +61,7 @@ public class Swiftfall {
         var block: String?
         var icon_svg_uri: String
         
-        func simplePrint(){
+        public func simplePrint(){
             if let block = self.block , let code = self.code, let release_at = self.released_at {
                 print("Name: \(name) (\(code))\nBlock: \(block)\nNumber of Cards: \(card_count)\nRelease Date: \(release_at)\nSet Type: \(set_type)\n")
             }
