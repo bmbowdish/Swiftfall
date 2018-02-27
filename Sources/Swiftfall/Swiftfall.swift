@@ -61,7 +61,7 @@ public class Swiftfall {
         var block: String?
         var icon_svg_uri: String
         
-        func simplePrint(){
+        public func simplePrint(){
             if let block = self.block , let code = self.code, let release_at = self.released_at {
                 print("Name: \(name) (\(code))\nBlock: \(block)\nNumber of Cards: \(card_count)\nRelease Date: \(release_at)\nSet Type: \(set_type)\n")
             }
