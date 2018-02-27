@@ -74,27 +74,101 @@ public class Swiftfall {
     public struct Card:Codable {
         // Core Card Fields
         var id:String
+        public func getID() -> String {
+            return self.id
+        }
+        
         var oracle_id:String
+        public func getOracleID() -> String {
+            return self.oracle_id
+        }
+        
         var multiverse_ids:[Int]
+        public func getMultiverseIDs()->[Int]{
+            return self.multiverse_ids
+        }
+        
         var mtgo_id:Int?
+        public func getmtgoID() -> Int?
+        {
+            return self.mtgo_id
+        }
+        
         var mtgo_foil_id:Int?
+        public func getmtgofoilID() -> Int?
+        {
+            return self.mtgo_foil_id
+        }
+        
         var name:String?
+        public func getName(){
+            
+        }
         
         var uri:String
+        public func getURI() -> String{
+            return self.uri
+        }
+        
         var scryfall_uri:String
+        public func getScryfallURI() -> String{
+            return self.scryfall_uri
+        }
+        
         var prints_search_uri:String
+        public func getPrintsSearchURI() -> String {
+            return self.prints_search_uri
+        }
+        
         var rulings_uri:String
+        public func getRulingsURI() -> String {
+            return self.rulings_uri
+        }
         
         var layout:String
+        public func getLayout() -> String {
+            return self.layout
+        }
+        
         var cmc:Int
+        public func getCMC() -> Int {
+            return self.cmc
+        }
+        
         var type_line:String?
+        public func getTypeLine() -> String? {
+            return self.type_line
+        }
+        
         var oracle_text:String?
+        public func getOracleText() -> String? {
+            return self.oracle_text
+        }
+        
         var mana_cost:String?
+        public func getManaCost() -> String? {
+            return self.mana_cost
+        }
+        
         var power: String?
+        public func getPower() -> String? {
+            return self.power
+        }
+        
         var toughness: String?
+        public func getToughness() -> String? {
+            return self.toughness
+        }
+        
         var colors:[String]?
+        public func getColors() -> [String]? {
+            return self.colors
+        }
         
         var purchase_uris: [String:String]
+        public func getPurchaseURIs() -> [String:String] {
+            return self.purchase_uris
+        }
         
         public func simplePrint(){
             if self.name != nil {
