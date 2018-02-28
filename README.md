@@ -5,7 +5,7 @@ Swiftfall is a wrapper written in Swift for the API Scryfall.
 
 Scryfall is API which handles information about the card game Magic: The Gathering. 
 
-What works?
+# Swiftfall Documentation
 ## Types
 All types are Structs and can be reach through a Swiftfall.get*(). 
 
@@ -29,13 +29,86 @@ Swiftfall.getCard(exact:String) -> Card? _(Exact search)_
 
 Swiftfall.getRandomCard() -> Card? _(Random Card)_
 
+Ex.
+``` 
+import Swiftfall
+let card = Swiftfall.getCard(exact:"Black Lotus")
+card?.simplePrint()
+```
+Out.
+```
+Name: Black Lotus
+Cost: {0}
+Type Line: Artifact
+Oracle Text:
+{T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.
+```
 ### Get a list of Cards
 Swiftfall.getCardList() -> CardList? _(The first page)_
 
 Swiftfall.getCardList(page:Int) -> CardList? _(Loads a specific page)_
 
+Ex. 
+```
+import Swiftfall
+let cardlist = Swiftfall.getCardList(page:0) // this is the same as .getCardList()
+cardlist.simplePrint()
+```
+Out.
+```
+Card Number: 0
+
+Name: Akroma's Vengeance
+Cost: {4}{W}{W}
+Type Line: Sorcery
+Oracle Text:
+Destroy all artifacts, creatures, and enchantments.
+Cycling {3} ({3}, Discard this card: Draw a card.)
+
+Card Number: 1
+...
+...
+```
+
 ### Get a Set
 Swiftfall.getSet(code:String) -> Set? _(String must be a three letter code)_
 
+Ex.
+```
+import Swiftfall
+let set = Swiftfall.getSet(code: "KTK")
+set?.simplePrint()
+```
+Out.
+```
+Name: Khans of Tarkir (ktk)
+Block: Khans of Tarkir
+Number of Cards: 269
+Release Date: 2014-09-26
+Set Type: expansion
+```
 ### Get a list of Set
 Swiftfall.getSetList() -> SetList? _(All Sets)_
+
+Ex.
+```
+import Swiftfall
+let setlist = Swiftfall.getSetList()
+setlist?.simplePrint()
+```
+Out.
+```
+Set Number: 0
+Name: Masters 25
+Number of Cards: 55
+Set Type:masters
+
+Set Number: 1
+Name: Masters 25 Tokens
+Number of Cards: 1
+Set Type:token
+
+Set Number: 2
+...
+...
+```
