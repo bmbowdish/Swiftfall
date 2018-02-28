@@ -10,15 +10,21 @@ Scryfall is API which handles information about the card game Magic: The Gatheri
 All types are Structs and can be reach through a Swiftfall.get*(). 
 
 All Structs have a print function called simplePrint().
- 
-### Card? 
+
+### Types That Hold Data
+#### Card? 
  * Struct containing data about a Magic Card
-### Set? 
+#### Set? 
  * Struct containing data about a Set of Magic cards
-### CardList? 
+#### Ruling?
+ * Struct containing data about a Magic Card's rulings. 
+### Structs which contain Arrays of Types 
+#### CardList? 
  * Struct containing a list of Cards
-### SetList? 
+#### SetList? 
  * Struct containing a list of Sets
+#### RulingList?
+ * Struct containing a list of Rulings
 ## Functions
 These are some functions you can call which will handle information from Scryfall's API. 
 
@@ -111,4 +117,51 @@ Set Type:token
 Set Number: 2
 ...
 ...
+```
+### Get a list of Rulings
+Swiftfall.getRulingList(code:String,number:Int) -> RulingList?
+Ex.
+``` 
+import Swiftfall
+let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
+rulings?.simplePrint()
+```
+Out. 
+```
+Source: wotc
+Comments: Mana Drain can target a spell that can’t be countered. When Mana Drain resolves, that spell won’t be countered, but you’ll still add mana to your mana pool at the beginning of your next main phase.
+
+Source: wotc
+Comments: If the target spell is an illegal target when Mana Drain tries to resolve, it will be countered and none of its effects will happen. You won’t get any mana.
+
+Source: wotc
+Comments: Mana Drain’s delayed triggered ability will usually trigger at the beginning of your precombat main phase. However, if you cast Mana Drain during your precombat main phase or during your combat phase, its delayed triggered ability will trigger at the beginning of that turn’s postcombat main phase.
+```
+
+### Get a Ruling
+To get a specific ruling you must first get a Ruling List. 
+
+Once you have a RulingList you may call .getData(index: Int)
+Ex. 
+```
+let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
+let ruling = rulings?.getData(index: 1)
+ruling?.simplePrint()
+```
+Out. 
+```
+Source: wotc
+Comments: If the target spell is an illegal target when Mana Drain tries to resolve, it will be countered and none of its effects will happen. You won’t get any mana.
+```
+## Testing 
+
+Testing allows for us to check certain scenarios quickly and determine the problems in a easy to understand and grasp manner. 
+
+### Example
+Ex. 
+```
+func testRandomCard(){
+    let card = Swiftfall.getRandomCard()
+    XCTAssertTrue(card != nil)
+}
 ```
