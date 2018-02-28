@@ -153,3 +153,15 @@ Out.
 Source: wotc
 Comments: If the target spell is an illegal target when Mana Drain tries to resolve, it will be countered and none of its effects will happen. You won’t get any mana.
 ```
+## Testing 
+
+Testing allows for us to check certain scenarios quickly and determine the problems in a easy to understand and grasp manner. 
+
+### Example
+Ex. 
+```
+func testRandomCard(){
+    let card = Swiftfall.getRandomCard()
+    XCTAssertTrue(card != nil)
+}
+```
