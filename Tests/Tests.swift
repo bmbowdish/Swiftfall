@@ -141,7 +141,7 @@ class Tests: XCTestCase {
     
     func testGetter(){
         let card = Swiftfall.getRandomCard()
-        print(card?.getName())
+        print((card?.getCMC())!)
     }
     
     func testPerformanceExample() {
