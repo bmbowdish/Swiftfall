@@ -4,6 +4,48 @@ public class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
     
+    public struct RulingList: Codable {
+        var data:[Ruling?]
+        public func getData() -> [Ruling?] {
+            return self.data
+        }
+        
+        public func getData(index:Int) -> Ruling? {
+            return self.data[index]
+        }
+        
+        public func simplePrint() {
+            for rule in data {
+                rule?.simplePrint()
+            }
+        }
+    }
+    
+    public struct Ruling: Codable {
+        //     A computer-readable string indicating which company produced this ruling, either wotc or scryfall.
+        var source: String
+        public func getSource() -> String {
+            return self.source
+        }
+        
+        // The date when the ruling or note was published.
+        var published_at: String
+        public func getPublishedAt() -> String {
+            return self.published_at
+        }
+        
+        // The text of the ruling.
+        var comment: String
+        public func getComment() -> String {
+            return self.comment
+        }
+        
+        // A simple print function for a ruling
+        public func simplePrint() {
+            print("Source: \(source)\nComments: \(comment)\n")
+        }
+    }
+    
     struct Error: Codable{
         var code: String
         var type: String
@@ -572,6 +614,61 @@ public class Swiftfall {
             do {
                 // Decode JSON file starting from Response struct.
                 let decoded:CardList = try decoder.decode(CardList.self, from: content)
+                completion(decoded)
+            }
+            catch {
+                do {
+                    let decoded:Error = try decoder.decode(Error.self, from: content)
+                    decoded.simplePrint()
+                }
+                catch {
+                    print("Error: \(error)")
+                    
+                    completion(nil)
+                }
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    public static func getRulingList(code:String,number:Int) -> RulingList?
+    {
+        let call = "cards/\(code)/\(number)/rulings"
+        
+        var rulelist: RulingList?
+        var stop = false
+        parseRulingList(call: call){
+            (newrulelist:RulingList?) in
+            rulelist = newrulelist
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return rulelist
+    }
+    
+    
+    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
+    static func parseRulingList(call:String, completion: @escaping (RulingList?) -> ()) {
+        
+        let url = URL(string: "\(scryfall)\(call)")
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            guard let content = data else {
+                print("Error: There was no data returned from JSON file.")
+                return
+            }
+            
+            //print("\(String(data: content,encoding: .utf8))")
+            
+            let decoder = JSONDecoder()
+            do {
+                // Decode JSON file starting from Response struct.
+                let decoded:RulingList = try decoder.decode(RulingList.self, from: content)
                 completion(decoded)
             }
             catch {
