@@ -22,6 +22,7 @@ public class Swiftfall {
         public func getData() -> [Set?]{
             return self.data
         }
+        
         // prints each set using their simplePrint()
         public func simplePrint(){
             var i = 0
@@ -143,116 +144,145 @@ public class Swiftfall {
             return self.icon_svg_uri
         }
         
-
         // prints the minimal data for the set
         public func simplePrint(){
-            if let block = self.block , let code = self.code, let release_at = self.released_at {
-                print("Name: \(name) (\(code))\nBlock: \(block)\nNumber of Cards: \(card_count)\nRelease Date: \(release_at)\nSet Type: \(set_type)\n")
+            print("Name: \(name)")
+            if self.code != nil {
+                print("Code: \(self.code!)")
             }
-            else {
-                print("Name: \(name)\nNumber of Cards: \(card_count)\nSet Type:\(set_type)\n")
+            if self.block != nil {
+                print("Block: \(self.block!)")
             }
+            print("Number of Cards: \(self.card_count)")
+            if self.released_at != nil {
+                print("Release Date: \(self.released_at!)")
+            }
+            print("Set Type: \(set_type)\n")
         }
     }
-
     public struct Card:Codable {
-        // Core Card Fields
+        // A unique ID for this card in Scryfall’s database.
         var id:String
         public func getID() -> String {
             return self.id
         }
         
+        // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
         var oracle_id:String
         public func getOracleID() -> String {
             return self.oracle_id
         }
         
+        // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
         var multiverse_ids:[Int]
         public func getMultiverseIDs()->[Int]{
             return self.multiverse_ids
         }
         
+        // This card’s Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
         var mtgo_id:Int?
         public func getmtgoID() -> Int?{
             return self.mtgo_id
         }
         
+        // This card’s foil Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
         var mtgo_foil_id:Int?
         public func getmtgofoilID() -> Int?{
             return self.mtgo_foil_id
         }
         
+        // The name of this card. If this card has multiple faces, this field will contain both names separated by ␣//␣.
         var name:String?
         public func getName() -> String?{
             return self.name
         }
         
+        // A link to this card object on Scryfall’s API.
         var uri:String
         public func getURI() -> String{
             return self.uri
         }
         
+        // A link to this card’s permapage on Scryfall’s website.
         var scryfall_uri:String
         public func getScryfallURI() -> String{
             return self.scryfall_uri
         }
         
+        // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
         var prints_search_uri:String
         public func getPrintsSearchURI() -> String {
             return self.prints_search_uri
         }
         
+        // A link to this card’s rulings on Scryfall’s API.
         var rulings_uri:String
         public func getRulingsURI() -> String {
             return self.rulings_uri
         }
         
+        // A computer-readable designation for this card’s layout. See the layout article.
         var layout:String
         public func getLayout() -> String {
             return self.layout
         }
         
+        // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
         var cmc:Int
         public func getCMC() -> Int {
             return self.cmc
         }
         
+        // The type line of this card.
         var type_line:String?
         public func getTypeLine() -> String? {
             return self.type_line
         }
         
+        // The Oracle text for this card, if any.
         var oracle_text:String?
         public func getOracleText() -> String? {
             return self.oracle_text
         }
         
+        // The mana cost for this card. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
         var mana_cost:String?
         public func getManaCost() -> String? {
             return self.mana_cost
         }
         
+        // This card’s power, if any. Note that some cards have powers that are not numeric, such as *.
         var power: String?
         public func getPower() -> String? {
             return self.power
         }
         
+        // This card’s toughness, if any. Note that some cards have toughnesses that are not numeric, such as *.
         var toughness: String?
         public func getToughness() -> String? {
             return self.toughness
         }
         
+        // This loyalty if any. Note that some cards have loyalties that are not numeric, such as X.
+        var loyalty: String?
+        public func getLoyalty() -> String? {
+            return self.loyalty
+        }
+        
+        // This card’s colors.
         var colors:[String]?
         public func getColors() -> [String]? {
             return self.colors
         }
         
+        // Online listings for these cards names.
         var purchase_uris: [String:String]
         public func getPurchaseURIs() -> [String:String] {
             return self.purchase_uris
         }
         
         public func simplePrint(){
+            // Each variable is tested to see if printing it makes sense.
             if self.name != nil {
                 print("Name: \(name!)")
             }
@@ -267,6 +297,9 @@ public class Swiftfall {
             }
             if self.power != nil && self.toughness != nil {
                 print("Power: \(power!)\nToughness: \(toughness!)")
+            }
+            if self.loyalty != nil {
+                print("Loyalty: \(loyalty!)")
             }
         }
     }
