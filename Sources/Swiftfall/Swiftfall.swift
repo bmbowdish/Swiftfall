@@ -15,9 +15,14 @@ public class Swiftfall {
         }
     }
     
+    // struct which contains all sets
     public struct SetList: Codable {
+        // data is an array of Sets
         var data: [Set?]
-        
+        public func getData() -> [Set?]{
+            return self.data
+        }
+        // prints each set using their simplePrint()
         public func simplePrint(){
             var i = 0
             for set in data {
@@ -30,9 +35,15 @@ public class Swiftfall {
         }
     }
     
+    // struct which contrains a list of cards
     public struct CardList: Codable {
+        // an array of Cards
         var data: [Card?]
+        public func getData() -> [Card?] {
+            return self.data
+        }
         
+        // prints each Card using their simplePrint()
         public func simplePrint(){
             var i = 0
             for card in data {
@@ -45,22 +56,95 @@ public class Swiftfall {
         }
     }
     
+    // A Magic set is how cards are released in reality.
+    // It contains no cards in Swiftfall or Scryfall.
     public struct Set: Codable {
+        // The unique three or four-letter code for this set.
         var code: String?
-        var mtgo: String?
-        var name: String
-        var uri: String
-        var scryfall_uri: String
-        var search_uri: String
-        var released_at: String?
-        var set_type: String
-        var card_count: Int
-        var digital: Bool
-        var foil: Bool
-        var block_code: String?
-        var block: String?
-        var icon_svg_uri: String
+        public func getCode() -> String? {
+            return self.code
+        }
         
+        // The unique code for this set on MTGO, which may differ from the regular code.
+        var mtgo: String?
+        public func getMTGO() -> String? {
+            return self.mtgo
+        }
+        
+        //The English name of the set.
+        var name: String
+        public func getName() -> String {
+            return self.name
+        }
+        
+        //
+        var uri: String
+        public func getURI() -> String{
+            return self.uri
+        }
+        
+        // Scryfall API URI 
+        var scryfall_uri: String
+        public func getScryfallURI() -> String {
+            return self.scryfall_uri
+        }
+        
+        // A Scryfall API URI that you can request to begin paginating over the cards in this set.
+        var search_uri: String
+        public func getSearchURI() -> String {
+            return self.search_uri
+        }
+        
+        // the release date of the set
+        var released_at: String?
+        public func getReleasedAt() -> String? {
+            return self.released_at
+        }
+        
+        // A computer-readable classification for this set. See below.
+        var set_type: String
+        public func getSetType() -> String {
+            return self.set_type
+        }
+        
+        // The number of cards in this set.
+        var card_count: Int
+        public func getCardCount() -> Int {
+            return self.card_count
+        }
+        
+        // Bool for if the card is digital
+        var digital: Bool
+        public func getDigital() -> Bool {
+            return self.digital
+        }
+        
+        // Bool for if the card is foil
+        var foil: Bool
+        public func getFoil() -> Bool {
+            return self.foil
+        }
+        
+        // Block code, like self.code but the for the block the set is a member of
+        var block_code: String?
+        public func getBlockCode() -> String? {
+            return self.block_code
+        }
+        
+        // The block or group name code for this set, if any.
+        var block: String?
+        public func getBlock() -> String? {
+            return self.block
+        }
+        
+        //A URI to an SVG file for this set’s icon on Scryfall’s CDN. Hotlinking this image isn’t recommended, because it may change slightly over time. You should download it and use it locally for your particular user interface needs.
+        var icon_svg_uri: String
+        public func getIconSVGURI() -> String {
+            return self.icon_svg_uri
+        }
+        
+
+        // prints the minimal data for the set
         public func simplePrint(){
             if let block = self.block , let code = self.code, let release_at = self.released_at {
                 print("Name: \(name) (\(code))\nBlock: \(block)\nNumber of Cards: \(card_count)\nRelease Date: \(release_at)\nSet Type: \(set_type)\n")
