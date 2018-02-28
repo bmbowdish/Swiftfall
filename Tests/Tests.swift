@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Swiftfall
 class Tests: XCTestCase {
     
     override func setUp() {
@@ -105,11 +106,6 @@ class Tests: XCTestCase {
         let fuzzy = "Black Lotus"
         let cardF = Swiftfall.getCard(fuzzy: fuzzy)
         cardF?.simplePrint()
-        if let ebay = cardF?.purchase_uris["ebay"] {
-            print("\(ebay)\n")
-        }else{
-            print("Error: There isn't an ebay listing.")
-        }
     }
     
     func testSetCode(){
@@ -142,6 +138,11 @@ class Tests: XCTestCase {
     func testGetter(){
         let card = Swiftfall.getRandomCard()
         print((card?.getCMC())!)
+    }
+    
+    func testPlaneswalker() {
+        let jace = Swiftfall.getCard(exact: "Jace Beleren")
+        jace?.simplePrint()
     }
     
     func testPerformanceExample() {
