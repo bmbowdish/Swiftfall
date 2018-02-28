@@ -22,7 +22,6 @@ public class Swiftfall {
         public func getData() -> [Set?]{
             return self.data
         }
-        
         // prints each set using their simplePrint()
         public func simplePrint(){
             var i = 0
@@ -144,6 +143,7 @@ public class Swiftfall {
             return self.icon_svg_uri
         }
         
+
         // prints the minimal data for the set
         public func simplePrint(){
             if let block = self.block , let code = self.code, let release_at = self.released_at {
