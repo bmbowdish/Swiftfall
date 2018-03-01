@@ -21,13 +21,13 @@ class Tests: XCTestCase {
     
     func testRulingList() {
         let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-        //rulings?.simplePrint()
+        let ruling = rulings?.getData(index: 1)
+        ruling?.simplePrint()
         XCTAssertTrue(rulings?.getData(index: 0)?.getSource() == "wotc")
     }
     
     func testRandomCard(){
         let card = Swiftfall.getRandomCard()
-        //card?.simplePrint()
         XCTAssertTrue(card != nil)
     }
     
