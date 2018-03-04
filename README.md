@@ -14,6 +14,8 @@ All Structs have a print function called simplePrint().
 ### Types That Hold Data
 #### Card? 
  * Struct containing data about a Magic Card
+ * Contains the **CardFaces** Struct
+   * Some Cards have faces, **Card Faces** contains those faces. 
 #### Set? 
  * Struct containing data about a Set of Magic cards
 #### Ruling?
@@ -48,6 +50,63 @@ Cost: {0}
 Type Line: Artifact
 Oracle Text:
 {T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.
+```
+
+#### Double-Sided Cards
+Ex.
+``` 
+import Swiftfall
+let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
+card?.simplePrint()
+```
+Out.
+```
+Name: Jace, Vryn's Prodigy
+Cost: {1}{U}
+Type Line: Legendary Creature — Human Wizard
+Oracle Text:
+{T}: Draw a card, then discard a card. If there are five or more cards in your graveyard, exile Jace, Vryn's Prodigy, then return him to the battlefield transformed under his owner's control.
+Power: 0
+Toughness: 2
+Name: Jace, Telepath Unbound
+Cost: 
+Type Line: Legendary Planeswalker — Jace
+Oracle Text:
++1: Up to one target creature gets -2/-0 until your next turn.
+−3: You may cast target instant or sorcery card from your graveyard this turn. If that card would be put into your graveyard this turn, exile it instead.
+−9: You get an emblem with "Whenever you cast a spell, target opponent puts the top five cards of his or her library into his or her graveyard."
+Loyalty: 5
+```
+
+**OR** 
+
+Ex.
+``` 
+import Swiftfall
+let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
+let faces = card?.getCardFaces()
+let front = faces![0]
+let back = faces![1]
+front.simplePrint()
+back.simplePrint()
+```
+Out. 
+```
+Name: Jace, Vryn's Prodigy
+Cost: {1}{U}
+Type Line: Legendary Creature — Human Wizard
+Oracle Text:
+{T}: Draw a card, then discard a card. If there are five or more cards in your graveyard, exile Jace, Vryn's Prodigy, then return him to the battlefield transformed under his owner's control.
+Power: 0
+Toughness: 2
+Name: Jace, Telepath Unbound
+Cost: 
+Type Line: Legendary Planeswalker — Jace
+Oracle Text:
++1: Up to one target creature gets -2/-0 until your next turn.
+−3: You may cast target instant or sorcery card from your graveyard this turn. If that card would be put into your graveyard this turn, exile it instead.
+−9: You get an emblem with "Whenever you cast a spell, target opponent puts the top five cards of his or her library into his or her graveyard."
+Loyalty: 5
 ```
 ### Get a list of Cards
 Swiftfall.getCardList() -> CardList? _(The first page)_
