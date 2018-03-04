@@ -200,18 +200,97 @@ public class Swiftfall {
                 print("Release Date: \(self.released_at!)")
             }
             print("Set Type: \(set_type)\n")
-        }
+        }                   
     }
     public struct Card:Codable {
+        
+        public struct CardFace: Codable {
+            
+            let name: String?
+            public func getName() -> String? {
+                return self.name
+            }
+            let mana_cost: String?
+            public func getManaCost() -> String? {
+                return self.mana_cost
+            }
+            
+            let type_line: String?
+            public func getTypeLine() -> String? {
+                return self.type_line
+            }
+            
+            let oracle_text: String?
+            public func getOracleText() -> String? {
+                return self.oracle_text
+            }
+            
+            let colors: [String]?
+            public func getColors() -> [String]? {
+                return self.colors
+            }
+            
+            let power: String?
+            public func getPower() -> String? {
+                return self.power
+            }
+            
+            let toughness: String?
+            public func getToughness() -> String? {
+                return self.toughness
+            }
+            
+            let loyalty: String?
+            public func getLoyalty() -> String? {
+                return self.loyalty
+            }
+            
+            let flavor_text: String?
+            public func getFlavorText() -> String? {
+                return flavor_text
+            }
+            
+            let illustration_id: String?
+            public func getIllustrationID() -> String? {
+                return self.illustration_id
+            }
+            let image_uris:[String:String]?
+            public func getImageURIs() -> [String:String]? {
+                return self.image_uris
+            }
+            
+            public func simplePrint(){
+                // Each variable is tested to see if printing it makes sense.
+                if self.name != nil {
+                    print("Name: \(name!)")
+                }
+                if self.mana_cost != nil {
+                    print("Cost: \(mana_cost!)")
+                }
+                if self.type_line != nil {
+                    print("Type Line: \(type_line!)")
+                }
+                if self.oracle_text != nil {
+                    print("Oracle Text:\n\(oracle_text!)")
+                }
+                if self.power != nil && self.toughness != nil {
+                    print("Power: \(power!)\nToughness: \(toughness!)")
+                }
+                if self.loyalty != nil {
+                    print("Loyalty: \(loyalty!)")
+                }
+            }
+        }
+        
         // A unique ID for this card in Scryfall’s database.
-        var id:String
-        public func getID() -> String {
+        var id:String?
+        public func getID() -> String? {
             return self.id
         }
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        var oracle_id:String
-        public func getOracleID() -> String {
+        var oracle_id:String?
+        public func getOracleID() -> String? {
             return self.oracle_id
         }
         
@@ -240,38 +319,44 @@ public class Swiftfall {
         }
         
         // A link to this card object on Scryfall’s API.
-        var uri:String
-        public func getURI() -> String{
+        var uri:String?
+        public func getURI() -> String? {
             return self.uri
         }
         
         // A link to this card’s permapage on Scryfall’s website.
-        var scryfall_uri:String
-        public func getScryfallURI() -> String{
+        var scryfall_uri:String?
+        public func getScryfallURI() -> String? {
             return self.scryfall_uri
         }
         
+        // If the card has multiple face this is an array of the card faces
+        var card_faces: [CardFace]?
+        public func getCardFaces() -> [CardFace]?{
+            return self.card_faces
+        }
+        
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        var prints_search_uri:String
-        public func getPrintsSearchURI() -> String {
+        var prints_search_uri:String?
+        public func getPrintsSearchURI() -> String? {
             return self.prints_search_uri
         }
         
         // A link to this card’s rulings on Scryfall’s API.
-        var rulings_uri:String
-        public func getRulingsURI() -> String {
+        var rulings_uri:String?
+        public func getRulingsURI() -> String? {
             return self.rulings_uri
         }
         
         // A computer-readable designation for this card’s layout. See the layout article.
-        var layout:String
-        public func getLayout() -> String {
+        var layout:String?
+        public func getLayout() -> String? {
             return self.layout
         }
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
-        var cmc:Int
-        public func getCMC() -> Int {
+        var cmc:Int?
+        public func getCMC() -> Int? {
             return self.cmc
         }
         
@@ -322,8 +407,30 @@ public class Swiftfall {
         public func getPurchaseURIs() -> [String:String] {
             return self.purchase_uris
         }
+
+        let flavor_text: String?
+        public func getFlavorText() -> String? {
+            return flavor_text
+        }
+        
+        let illustration_id: String?
+        public func getIllustrationID() -> String? {
+            return self.illustration_id
+        }
+        let image_uris:[String:String]?
+        public func getImageURIs() -> [String:String]? {
+            return self.image_uris
+        }
         
         public func simplePrint(){
+            // if the card has multiple faces, print them
+            if (self.card_faces) != nil {
+                for face in card_faces! {
+                    face.simplePrint()
+                }
+                return
+            } 
+            
             // Each variable is tested to see if printing it makes sense.
             if self.name != nil {
                 print("Name: \(name!)")
@@ -343,6 +450,7 @@ public class Swiftfall {
             if self.loyalty != nil {
                 print("Loyalty: \(loyalty!)")
             }
+            
         }
     }
     
@@ -492,15 +600,15 @@ public class Swiftfall {
                 //  * Too broad of a request (needs handler)
                 //
                 // Present an alert if the JSON data cannot be decoded.
-                do {
-                    let decoded:Error = try decoder.decode(Error.self, from: content)
-                    decoded.simplePrint()
-                }
-                catch {
+                //do {
+                    //let decoded:Error = try decoder.decode(Error.self, from: content)
+                    //decoded.simplePrint()
+                //}
+                //catch {
                     print("Error: \(error)")
                     completion(nil)
-                }
-                completion(nil)
+                //}
+                //completion(nil)
             }
         }
         task.resume()

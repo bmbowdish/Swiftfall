@@ -21,13 +21,13 @@ class Tests: XCTestCase {
     
     func testRulingList() {
         let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-        //rulings?.simplePrint()
+        //let ruling = rulings?.getData(index: 1)
+        //ruling?.simplePrint()
         XCTAssertTrue(rulings?.getData(index: 0)?.getSource() == "wotc")
     }
     
     func testRandomCard(){
         let card = Swiftfall.getRandomCard()
-        //card?.simplePrint()
         XCTAssertTrue(card != nil)
     }
     
@@ -154,7 +154,7 @@ class Tests: XCTestCase {
     }
     
     func testCardListPageNumber(){
-        let cardlist = Swiftfall.getCardList(page:6)
+        let cardlist = Swiftfall.getCardList(page:2)
         //cardlist?.simplePrint()
         XCTAssertTrue(cardlist != nil)
     }
@@ -165,11 +165,29 @@ class Tests: XCTestCase {
         XCTAssertTrue(jace != nil)
     }
     
+    func testImageURIs() {
+        let card = Swiftfall.getRandomCard()
+        XCTAssert(card?.getImageURIs() != nil)
+    }
+    
+    func testDoubleFaced(){
+        let card = Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
+        let faces = card?.getCardFaces()
+        
+        card?.simplePrint()
+        //let front = faces![0]
+        //let back = faces![1]
+        //front.simplePrint()
+        //back.simplePrint()
+        XCTAssertTrue((faces != nil))
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
+
     
 }
