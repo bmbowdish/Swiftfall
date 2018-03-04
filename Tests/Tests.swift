@@ -165,6 +165,10 @@ class Tests: XCTestCase {
         XCTAssertTrue(jace != nil)
     }
     
+    func testImageURIs() {
+        let card = Swiftfall.getRandomCard()
+        XCTAssert(card?.getImageURIs() != nil)
+    }
     
     func testDoubleFaced(){
         let card = Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")

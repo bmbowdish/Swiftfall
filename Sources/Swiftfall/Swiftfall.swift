@@ -408,7 +408,19 @@ public class Swiftfall {
             return self.purchase_uris
         }
 
-       
+        let flavor_text: String?
+        public func getFlavorText() -> String? {
+            return flavor_text
+        }
+        
+        let illustration_id: String?
+        public func getIllustrationID() -> String? {
+            return self.illustration_id
+        }
+        let image_uris:[String:String]?
+        public func getImageURIs() -> [String:String]? {
+            return self.image_uris
+        }
         
         public func simplePrint(){
             // Each variable is tested to see if printing it makes sense.
