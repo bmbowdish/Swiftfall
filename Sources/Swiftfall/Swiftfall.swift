@@ -207,26 +207,57 @@ public class Swiftfall {
         public struct CardFace: Codable {
             
             let name: String?
-            
+            public func getName() -> String? {
+                return self.name
+            }
             let mana_cost: String?
+            public func getManaCost() -> String? {
+                return self.mana_cost
+            }
             
             let type_line: String?
+            public func getTypeLine() -> String? {
+                return self.type_line
+            }
             
             let oracle_text: String?
+            public func getOracleText() -> String? {
+                return self.oracle_text
+            }
             
             let colors: [String]?
+            public func getColors() -> [String]? {
+                return self.colors
+            }
             
             let power: String?
+            public func getPower() -> String? {
+                return self.power
+            }
             
             let toughness: String?
+            public func getToughness() -> String? {
+                return self.toughness
+            }
             
             let loyalty: String?
+            public func getLoyalty() -> String? {
+                return self.loyalty
+            }
             
             let flavor_text: String?
+            public func getFlavorText() -> String? {
+                return flavor_text
+            }
             
             let illustration_id: String?
-            
-            let image_uris:[String:String]
+            public func getIllustrationID() -> String? {
+                return self.illustration_id
+            }
+            let image_uris:[String:String]?
+            public func getImageURIs() -> [String:String]? {
+                return self.image_uris
+            }
             
             public func simplePrint(){
                 // Each variable is tested to see if printing it makes sense.
