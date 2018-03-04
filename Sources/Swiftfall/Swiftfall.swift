@@ -423,6 +423,14 @@ public class Swiftfall {
         }
         
         public func simplePrint(){
+            // if the card has multiple faces, print them
+            if (self.card_faces) != nil {
+                for face in card_faces! {
+                    face.simplePrint()
+                }
+                return
+            } 
+            
             // Each variable is tested to see if printing it makes sense.
             if self.name != nil {
                 print("Name: \(name!)")
@@ -442,6 +450,7 @@ public class Swiftfall {
             if self.loyalty != nil {
                 print("Loyalty: \(loyalty!)")
             }
+            
         }
     }
     

@@ -173,6 +173,8 @@ class Tests: XCTestCase {
     func testDoubleFaced(){
         let card = Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
         let faces = card?.getCardFaces()
+        
+        card?.simplePrint()
         //let front = faces![0]
         //let back = faces![1]
         //front.simplePrint()
