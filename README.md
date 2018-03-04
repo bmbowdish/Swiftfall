@@ -15,7 +15,7 @@ All Structs have a print function called simplePrint().
 #### Card? 
  * Struct containing data about a Magic Card
  * Contains the **CardFaces** Struct
-   * Some Cards have faces, **Card Faces** contains those faces. 
+   * Some Cards have faces, **CardFaces** contains those faces. 
 #### Set? 
  * Struct containing data about a Set of Magic cards
 #### Ruling?
