@@ -5,14 +5,7 @@ public class Swiftfall {
     static let scryfall = "https://api.scryfall.com/"
     
     public struct RulingList: Codable {
-        var data:[Ruling?]
-        public func getData() -> [Ruling?] {
-            return self.data
-        }
-        
-        public func getData(index:Int) -> Ruling? {
-            return self.data[index]
-        }
+        public let data:[Ruling?]
         
         public func simplePrint() {
             for rule in data {
@@ -23,22 +16,13 @@ public class Swiftfall {
     
     public struct Ruling: Codable {
         //     A computer-readable string indicating which company produced this ruling, either wotc or scryfall.
-        var source: String
-        public func getSource() -> String {
-            return self.source
-        }
-        
+        public let source: String
+
         // The date when the ruling or note was published.
-        var published_at: String
-        public func getPublishedAt() -> String {
-            return self.published_at
-        }
+        public let published_at: String
         
         // The text of the ruling.
-        var comment: String
-        public func getComment() -> String {
-            return self.comment
-        }
+        public let comment: String
         
         // A simple print function for a ruling
         public func simplePrint() {
@@ -47,10 +31,10 @@ public class Swiftfall {
     }
     
     struct Error: Codable{
-        var code: String
-        var type: String
-        var status: Int
-        var details: String
+        let code: String
+        let type: String
+        let status: Int
+        let details: String
         
         public func simplePrint(){
             print("Details:\(details)\n")
@@ -60,10 +44,7 @@ public class Swiftfall {
     // struct which contains all sets
     public struct SetList: Codable {
         // data is an array of Sets
-        var data: [Set?]
-        public func getData() -> [Set?]{
-            return self.data
-        }
+        public let data: [Set?]
         
         // prints each set using their simplePrint()
         public func simplePrint(){
@@ -81,10 +62,7 @@ public class Swiftfall {
     // struct which contrains a list of cards
     public struct CardList: Codable {
         // an array of Cards
-        var data: [Card?]
-        public func getData() -> [Card?] {
-            return self.data
-        }
+        public let data: [Card?]
         
         // prints each Card using their simplePrint()
         public func simplePrint(){
@@ -103,88 +81,46 @@ public class Swiftfall {
     // It contains no cards in Swiftfall or Scryfall.
     public struct Set: Codable {
         // The unique three or four-letter code for this set.
-        var code: String?
-        public func getCode() -> String? {
-            return self.code
-        }
+        public let code: String?
         
         // The unique code for this set on MTGO, which may differ from the regular code.
-        var mtgo: String?
-        public func getMTGO() -> String? {
-            return self.mtgo
-        }
+        public let mtgo: String?
         
         //The English name of the set.
-        var name: String
-        public func getName() -> String {
-            return self.name
-        }
+        public let name: String
         
         //
-        var uri: String
-        public func getURI() -> String{
-            return self.uri
-        }
+        public let uri: String
         
         // Scryfall API URI 
-        var scryfall_uri: String
-        public func getScryfallURI() -> String {
-            return self.scryfall_uri
-        }
+        public let scryfall_uri: String
         
         // A Scryfall API URI that you can request to begin paginating over the cards in this set.
-        var search_uri: String
-        public func getSearchURI() -> String {
-            return self.search_uri
-        }
+        public let search_uri: String
         
         // the release date of the set
-        var released_at: String?
-        public func getReleasedAt() -> String? {
-            return self.released_at
-        }
+        public let released_at: String?
         
         // A computer-readable classification for this set. See below.
-        var set_type: String
-        public func getSetType() -> String {
-            return self.set_type
-        }
+        public let set_type: String
         
         // The number of cards in this set.
-        var card_count: Int
-        public func getCardCount() -> Int {
-            return self.card_count
-        }
+        public let card_count: Int
         
         // Bool for if the card is digital
-        var digital: Bool
-        public func getDigital() -> Bool {
-            return self.digital
-        }
+        public let digital: Bool
         
         // Bool for if the card is foil
-        var foil: Bool
-        public func getFoil() -> Bool {
-            return self.foil
-        }
+        public let foil: Bool
         
         // Block code, like self.code but the for the block the set is a member of
-        var block_code: String?
-        public func getBlockCode() -> String? {
-            return self.block_code
-        }
+        public let block_code: String?
         
         // The block or group name code for this set, if any.
-        var block: String?
-        public func getBlock() -> String? {
-            return self.block
-        }
+        public let block: String?
         
         //A URI to an SVG file for this set’s icon on Scryfall’s CDN. Hotlinking this image isn’t recommended, because it may change slightly over time. You should download it and use it locally for your particular user interface needs.
-        var icon_svg_uri: String
-        public func getIconSVGURI() -> String {
-            return self.icon_svg_uri
-        }
+        public let icon_svg_uri: String?
         
         // prints the minimal data for the set
         public func simplePrint(){
@@ -206,58 +142,27 @@ public class Swiftfall {
         
         public struct CardFace: Codable {
             
-            let name: String?
-            public func getName() -> String? {
-                return self.name
-            }
-            let mana_cost: String?
-            public func getManaCost() -> String? {
-                return self.mana_cost
-            }
+            public let name: String?
             
-            let type_line: String?
-            public func getTypeLine() -> String? {
-                return self.type_line
-            }
+            public let mana_cost: String?
             
-            let oracle_text: String?
-            public func getOracleText() -> String? {
-                return self.oracle_text
-            }
+            public let type_line: String?
             
-            let colors: [String]?
-            public func getColors() -> [String]? {
-                return self.colors
-            }
+            public let oracle_text: String?
             
-            let power: String?
-            public func getPower() -> String? {
-                return self.power
-            }
+            public let colors: [String]?
             
-            let toughness: String?
-            public func getToughness() -> String? {
-                return self.toughness
-            }
+            public let power: String?
             
-            let loyalty: String?
-            public func getLoyalty() -> String? {
-                return self.loyalty
-            }
+            public let toughness: String?
             
-            let flavor_text: String?
-            public func getFlavorText() -> String? {
-                return flavor_text
-            }
+            public let loyalty: String?
             
-            let illustration_id: String?
-            public func getIllustrationID() -> String? {
-                return self.illustration_id
-            }
-            let image_uris:[String:String]?
-            public func getImageURIs() -> [String:String]? {
-                return self.image_uris
-            }
+            public let flavor_text: String?
+            
+            public let illustration_id: String?
+
+            public let image_uris:[String:String]?
             
             public func simplePrint(){
                 // Each variable is tested to see if printing it makes sense.
@@ -283,144 +188,76 @@ public class Swiftfall {
         }
         
         // A unique ID for this card in Scryfall’s database.
-        var id:String?
-        public func getID() -> String? {
-            return self.id
-        }
+        public let id:String?
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        var oracle_id:String?
-        public func getOracleID() -> String? {
-            return self.oracle_id
-        }
+        public let oracle_id:String?
         
         // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
-        var multiverse_ids:[Int]
-        public func getMultiverseIDs()->[Int]{
-            return self.multiverse_ids
-        }
+        public let multiverse_ids:[Int]
         
         // This card’s Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        var mtgo_id:Int?
-        public func getmtgoID() -> Int?{
-            return self.mtgo_id
-        }
+        public let mtgo_id:Int?
         
         // This card’s foil Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        var mtgo_foil_id:Int?
-        public func getmtgofoilID() -> Int?{
-            return self.mtgo_foil_id
-        }
+        public let mtgo_foil_id:Int?
         
         // The name of this card. If this card has multiple faces, this field will contain both names separated by ␣//␣.
-        var name:String?
-        public func getName() -> String?{
-            return self.name
-        }
+        public let name:String?
         
         // A link to this card object on Scryfall’s API.
-        var uri:String?
-        public func getURI() -> String? {
-            return self.uri
-        }
+        public let uri:String?
         
         // A link to this card’s permapage on Scryfall’s website.
-        var scryfall_uri:String?
-        public func getScryfallURI() -> String? {
-            return self.scryfall_uri
-        }
+        public let scryfall_uri:String?
         
         // If the card has multiple face this is an array of the card faces
-        var card_faces: [CardFace]?
-        public func getCardFaces() -> [CardFace]?{
-            return self.card_faces
-        }
+        public let card_faces: [CardFace]?
         
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        var prints_search_uri:String?
-        public func getPrintsSearchURI() -> String? {
-            return self.prints_search_uri
-        }
+        public let prints_search_uri:String?
         
         // A link to this card’s rulings on Scryfall’s API.
-        var rulings_uri:String?
-        public func getRulingsURI() -> String? {
-            return self.rulings_uri
-        }
+        public let rulings_uri:String?
         
         // A computer-readable designation for this card’s layout. See the layout article.
-        var layout:String?
-        public func getLayout() -> String? {
-            return self.layout
-        }
+        public let layout:String?
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
-        var cmc:Int?
-        public func getCMC() -> Int? {
-            return self.cmc
-        }
-        
+        public let cmc:Int?
+
         // The type line of this card.
-        var type_line:String?
-        public func getTypeLine() -> String? {
-            return self.type_line
-        }
+        public let type_line:String?
         
         // The Oracle text for this card, if any.
-        var oracle_text:String?
-        public func getOracleText() -> String? {
-            return self.oracle_text
-        }
-        
+        public let oracle_text:String?
+       
         // The mana cost for this card. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
-        var mana_cost:String?
-        public func getManaCost() -> String? {
-            return self.mana_cost
-        }
+        public let mana_cost:String?
         
         // This card’s power, if any. Note that some cards have powers that are not numeric, such as *.
-        var power: String?
-        public func getPower() -> String? {
-            return self.power
-        }
+        public let power: String?
         
         // This card’s toughness, if any. Note that some cards have toughnesses that are not numeric, such as *.
-        var toughness: String?
-        public func getToughness() -> String? {
-            return self.toughness
-        }
-        
+        public let toughness: String?
+       
         // This loyalty if any. Note that some cards have loyalties that are not numeric, such as X.
-        var loyalty: String?
-        public func getLoyalty() -> String? {
-            return self.loyalty
-        }
+        public let loyalty: String?
         
         // This card’s colors.
-        var colors:[String]?
-        public func getColors() -> [String]? {
-            return self.colors
-        }
+        public let colors:[String]?
         
         // Online listings for these cards names.
-        var purchase_uris: [String:String]
-        public func getPurchaseURIs() -> [String:String] {
-            return self.purchase_uris
-        }
-
-        let flavor_text: String?
-        public func getFlavorText() -> String? {
-            return flavor_text
-        }
+        public let purchase_uris: [String:String]
+    
+        // Flavor text on the card, if there is any
+        public let flavor_text: String?
         
-        let illustration_id: String?
-        public func getIllustrationID() -> String? {
-            return self.illustration_id
-        }
-        let image_uris:[String:String]?
-        public func getImageURIs() -> [String:String]? {
-            return self.image_uris
-        }
+        // id of the illustration
+        public let illustration_id: String?
+        
+        // uris of the images
+        public let image_uris:[String:String]?
         
         public func simplePrint(){
             // if the card has multiple faces, print them
@@ -600,15 +437,15 @@ public class Swiftfall {
                 //  * Too broad of a request (needs handler)
                 //
                 // Present an alert if the JSON data cannot be decoded.
-                //do {
-                    //let decoded:Error = try decoder.decode(Error.self, from: content)
-                    //decoded.simplePrint()
-                //}
-                //catch {
+                do {
+                    let decoded:Error = try decoder.decode(Error.self, from: content)
+                    decoded.simplePrint()
+                }
+                catch {
                     print("Error: \(error)")
                     completion(nil)
-                //}
-                //completion(nil)
+                }
+                completion(nil)
             }
         }
         task.resume()

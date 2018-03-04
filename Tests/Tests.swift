@@ -23,7 +23,7 @@ class Tests: XCTestCase {
         let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
         //let ruling = rulings?.getData(index: 1)
         //ruling?.simplePrint()
-        XCTAssertTrue(rulings?.getData(index: 0)?.getSource() == "wotc")
+        XCTAssertTrue(rulings?.data[0] != nil)
     }
     
     func testRandomCard(){
@@ -37,63 +37,63 @@ class Tests: XCTestCase {
         let fuzzy = "Shock"
         let card = Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssertTrue(nil != card?.getName())
+        XCTAssertTrue(nil != card?.name)
     }
     
     func testFuzzySpellSimpleMultiWord() {
         let fuzzy = "Fatal Push"
         let card = Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssertTrue(nil != card?.getName())
+        XCTAssertTrue(nil != card?.name)
     }
     
     func testFuzzySpellApostrophe() {
         let fuzzy = "Gaea's Blessing"
         let card = Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssertTrue(nil != card?.getName())
+        XCTAssertTrue(nil != card?.name)
     }
     
     func testExactSpellSimpleSingleWord() {
         let exact = "Shock"
         let card = Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssertTrue(exact == card?.getName())
+        XCTAssertTrue(exact == card?.name)
     }
     
     func testExactSpellSimpleMultiWord() {
         let exact = "Fatal Push"
         let card = Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssertTrue(exact == card?.getName())
+        XCTAssertTrue(exact == card?.name)
     }
     
     func testExactSpellApostrophe() {
         let exact = "Gaea's Blessing"
         let card = Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssertTrue(exact == card?.getName())
+        XCTAssertTrue(exact == card?.name)
     }
     
     func testFuzzyCreatureSimpleSingleWordStringPowerStringTough(){
         let fuzzy = "Tarmogoyf"
         let card = Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssert((card?.getPower() != nil))
+        XCTAssert((card?.power != nil))
     }
     
     func testFuzzyCreatureSimpleSingleWord(){
         let fuzzy = "Triskelion"
         let card = Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssert((card?.getPower() != nil))
+        XCTAssert((card?.power != nil))
     }
     
     func testExactCreatureApostrophe(){
         let exact = "Abu Ja'far"
         let card = Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssert(card?.getPower() != nil)
+        XCTAssert(card?.power != nil)
     }
     
     func testExactNotMTGO(){
@@ -116,14 +116,14 @@ class Tests: XCTestCase {
         let fuzzy = "Aust Com"
         let cardF = Swiftfall.getCard(fuzzy: fuzzy)
         let cardE = Swiftfall.getCard(exact: exact)
-        XCTAssertTrue(cardF?.getName() == cardE?.getName())
+        XCTAssertTrue(cardF?.name == cardE?.name)
     }
     
     func testPurchaseURI(){
         let fuzzy = "Black Lotus"
         let card = Swiftfall.getCard(fuzzy: fuzzy)
         //cardF?.simplePrint()
-        XCTAssertTrue(card?.getPurchaseURIs()["ebay"] != nil)
+        XCTAssertTrue(card?.purchase_uris["ebay"] != nil)
     }
     
     func testSetCode(){
@@ -138,7 +138,7 @@ class Tests: XCTestCase {
         let set = Swiftfall.getSet(code: code)
         //set?.simplePrint()
         XCTAssertTrue(set != nil)
-        XCTAssertTrue(set?.getBlock() == nil)
+        XCTAssertTrue(set?.block == nil)
     }
     
     func testSetList(){
@@ -167,12 +167,12 @@ class Tests: XCTestCase {
     
     func testImageURIs() {
         let card = Swiftfall.getRandomCard()
-        XCTAssert(card?.getImageURIs() != nil)
+        XCTAssert(card?.image_uris != nil)
     }
     
     func testDoubleFaced(){
         let card = Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
-        let faces = card?.getCardFaces()
+        let faces = card?.card_faces
         
         card?.simplePrint()
         //let front = faces![0]

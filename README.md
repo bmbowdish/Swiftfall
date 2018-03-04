@@ -84,7 +84,7 @@ Ex.
 ``` 
 import Swiftfall
 let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
-let faces = card?.getCardFaces()
+let faces = card?.card_faces
 let front = faces![0]
 let back = faces![1]
 front.simplePrint()
@@ -200,11 +200,11 @@ Comments: Mana Drain’s delayed triggered ability will usually trigger at the b
 ### Get a Ruling
 To get a specific ruling you must first get a Ruling List. 
 
-Once you have a RulingList you may call .getData(index: Int)
+Once you have a RulingList you may call .data[index: Int
 Ex. 
 ```
 let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-let ruling = rulings?.getData(index: 1)
+let ruling = rulings?.data[1]
 ruling?.simplePrint()
 ```
 Out. 
