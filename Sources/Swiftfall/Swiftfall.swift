@@ -177,23 +177,25 @@ public class Swiftfall {
             public var description: String{
                 var text = ""
                 // Each variable is tested to see if printing it makes sense.
-                text += "Name: \(name!)"
+                text += "Name: \(name!)\n"
                 
                 if self.mana_cost != nil {
-                    text += "Cost: \(mana_cost!)"
+                    text += "Cost: \(mana_cost!)\n"
                 }
                 if self.type_line != nil {
-                    text += "Type Line: \(type_line!)"
+                    text += "Type Line: \(type_line!)\n"
                 }
                 if self.oracle_text != nil {
-                    text += "Oracle Text:\n\(oracle_text!)"
+                    text += "Oracle Text:\n\(oracle_text!)\n"
                 }
                 if self.power != nil && self.toughness != nil {
-                    text += "Power: \(power!)\nToughness: \(toughness!)"
+                    text += "Power: \(power!)\nToughness: \(toughness!)\n"
                 }
                 if self.loyalty != nil {
-                    text += "Loyalty: \(loyalty!)"
+                    text += "Loyalty: \(loyalty!)\n"
                 }
+                
+                text += "I am failing."
                 
                 return text
             }
