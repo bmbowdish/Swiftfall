@@ -194,9 +194,6 @@ public class Swiftfall {
                 if self.loyalty != nil {
                     text += "Loyalty: \(loyalty!)\n"
                 }
-                
-                text += "I am failing."
-                
                 return text
             }
         }
