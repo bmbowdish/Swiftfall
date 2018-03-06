@@ -19,170 +19,181 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testRulingList() {
-        let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-        //let ruling = rulings?.getData(index: 1)
-        //ruling?.simplePrint()
-        XCTAssertTrue(rulings?.data[0] != nil)
+    func testRulingList() throws {
+        do {
+            let rulings = try Swiftfall.getRulingList(code: "ima", number: 65)
+            // print(rulings)
+            _ = rulings.data[1]
+        } catch {
+            XCTFail("\(error)")
+        }
     }
     
-    func testRandomCard(){
-        let card = Swiftfall.getRandomCard()
-        XCTAssertTrue(card != nil)
+    func testRandomCard() throws {
+        do {
+            _ = try Swiftfall.getRandomCard()
+        } catch {
+            XCTFail("\(error)")
+        }
     }
     
-    func testFuzzySpellSimpleSingleWord() {
+    func testFuzzySpellSimpleSingleWord() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let fuzzy = "Shock"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        let card = try Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssertTrue(nil != card?.name)
+        XCTAssertTrue(nil != card.name)
     }
     
-    func testFuzzySpellSimpleMultiWord() {
+    func testFuzzySpellSimpleMultiWord() throws {
         let fuzzy = "Fatal Push"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        let card = try Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssertTrue(nil != card?.name)
+        XCTAssertTrue(nil != card.name)
     }
     
-    func testFuzzySpellApostrophe() {
+    func testFuzzySpellApostrophe() throws {
         let fuzzy = "Gaea's Blessing"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        let card = try Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssertTrue(nil != card?.name)
+        XCTAssertTrue(nil != card.name)
     }
     
-    func testExactSpellSimpleSingleWord() {
+    func testExactSpellSimpleSingleWord() throws {
         let exact = "Shock"
-        let card = Swiftfall.getCard(exact: exact)
+        let card = try Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssertTrue(exact == card?.name)
+        XCTAssertTrue(exact == card.name)
     }
     
-    func testExactSpellSimpleMultiWord() {
+    func testExactSpellSimpleMultiWord() throws {
         let exact = "Fatal Push"
-        let card = Swiftfall.getCard(exact: exact)
+        let card = try Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssertTrue(exact == card?.name)
+        XCTAssertTrue(exact == card.name)
     }
     
-    func testExactSpellApostrophe() {
+    func testExactSpellApostrophe() throws {
         let exact = "Gaea's Blessing"
-        let card = Swiftfall.getCard(exact: exact)
+        let card = try Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssertTrue(exact == card?.name)
+        XCTAssertTrue(exact == card.name)
     }
     
-    func testFuzzyCreatureSimpleSingleWordStringPowerStringTough(){
+    func testFuzzyCreatureSimpleSingleWordStringPowerStringTough() throws {
         let fuzzy = "Tarmogoyf"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        let card = try Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssert((card?.power != nil))
+        XCTAssert((card.power != nil))
     }
     
-    func testFuzzyCreatureSimpleSingleWord(){
+    func testFuzzyCreatureSimpleSingleWord() throws {
         let fuzzy = "Triskelion"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        let card = try Swiftfall.getCard(fuzzy: fuzzy)
         //card?.simplePrint()
-        XCTAssert((card?.power != nil))
+        XCTAssert((card.power != nil))
     }
     
-    func testExactCreatureApostrophe(){
+    func testExactCreatureApostrophe() throws {
         let exact = "Abu Ja'far"
-        let card = Swiftfall.getCard(exact: exact)
+        let card = try Swiftfall.getCard(exact: exact)
         //card?.simplePrint()
-        XCTAssert(card?.power != nil)
+        XCTAssert(card.power != nil)
     }
     
-    func testExactNotMTGO(){
-        let exact = "Flash"
-        let card = Swiftfall.getCard(exact: exact)
-        //card?.simplePrint()
-        XCTAssertTrue(card != nil)
+    func testExactNotMTGO() throws {
+        do {
+            _ = try Swiftfall.getCard(exact: "Flash")
+        } catch {
+            XCTFail()
+        }
+
     }
     
-    func testVeryFuzzy(){
-        let fuzzy = "austere"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
-        //card?.simplePrint()
-        // This intentionally fails.
-        XCTAssertTrue(card != nil)
+    func testVeryFuzzy() throws {
+        do {
+            _ = try Swiftfall.getCard(fuzzy: "austere")
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testExactVsFuzzy(){
+    func testExactVsFuzzy() throws {
         let exact = "Austere Command"
         let fuzzy = "Aust Com"
-        let cardF = Swiftfall.getCard(fuzzy: fuzzy)
-        let cardE = Swiftfall.getCard(exact: exact)
-        XCTAssertTrue(cardF?.name == cardE?.name)
+        let cardF = try Swiftfall.getCard(fuzzy: fuzzy)
+        let cardE = try Swiftfall.getCard(exact: exact)
+        XCTAssertTrue(cardF.name == cardE.name)
     }
     
-    func testPurchaseURI(){
+    func testPurchaseURI() throws {
         let fuzzy = "Black Lotus"
-        let card = Swiftfall.getCard(fuzzy: fuzzy)
+        let card = try Swiftfall.getCard(fuzzy: fuzzy)
         //cardF?.simplePrint()
-        XCTAssertTrue(card?.purchase_uris["ebay"] != nil)
+        XCTAssertTrue(card.purchase_uris["ebay"] != nil)
     }
     
-    func testSetCode(){
-        let code = "KTK"
-        let set = Swiftfall.getSet(code: code)
-        //set?.simplePrint()
-        XCTAssertTrue((set != nil))
+    func testSetCode() throws {
+        do {
+            _ = try Swiftfall.getSet(code: "KTK")
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testSetCodeNoBlock(){
-        let code = "EMA"
-        let set = Swiftfall.getSet(code: code)
-        //set?.simplePrint()
-        XCTAssertTrue(set != nil)
-        XCTAssertTrue(set?.block == nil)
+    func testSetCodeNoBlock() throws {
+        do {
+            _ = try Swiftfall.getSet(code: "EMA")
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testSetList(){
-        let setlist = Swiftfall.getSetList()
-        //setlist?.simplePrint()
-        XCTAssertTrue(setlist != nil)
+    func testSetList() throws {
+        do {
+            _ = try Swiftfall.getSetList()
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testCardList(){
-        let cardlist = Swiftfall.getCardList()
-        //cardlist?.simplePrint()
-        XCTAssertTrue(cardlist != nil)
+    func testCardList() throws {
+        do {
+            _ = try Swiftfall.getCardList()
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testCardListPageNumber(){
-        let cardlist = Swiftfall.getCardList(page:2)
-        //cardlist?.simplePrint()
-        XCTAssertTrue(cardlist != nil)
+    func testCardListPageNumber() throws {
+        do {
+            _ = try Swiftfall.getCardList(page:2)
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testPlaneswalker() {
-        let jace = Swiftfall.getCard(exact: "Jace Beleren")
-        //jace?.simplePrint()
-        XCTAssertTrue(jace != nil)
+    func testPlaneswalker() throws {
+        do {
+            _ = try Swiftfall.getCard(exact: "Jace Beleren")
+        } catch {
+            XCTFail()
+        }
     }
     
-    func testImageURIs() {
-        let card = Swiftfall.getRandomCard()
-        XCTAssert(card?.image_uris != nil)
+    func testImageURIs() throws {
+        let card = try Swiftfall.getRandomCard()
+        XCTAssert(card.image_uris != nil)
     }
     
-    func testDoubleFaced(){
-        let card = Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
-        let faces = card?.card_faces
-        
-        card?.simplePrint()
-        //let front = faces![0]
-        //let back = faces![1]
-        //front.simplePrint()
-        //back.simplePrint()
+    func testDoubleFaced() throws {
+        let card = try Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
+        let faces = card.card_faces
         XCTAssertTrue((faces != nil))
     }
 
-    func testPerformanceExample() {
+    func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
