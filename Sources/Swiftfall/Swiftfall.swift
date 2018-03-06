@@ -5,7 +5,7 @@ public class Swiftfall {
     static let scryfall = "https://api.scryfall.com/"
     
     public struct RulingList: Codable, CustomStringConvertible{
-        public let data:[Ruling]
+        public let data: [Ruling]
         
         public var description: String {
             var text = ""
@@ -32,7 +32,7 @@ public class Swiftfall {
         }
     }
     
-    struct ScryfallError: Codable, Error, CustomStringConvertible{
+    struct ScryfallError: Codable, Error, CustomStringConvertible {
         
         let code: String
         let type: String
@@ -169,7 +169,7 @@ public class Swiftfall {
             
             public let illustration_id: String?
 
-            public let image_uris:[String:String]?
+            public let image_uris: [String: String]?
             
             public var description: String{
                 var text = ""
@@ -197,52 +197,52 @@ public class Swiftfall {
         }
         
         // A unique ID for this card in Scryfall’s database.
-        public let id:String?
+        public let id: String?
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        public let oracle_id:String?
+        public let oracle_id: String?
         
         // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
-        public let multiverse_ids:[Int]
+        public let multiverse_ids: [Int]
         
         // This card’s Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        public let mtgo_id:Int?
+        public let mtgo_id: Int?
         
         // This card’s foil Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        public let mtgo_foil_id:Int?
+        public let mtgo_foil_id: Int?
         
         // The name of this card. If this card has multiple faces, this field will contain both names separated by ␣//␣.
-        public let name:String?
+        public let name: String?
         
         // A link to this card object on Scryfall’s API.
-        public let uri:String?
+        public let uri: String?
         
         // A link to this card’s permapage on Scryfall’s website.
-        public let scryfall_uri:String?
+        public let scryfall_uri: String?
         
         // If the card has multiple face this is an array of the card faces
         public let card_faces: [Face]?
         
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        public let prints_search_uri:String?
+        public let prints_search_uri: String?
         
         // A link to this card’s rulings on Scryfall’s API.
-        public let rulings_uri:String?
+        public let rulings_uri: String?
         
         // A computer-readable designation for this card’s layout. See the layout article.
-        public let layout:String?
+        public let layout: String?
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
-        public let cmc:Int?
+        public let cmc: Int?
 
         // The type line of this card.
-        public let type_line:String?
+        public let type_line: String?
         
         // The Oracle text for this card, if any.
-        public let oracle_text:String?
+        public let oracle_text: String?
        
         // The mana cost for this card. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
-        public let mana_cost:String?
+        public let mana_cost: String?
         
         // This card’s power, if any. Note that some cards have powers that are not numeric, such as *.
         public let power: String?
@@ -254,7 +254,7 @@ public class Swiftfall {
         public let loyalty: String?
         
         // This card’s colors.
-        public let colors:[String]?
+        public let colors: [String]?
         
         // Online listings for these cards names.
         public let purchase_uris: [String:String]
@@ -268,6 +268,7 @@ public class Swiftfall {
         // uris of the images
         public let image_uris:[String:String]?
         
+        // return string when self is used as a parameter for print
         public var description: String{
             var text = ""
             // if the card has multiple faces, print them
@@ -430,7 +431,7 @@ public class Swiftfall {
         var set: Result<ScryfallSet>?
         var stop = false
         parseResource(call: call){
-            (newset:Result<ScryfallSet>) in
+            (newset: Result<ScryfallSet>) in
             set = newset
             stop = true
         }
@@ -450,7 +451,7 @@ public class Swiftfall {
         var setlist: Result<SetList>?
         var stop = false
         parseResource(call: call){
-            (newsetlist:Result<SetList>) in
+            (newsetlist: Result<SetList>) in
             setlist = newsetlist
             stop = true
         }
@@ -470,7 +471,7 @@ public class Swiftfall {
         var cardlist: Result<CardList>?
         var stop = false
         parseResource(call: call){
-            (newcardlist:Result<CardList>) in
+            (newcardlist: Result<CardList>) in
             cardlist = newcardlist
             stop = true
         }
@@ -489,7 +490,7 @@ public class Swiftfall {
         var cardlist: Result<CardList>?
         var stop = false
         parseResource(call: call){
-            (newcardlist:Result<CardList>) in
+            (newcardlist: Result<CardList>) in
             cardlist = newcardlist
             stop = true
         }
@@ -509,7 +510,7 @@ public class Swiftfall {
         var rulelist: Result<RulingList>?
         var stop = false
         parseResource(call: call){
-            (newrulelist:Result<RulingList>) in
+            (newrulelist: Result<RulingList>) in
             rulelist = newrulelist
             stop = true
         }
