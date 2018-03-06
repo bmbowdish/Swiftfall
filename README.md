@@ -60,7 +60,7 @@ Ex.
 ``` 
 import Swiftfall
 do {
-  let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
+  let card = try Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
   print(card)
   } catch {
     ...
@@ -91,8 +91,8 @@ Ex.
 ``` 
 import Swiftfall
 do {
-  let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
-  let faces = card?.card_faces
+  let card = try Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
+  let faces = card.card_faces
   let front = faces![0]
   let back = faces![1]
   print(front)
@@ -128,7 +128,7 @@ Ex.
 ```
 import Swiftfall
 do {
-  let cardlist = Swiftfall.getCardList(page:0) // this is the same as .getCardList()
+  let cardlist = try Swiftfall.getCardList(page:0) // this is the same as .getCardList()
   print(cardlist)
 } catch {
   ... 
@@ -157,7 +157,7 @@ Ex.
 ```
 import Swiftfall
 do { 
-  let set = Swiftfall.getSet(code: "KTK")
+  let set = try Swiftfall.getSet(code: "KTK")
   print(set) 
 } catch {
   ...
@@ -178,7 +178,7 @@ Ex.
 ```
 import Swiftfall
 do {
-  let setlist = Swiftfall.getSetList()
+  let setlist = try Swiftfall.getSetList()
   print(setlist)
 } catch {
   ...
@@ -207,7 +207,7 @@ Ex.
 ``` 
 import Swiftfall
 do {
-  let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
+  let rulings = try Swiftfall.getRulingList(code: "ima", number: 65)
   print(rulings)
 } catch {
   ...
@@ -234,8 +234,8 @@ Ex.
 ```
 import Swiftfall
 do {
-  let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-  let ruling = rulings?.data[1]
+  let rulings = try Swiftfall.getRulingList(code: "ima", number: 65)
+  let ruling = rulings.data[1]
   print(ruling)
 } catch {
   ...
@@ -255,7 +255,7 @@ Ex.
 ```
 func testRandomCard(){
     do { 
-      _ = Swiftfall.getRandomCard()
+      _ = try Swiftfall.getRandomCard()
     } catch {
       XCTFail()
     }
