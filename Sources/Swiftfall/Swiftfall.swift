@@ -131,16 +131,16 @@ public class Swiftfall {
         // prints the minimal data for the set
         public var description: String{
             var text = ""
-            text += "Name: \(name)"
+            text += "Name: \(name)\n"
             if self.code != nil {
-                text += "Code: \(self.code!)"
+                text += "Code: \(self.code!)\n"
             }
             if self.block != nil {
-                text += "Block: \(self.block!)"
+                text += "Block: \(self.block!)\n"
             }
-            text += "Number of Cards: \(self.card_count)"
+            text += "Number of Cards: \(self.card_count)\n"
             if self.released_at != nil {
-                text += "Release Date: \(self.released_at!)"
+                text += "Release Date: \(self.released_at!)\n"
             }
             text += "Set Type: \(set_type)\n"
             
