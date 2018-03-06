@@ -55,7 +55,7 @@ public class Swiftfall {
             var text = ""
             var i = 0
             for set in data {
-                text += "Set Number: \(i)"
+                text += "Set Number: \(i)\n"
                 text += set.description
                 text += "\n"
                 i = i + 1
@@ -74,7 +74,7 @@ public class Swiftfall {
             var text = ""
             var i = 0
             for card in data {
-                text += "Card Number: \(i)"
+                text += "Card Number: \(i)\n"
                 text += card.description
                 text += "\n"
                 i = i + 1
