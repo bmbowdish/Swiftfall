@@ -4,17 +4,19 @@ public class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
     
-    public struct RulingList: Codable {
-        public let data:[Ruling?]
+    public struct RulingList: Codable, CustomStringConvertible{
+        public let data: [Ruling]
         
-        public func simplePrint() {
+        public var description: String {
+            var text = ""
             for rule in data {
-                rule?.simplePrint()
+                text += rule.description
             }
+            return text
         }
     }
     
-    public struct Ruling: Codable {
+    public struct Ruling: Codable, CustomStringConvertible {
         //     A computer-readable string indicating which company produced this ruling, either wotc or scryfall.
         public let source: String
 
@@ -25,61 +27,62 @@ public class Swiftfall {
         public let comment: String
         
         // A simple print function for a ruling
-        public func simplePrint() {
-            print("Source: \(source)\nComments: \(comment)\n")
+        public var description: String {
+            return "Source: \(source)\nComments: \(comment)\n"
         }
     }
     
-    struct Error: Codable{
+    struct ScryfallError: Codable, Error, CustomStringConvertible {
+        
         let code: String
         let type: String
         let status: Int
         let details: String
         
-        public func simplePrint(){
-            print("Details:\(details)\n")
+        public var description: String {
+            return "Details:\(details)\n"
         }
     }
     
     // struct which contains all sets
-    public struct SetList: Codable {
+    public struct SetList: Codable, CustomStringConvertible {
         // data is an array of Sets
-        public let data: [Set?]
+        public let data: [ScryfallSet]
         
-        // prints each set using their simplePrint()
-        public func simplePrint(){
+        // prints each set
+        public var description: String {
+            var text = ""
             var i = 0
             for set in data {
-                if let t_set = set{
-                    print("Set Number: \(i)")
-                    t_set.simplePrint()
-                    i = i + 1
-                }
+                text += "Set Number: \(i)"
+                text += set.description
+                i = i + 1
             }
+            return text
         }
     }
     
     // struct which contrains a list of cards
-    public struct CardList: Codable {
+    public struct CardList: Codable, CustomStringConvertible {
         // an array of Cards
-        public let data: [Card?]
+        public let data: [Card]
         
-        // prints each Card using their simplePrint()
-        public func simplePrint(){
+        // prints each set
+        public var description: String {
+            var text = ""
             var i = 0
             for card in data {
-                if let t_card = card{
-                    print("\nCard Number: \(i)\n")
-                    t_card.simplePrint()
-                    i = i + 1
-                }
+                text += "Card Number: \(i)"
+                text += card.description
+                i = i + 1
             }
+            return text
         }
     }
     
     // A Magic set is how cards are released in reality.
     // It contains no cards in Swiftfall or Scryfall.
-    public struct Set: Codable {
+    public struct ScryfallSet: Codable, CustomStringConvertible {
         // The unique three or four-letter code for this set.
         public let code: String?
         
@@ -123,24 +126,28 @@ public class Swiftfall {
         public let icon_svg_uri: String?
         
         // prints the minimal data for the set
-        public func simplePrint(){
-            print("Name: \(name)")
+        public var description: String{
+            var text = ""
+            text += "Name: \(name)"
             if self.code != nil {
-                print("Code: \(self.code!)")
+                text += "Code: \(self.code!)"
             }
             if self.block != nil {
-                print("Block: \(self.block!)")
+                text += "Block: \(self.block!)"
             }
-            print("Number of Cards: \(self.card_count)")
+            text += "Number of Cards: \(self.card_count)"
             if self.released_at != nil {
-                print("Release Date: \(self.released_at!)")
+                text += "Release Date: \(self.released_at!)"
             }
-            print("Set Type: \(set_type)\n")
+            text += "Set Type: \(set_type)\n"
+            
+            return text
         }                   
     }
-    public struct Card:Codable {
+    
+    public struct Card: Codable, CustomStringConvertible {
         
-        public struct CardFace: Codable {
+        public struct Face: Codable, CustomStringConvertible {
             
             public let name: String?
             
@@ -162,78 +169,80 @@ public class Swiftfall {
             
             public let illustration_id: String?
 
-            public let image_uris:[String:String]?
+            public let image_uris: [String: String]?
             
-            public func simplePrint(){
+            public var description: String{
+                var text = ""
                 // Each variable is tested to see if printing it makes sense.
-                if self.name != nil {
-                    print("Name: \(name!)")
-                }
+                text += "Name: \(name!)"
+                
                 if self.mana_cost != nil {
-                    print("Cost: \(mana_cost!)")
+                    text += "Cost: \(mana_cost!)"
                 }
                 if self.type_line != nil {
-                    print("Type Line: \(type_line!)")
+                    text += "Type Line: \(type_line!)"
                 }
                 if self.oracle_text != nil {
-                    print("Oracle Text:\n\(oracle_text!)")
+                    text += "Oracle Text:\n\(oracle_text!)"
                 }
                 if self.power != nil && self.toughness != nil {
-                    print("Power: \(power!)\nToughness: \(toughness!)")
+                    text += "Power: \(power!)\nToughness: \(toughness!)"
                 }
                 if self.loyalty != nil {
-                    print("Loyalty: \(loyalty!)")
+                    text += "Loyalty: \(loyalty!)"
                 }
+                
+                return text
             }
         }
         
         // A unique ID for this card in Scryfall’s database.
-        public let id:String?
+        public let id: String?
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        public let oracle_id:String?
+        public let oracle_id: String?
         
         // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
-        public let multiverse_ids:[Int]
+        public let multiverse_ids: [Int]
         
         // This card’s Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        public let mtgo_id:Int?
+        public let mtgo_id: Int?
         
         // This card’s foil Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        public let mtgo_foil_id:Int?
+        public let mtgo_foil_id: Int?
         
         // The name of this card. If this card has multiple faces, this field will contain both names separated by ␣//␣.
-        public let name:String?
+        public let name: String?
         
         // A link to this card object on Scryfall’s API.
-        public let uri:String?
+        public let uri: String?
         
         // A link to this card’s permapage on Scryfall’s website.
-        public let scryfall_uri:String?
+        public let scryfall_uri: String?
         
         // If the card has multiple face this is an array of the card faces
-        public let card_faces: [CardFace]?
+        public let card_faces: [Face]?
         
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        public let prints_search_uri:String?
+        public let prints_search_uri: String?
         
         // A link to this card’s rulings on Scryfall’s API.
-        public let rulings_uri:String?
+        public let rulings_uri: String?
         
         // A computer-readable designation for this card’s layout. See the layout article.
-        public let layout:String?
+        public let layout: String?
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
-        public let cmc:Int?
+        public let cmc: Int?
 
         // The type line of this card.
-        public let type_line:String?
+        public let type_line: String?
         
         // The Oracle text for this card, if any.
-        public let oracle_text:String?
+        public let oracle_text: String?
        
         // The mana cost for this card. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
-        public let mana_cost:String?
+        public let mana_cost: String?
         
         // This card’s power, if any. Note that some cards have powers that are not numeric, such as *.
         public let power: String?
@@ -245,7 +254,7 @@ public class Swiftfall {
         public let loyalty: String?
         
         // This card’s colors.
-        public let colors:[String]?
+        public let colors: [String]?
         
         // Online listings for these cards names.
         public let purchase_uris: [String:String]
@@ -259,103 +268,57 @@ public class Swiftfall {
         // uris of the images
         public let image_uris:[String:String]?
         
-        public func simplePrint(){
+        // return string when self is used as a parameter for print
+        public var description: String{
+            var text = ""
             // if the card has multiple faces, print them
             if (self.card_faces) != nil {
                 for face in card_faces! {
-                    face.simplePrint()
+                    text += face.description
                 }
-                return
-            } 
-            
+                return text
+            }
             // Each variable is tested to see if printing it makes sense.
             if self.name != nil {
-                print("Name: \(name!)")
+                text += "Name: \(name!)"
             }
             if self.mana_cost != nil {
-                print("Cost: \(mana_cost!)")
+                text += "Cost: \(mana_cost!)"
             }
             if self.type_line != nil {
-                print("Type Line: \(type_line!)")
+                text += "Type Line: \(type_line!)"
             }
             if self.oracle_text != nil {
-                print("Oracle Text:\n\(oracle_text!)")
+                text += "Oracle Text:\n\(oracle_text!)"
             }
             if self.power != nil && self.toughness != nil {
-                print("Power: \(power!)\nToughness: \(toughness!)")
+                text += "Power: \(power!)\nToughness: \(toughness!)"
             }
             if self.loyalty != nil {
-                print("Loyalty: \(loyalty!)")
+                text += "Loyalty: \(loyalty!)"
             }
+            
+            return text
             
         }
     }
     
-    // fuzzy
-    public static func getCard(fuzzy: String) -> Card?
-    {
-        let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let call = "cards/named?fuzzy=\(encodeFuzz)"
-
-        var card: Card?
-        var stop = false
-        parseCard(call: call){
-            (newcard:Card?) in
-            card = newcard
-            stop = true
+    // Result enum to control possible end states
+    enum Result<Value> {
+        case success(Value)
+        case failure(Error)
+        func promote() throws -> Value {
+            switch self {
+            case .success(let value):
+                return value
+            case .failure(let error):
+                throw error
+            }
         }
-        
-        while(!stop){
-            // Do this until parseCard is done
-        }
-        
-        return card
     }
     
-    
-    // exact
-    public static func getCard(exact: String) -> Card?
-    {
-        let encodeExactly = exact.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let call = "cards/named?exact=\(encodeExactly)"
-        
-        var card: Card?
-        var stop = false
-        parseCard(call: call){
-            (newcard:Card?) in
-            card = newcard
-            stop = true
-        }
-        
-        while(!stop){
-            //Do this until parseCard is done
-        }
-        
-        return card
-    }
-    
-    // fuzzy
-    public static func getRandomCard() -> Card?
-    {
-        let call = "cards/random"
-        
-        var card: Card?
-        var stop = false
-        parseCard(call: call){
-            (newcard:Card?) in
-            card = newcard
-            stop = true
-        }
-        
-        while(!stop){
-            // Do this until parseCard is done
-        }
-        
-        return card
-    }
-    
-    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
-    static func parseCard(call:String, completion: @escaping (Card?) -> ()) {
+    /// Retreives JSON data from URL and parses it with JSON decoder.
+    static func parseResource<ResultType: Decodable>(call:String, completion: @escaping (Result<ResultType>) -> ()) {
         
         let url = URL(string: "\(scryfall)\(call)")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
@@ -364,44 +327,111 @@ public class Swiftfall {
                 print("Error: There was no data returned from JSON file.")
                 return
             }
-    
+            
             //print("\(String(data: content,encoding: .utf8))")
             
             let decoder = JSONDecoder()
             do {
                 // Decode JSON file starting from Response struct.
-                let decoded:Card = try decoder.decode(Card.self, from: content)
-                completion(decoded)
+                let decoded:ResultType = try decoder.decode(ResultType.self, from: content)
+                completion(.success(decoded))
             }
             catch {
                 // Known Issues:
-                //  * Too broad of a request (needs handler) 
+                //  * Too broad of a request (needs handler)
                 //
                 // Present an alert if the JSON data cannot be decoded.
                 do {
-                    let decoded:Error = try decoder.decode(Error.self, from: content)
-                    decoded.simplePrint()
+                    let decoded:ScryfallError = try decoder.decode(ScryfallError.self, from: content)
+                    completion(.failure(decoded))
                 }
                 catch {
-                    print("Error: \(error)")
-                    completion(nil)
+                    //print("Error: \(error)")
+                    completion(.failure(error))
                 }
-                completion(nil)
+                //completion(Result.failure(Error))
             }
         }
         task.resume()
     }
     
+    
+    
+    // fuzzy
+    public static func getCard(fuzzy: String) throws -> Card
+    {
+        let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "cards/named?fuzzy=\(encodeFuzz)"
+        
+
+        var card: Result<Card>?
+        var stop = false
+        parseResource(call: call){
+            (newcard:Result<Card>) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            // Do this until parseCard is done
+        }
+        
+        return try card!.promote()
+    }
+    
+    
+    // exact
+    public static func getCard(exact: String) throws -> Card
+    {
+        let encodeExactly = exact.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "cards/named?exact=\(encodeExactly)"
+        
+        var card: Result<Card>?
+        var stop = false
+        parseResource(call: call){
+            (newcard: Result<Card>) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return try card!.promote()
+    }
+    
+    // fuzzy
+    public static func getRandomCard() throws -> Card
+    {
+        let call = "cards/random"
+        
+        var card: Result<Card>?
+        var stop = false
+        parseResource(call: call){
+            (newcard: Result<Card>) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            // Do this until parseCard is done
+        }
+        
+        return try card!.promote()
+    }
+    
+    
     // set
-    public static func getSet(code: String) -> Set?
+    public static func getSet(code: String) throws -> ScryfallSet
     {
         let encodeExactly = code.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "sets/\(encodeExactly)"
         
-        var set: Set?
+        var set: Result<ScryfallSet>?
         var stop = false
-        parseCard(call: call){
-            (newset:Set?) in
+        parseResource(call: call){
+            (newset: Result<ScryfallSet>) in
             set = newset
             stop = true
         }
@@ -410,55 +440,18 @@ public class Swiftfall {
             //Do this until parseCard is done
         }
         
-        return set
+        return try set!.promote()
     }
     
-    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
-    static func parseCard(call:String, completion: @escaping (Set?) -> ()) {
-        
-        let url = URL(string: "\(scryfall)\(call)")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            
-            guard let content = data else {
-                print("Error: There was no data returned from JSON file.")
-                return
-            }
-            
-            //print("\(String(data: content,encoding: .utf8))")
-            
-            let decoder = JSONDecoder()
-            do {
-                // Decode JSON file starting from Response struct.
-                let decoded:Set = try decoder.decode(Set.self, from: content)
-                completion(decoded)
-            }
-            catch {
-                // Known Issues:
-                //  * Too broad of a request (needs handler)
-                //
-                // Present an alert if the JSON data cannot be decoded.
-                do {
-                    let decoded:Error = try decoder.decode(Error.self, from: content)
-                    decoded.simplePrint()
-                }
-                catch {
-                    print("Error: \(error)")
-                    completion(nil)
-                }
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
     
-    public static func getSetList() -> SetList?
+    public static func getSetList() throws -> SetList
     {
         let call = "sets/"
         
-        var setlist: SetList?
+        var setlist: Result<SetList>?
         var stop = false
-        parseSetList(call: call){
-            (newsetlist:SetList?) in
+        parseResource(call: call){
+            (newsetlist: Result<SetList>) in
             setlist = newsetlist
             stop = true
         }
@@ -467,52 +460,18 @@ public class Swiftfall {
             //Do this until parseCard is done
         }
         
-        return setlist
+        return try setlist!.promote()
     }
     
-    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
-    static func parseSetList(call:String, completion: @escaping (SetList?) -> ()) {
-        
-        let url = URL(string: "\(scryfall)\(call)")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            
-            guard let content = data else {
-                print("Error: There was no data returned from JSON file.")
-                return
-            }
-            
-            //print("\(String(data: content,encoding: .utf8))")
-            
-            let decoder = JSONDecoder()
-            do {
-                // Decode JSON file starting from Response struct.
-                let decoded:SetList = try decoder.decode(SetList.self, from: content)
-                completion(decoded)
-            }
-            catch {
-                do {
-                    let decoded:Error = try decoder.decode(Error.self, from: content)
-                    decoded.simplePrint()
-                }
-                catch {
-                    print("Error: \(error)")
-                    
-                    completion(nil)
-                }
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
     
-    public static func getCardList() -> CardList?
+    public static func getCardList() throws -> CardList
     {
         let call = "cards/"
         
-        var cardlist: CardList?
+        var cardlist: Result<CardList>?
         var stop = false
-        parseCardList(call: call){
-            (newcardlist:CardList?) in
+        parseResource(call: call){
+            (newcardlist: Result<CardList>) in
             cardlist = newcardlist
             stop = true
         }
@@ -521,17 +480,17 @@ public class Swiftfall {
             //Do this until parseCard is done
         }
         
-        return cardlist
+        return try cardlist!.promote()
     }
     
-    public static func getCardList(page:Int) -> CardList?
+    public static func getCardList(page:Int) throws -> CardList
     {
         let call = "cards?page=\(page)"
         
-        var cardlist: CardList?
+        var cardlist: Result<CardList>?
         var stop = false
-        parseCardList(call: call){
-            (newcardlist:CardList?) in
+        parseResource(call: call){
+            (newcardlist: Result<CardList>) in
             cardlist = newcardlist
             stop = true
         }
@@ -540,52 +499,18 @@ public class Swiftfall {
             //Do this until parseCard is done
         }
         
-        return cardlist
-    }
-    
-    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
-    static func parseCardList(call:String, completion: @escaping (CardList?) -> ()) {
-        
-        let url = URL(string: "\(scryfall)\(call)")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            guard let content = data else {
-                print("Error: There was no data returned from JSON file.")
-                return
-            }
-            
-            //print("\(String(data: content,encoding: .utf8))")
-            
-            let decoder = JSONDecoder()
-            do {
-                // Decode JSON file starting from Response struct.
-                let decoded:CardList = try decoder.decode(CardList.self, from: content)
-                completion(decoded)
-            }
-            catch {
-                do {
-                    let decoded:Error = try decoder.decode(Error.self, from: content)
-                    decoded.simplePrint()
-                }
-                catch {
-                    print("Error: \(error)")
-                    
-                    completion(nil)
-                }
-                completion(nil)
-            }
-        }
-        task.resume()
+        return try cardlist!.promote()
     }
     
     
-    public static func getRulingList(code:String,number:Int) -> RulingList?
+    public static func getRulingList(code:String,number:Int) throws -> RulingList
     {
         let call = "cards/\(code)/\(number)/rulings"
         
-        var rulelist: RulingList?
+        var rulelist: Result<RulingList>?
         var stop = false
-        parseRulingList(call: call){
-            (newrulelist:RulingList?) in
+        parseResource(call: call){
+            (newrulelist: Result<RulingList>) in
             rulelist = newrulelist
             stop = true
         }
@@ -594,42 +519,8 @@ public class Swiftfall {
             //Do this until parseCard is done
         }
         
-        return rulelist
-    }
-    
-    
-    /// Retreives JSON data from URL and parses it with JSON decoder. Thanks Mitchell
-    static func parseRulingList(call:String, completion: @escaping (RulingList?) -> ()) {
+        return try rulelist!.promote()
         
-        let url = URL(string: "\(scryfall)\(call)")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            guard let content = data else {
-                print("Error: There was no data returned from JSON file.")
-                return
-            }
-            
-            //print("\(String(data: content,encoding: .utf8))")
-            
-            let decoder = JSONDecoder()
-            do {
-                // Decode JSON file starting from Response struct.
-                let decoded:RulingList = try decoder.decode(RulingList.self, from: content)
-                completion(decoded)
-            }
-            catch {
-                do {
-                    let decoded:Error = try decoder.decode(Error.self, from: content)
-                    decoded.simplePrint()
-                }
-                catch {
-                    print("Error: \(error)")
-                    
-                    completion(nil)
-                }
-                completion(nil)
-            }
-        }
-        task.resume()
     }
 }
 

@@ -9,39 +9,42 @@ Scryfall is API which handles information about the card game Magic: The Gatheri
 ## Types
 All types are Structs and can be reach through a Swiftfall.get*(). 
 
-All Structs have a print function called simplePrint().
-
 ### Types That Hold Data
-#### Card? 
- * Struct containing data about a Magic Card
- * Contains the **CardFaces** Struct
-   * Some Cards have faces, **CardFaces** contains those faces. 
-#### Set? 
- * Struct containing data about a Set of Magic cards
-#### Ruling?
+#### Card 
+ * Struct containing data about a Magic Card.
+ * Contains the **Card.Face** Struct
+   * Some Cards have faces, **Card.Face** contains those faces. 
+#### ScryfallSet
+ * Struct containing data about a Set of Magic cards.
+ * named ScryfallSet due to Set already existing in Swift.
+#### Ruling
  * Struct containing data about a Magic Card's rulings. 
 ### Structs which contain Arrays of Types 
-#### CardList? 
- * Struct containing a list of Cards
-#### SetList? 
- * Struct containing a list of Sets
-#### RulingList?
- * Struct containing a list of Rulings
+#### CardList 
+ * Struct containing a list of Cards.
+#### SetList 
+ * Struct containing a list of ScryfallSets.
+#### RulingList
+ * Struct containing a list of Rulings.
 ## Functions
 These are some functions you can call which will handle information from Scryfall's API. 
 
 ### Get a Card
-Swiftfall.getCard(fuzzy:String) -> Card? _(Fuzzy search)_
+Swiftfall.getCard(fuzzy:String) throws -> Card _(Fuzzy search)_
 
-Swiftfall.getCard(exact:String) -> Card? _(Exact search)_
+Swiftfall.getCard(exact:String) throws -> Card _(Exact search)_
 
-Swiftfall.getRandomCard() -> Card? _(Random Card)_
+Swiftfall.getRandomCard() throws -> Card _(Random Card)_
 
 Ex.
 ``` 
 import Swiftfall
-let card = Swiftfall.getCard(exact:"Black Lotus")
-card?.simplePrint()
+do {
+  let card = try Swiftfall.getCard(exact:"Black Lotus")
+  print(card)
+  } catch {
+    ...
+}
 ```
 Out.
 ```
@@ -56,8 +59,12 @@ Oracle Text:
 Ex.
 ``` 
 import Swiftfall
-let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
-card?.simplePrint()
+do {
+  let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
+  print(card)
+  } catch {
+    ...
+}
 ```
 Out.
 ```
@@ -83,12 +90,16 @@ Loyalty: 5
 Ex.
 ``` 
 import Swiftfall
-let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
-let faces = card?.card_faces
-let front = faces![0]
-let back = faces![1]
-front.simplePrint()
-back.simplePrint()
+do {
+  let card = Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
+  let faces = card?.card_faces
+  let front = faces![0]
+  let back = faces![1]
+  print(front)
+  print(back)
+  } catch {
+    ...
+}
 ```
 Out. 
 ```
@@ -109,15 +120,19 @@ Oracle Text:
 Loyalty: 5
 ```
 ### Get a list of Cards
-Swiftfall.getCardList() -> CardList? _(The first page)_
+Swiftfall.getCardList() throws -> CardList _(The first page)_
 
-Swiftfall.getCardList(page:Int) -> CardList? _(Loads a specific page)_
+Swiftfall.getCardList(page:Int) throws -> CardList _(Loads a specific page)_
 
 Ex. 
 ```
 import Swiftfall
-let cardlist = Swiftfall.getCardList(page:0) // this is the same as .getCardList()
-cardlist.simplePrint()
+do {
+  let cardlist = Swiftfall.getCardList(page:0) // this is the same as .getCardList()
+  print(cardlist)
+} catch {
+  ... 
+}
 ```
 Out.
 ```
@@ -135,14 +150,18 @@ Card Number: 1
 ...
 ```
 
-### Get a Set
-Swiftfall.getSet(code:String) -> Set? _(String must be a three letter code)_
+### Get a ScryfallSet
+Swiftfall.getSet(code:String) throws -> Set _(String must be a three letter code)_
 
 Ex.
 ```
 import Swiftfall
-let set = Swiftfall.getSet(code: "KTK")
-set?.simplePrint()
+do { 
+  let set = Swiftfall.getSet(code: "KTK")
+  print(set) 
+} catch {
+  ...
+}
 ```
 Out.
 ```
@@ -152,14 +171,18 @@ Number of Cards: 269
 Release Date: 2014-09-26
 Set Type: expansion
 ```
-### Get a list of Set
-Swiftfall.getSetList() -> SetList? _(All Sets)_
+### Get a list of ScryfallSets
+Swiftfall.getSetList() throws -> SetList _(All Sets)_
 
 Ex.
 ```
 import Swiftfall
-let setlist = Swiftfall.getSetList()
-setlist?.simplePrint()
+do {
+  let setlist = Swiftfall.getSetList()
+  print(setlist)
+} catch {
+  ...
+}
 ```
 Out.
 ```
@@ -178,12 +201,17 @@ Set Number: 2
 ...
 ```
 ### Get a list of Rulings
-Swiftfall.getRulingList(code:String,number:Int) -> RulingList?
+Swiftfall.getRulingList(code:String,number:Int) throws -> RulingList
+
 Ex.
 ``` 
 import Swiftfall
-let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-rulings?.simplePrint()
+do {
+  let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
+  print(rulings)
+} catch {
+  ...
+}
 ```
 Out. 
 ```
@@ -200,12 +228,18 @@ Comments: Mana Drain’s delayed triggered ability will usually trigger at the b
 ### Get a Ruling
 To get a specific ruling you must first get a Ruling List. 
 
-Once you have a RulingList you may call .data[index: Int
+Once you have a RulingList you may call .data\[index: Int\]
+
 Ex. 
 ```
-let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
-let ruling = rulings?.data[1]
-ruling?.simplePrint()
+import Swiftfall
+do {
+  let rulings = Swiftfall.getRulingList(code: "ima", number: 65)
+  let ruling = rulings?.data[1]
+  print(ruling)
+} catch {
+  ...
+}
 ```
 Out. 
 ```
@@ -220,8 +254,11 @@ Testing allows for us to check certain scenarios quickly and determine the probl
 Ex. 
 ```
 func testRandomCard(){
-    let card = Swiftfall.getRandomCard()
-    XCTAssertTrue(card != nil)
+    do { 
+      _ = Swiftfall.getRandomCard()
+    } catch {
+      XCTFail()
+    }
 }
 ```
 
