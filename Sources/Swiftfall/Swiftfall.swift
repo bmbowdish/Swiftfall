@@ -11,6 +11,7 @@ public class Swiftfall {
             var text = ""
             for rule in data {
                 text += rule.description
+                text += "\n"
             }
             return text
         }
@@ -40,7 +41,7 @@ public class Swiftfall {
         let details: String
         
         public var description: String {
-            return "Details:\(details)\n"
+            return "Error: \(code)\nDetails: \(details)\n"
         }
     }
     
@@ -56,6 +57,7 @@ public class Swiftfall {
             for set in data {
                 text += "Set Number: \(i)"
                 text += set.description
+                text += "\n"
                 i = i + 1
             }
             return text
@@ -74,6 +76,7 @@ public class Swiftfall {
             for card in data {
                 text += "Card Number: \(i)"
                 text += card.description
+                text += "\n"
                 i = i + 1
             }
             return text
@@ -275,6 +278,7 @@ public class Swiftfall {
             if (self.card_faces) != nil {
                 for face in card_faces! {
                     text += face.description
+                    text += "\n"
                 }
                 return text
             }
