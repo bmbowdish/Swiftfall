@@ -31,7 +31,8 @@ class Tests: XCTestCase {
     
     func testRandomCard() throws {
         do {
-            _ = try Swiftfall.getRandomCard()
+            let card = try Swiftfall.getRandomCard()
+            print(card)
         } catch {
             XCTFail("\(error)")
         }
