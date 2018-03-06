@@ -16,7 +16,7 @@ public class Swiftfall {
         }
     }
     
-    public struct Ruling: Codable {
+    public struct Ruling: Codable, CustomStringConvertible {
         //     A computer-readable string indicating which company produced this ruling, either wotc or scryfall.
         public let source: String
 
@@ -63,7 +63,7 @@ public class Swiftfall {
     }
     
     // struct which contrains a list of cards
-    public struct CardList: Codable {
+    public struct CardList: Codable, CustomStringConvertible {
         // an array of Cards
         public let data: [Card]
         
