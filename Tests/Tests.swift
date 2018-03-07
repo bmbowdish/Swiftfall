@@ -31,7 +31,8 @@ class Tests: XCTestCase {
     
     func testRandomCard() throws {
         do {
-            _ = try Swiftfall.getRandomCard()
+            let card = try Swiftfall.getRandomCard()
+            print(card)
         } catch {
             XCTFail("\(error)")
         }
@@ -190,6 +191,7 @@ class Tests: XCTestCase {
     func testDoubleFaced() throws {
         let card = try Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
         let faces = card.card_faces
+        print(faces![0])
         XCTAssertTrue((faces != nil))
     }
 

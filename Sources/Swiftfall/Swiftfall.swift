@@ -11,6 +11,7 @@ public class Swiftfall {
             var text = ""
             for rule in data {
                 text += rule.description
+                text += "\n"
             }
             return text
         }
@@ -40,7 +41,7 @@ public class Swiftfall {
         let details: String
         
         public var description: String {
-            return "Details:\(details)\n"
+            return "Error: \(code)\nDetails: \(details)\n"
         }
     }
     
@@ -54,8 +55,9 @@ public class Swiftfall {
             var text = ""
             var i = 0
             for set in data {
-                text += "Set Number: \(i)"
+                text += "Set Number: \(i)\n"
                 text += set.description
+                text += "\n"
                 i = i + 1
             }
             return text
@@ -72,8 +74,9 @@ public class Swiftfall {
             var text = ""
             var i = 0
             for card in data {
-                text += "Card Number: \(i)"
+                text += "Card Number: \(i)\n"
                 text += card.description
+                text += "\n"
                 i = i + 1
             }
             return text
@@ -128,16 +131,16 @@ public class Swiftfall {
         // prints the minimal data for the set
         public var description: String{
             var text = ""
-            text += "Name: \(name)"
+            text += "Name: \(name)\n"
             if self.code != nil {
-                text += "Code: \(self.code!)"
+                text += "Code: \(self.code!)\n"
             }
             if self.block != nil {
-                text += "Block: \(self.block!)"
+                text += "Block: \(self.block!)\n"
             }
-            text += "Number of Cards: \(self.card_count)"
+            text += "Number of Cards: \(self.card_count)\n"
             if self.released_at != nil {
-                text += "Release Date: \(self.released_at!)"
+                text += "Release Date: \(self.released_at!)\n"
             }
             text += "Set Type: \(set_type)\n"
             
@@ -174,24 +177,23 @@ public class Swiftfall {
             public var description: String{
                 var text = ""
                 // Each variable is tested to see if printing it makes sense.
-                text += "Name: \(name!)"
+                text += "Name: \(name!)\n"
                 
                 if self.mana_cost != nil {
-                    text += "Cost: \(mana_cost!)"
+                    text += "Cost: \(mana_cost!)\n"
                 }
                 if self.type_line != nil {
-                    text += "Type Line: \(type_line!)"
+                    text += "Type Line: \(type_line!)\n"
                 }
                 if self.oracle_text != nil {
-                    text += "Oracle Text:\n\(oracle_text!)"
+                    text += "Oracle Text:\n\(oracle_text!)\n"
                 }
                 if self.power != nil && self.toughness != nil {
-                    text += "Power: \(power!)\nToughness: \(toughness!)"
+                    text += "Power: \(power!)\nToughness: \(toughness!)\n"
                 }
                 if self.loyalty != nil {
-                    text += "Loyalty: \(loyalty!)"
+                    text += "Loyalty: \(loyalty!)\n"
                 }
-                
                 return text
             }
         }
@@ -275,27 +277,28 @@ public class Swiftfall {
             if (self.card_faces) != nil {
                 for face in card_faces! {
                     text += face.description
+                    text += "\n"
                 }
                 return text
             }
             // Each variable is tested to see if printing it makes sense.
             if self.name != nil {
-                text += "Name: \(name!)"
+                text += "Name: \(name!)\n"
             }
             if self.mana_cost != nil {
-                text += "Cost: \(mana_cost!)"
+                text += "Cost: \(mana_cost!)\n"
             }
             if self.type_line != nil {
-                text += "Type Line: \(type_line!)"
+                text += "Type Line: \(type_line!)\n"
             }
             if self.oracle_text != nil {
-                text += "Oracle Text:\n\(oracle_text!)"
+                text += "Oracle Text:\n\(oracle_text!)\n"
             }
             if self.power != nil && self.toughness != nil {
-                text += "Power: \(power!)\nToughness: \(toughness!)"
+                text += "Power: \(power!)\nToughness: \(toughness!)\n"
             }
             if self.loyalty != nil {
-                text += "Loyalty: \(loyalty!)"
+                text += "Loyalty: \(loyalty!)\n"
             }
             
             return text
