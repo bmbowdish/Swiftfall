@@ -232,7 +232,7 @@ public class Swiftfall {
         public let rulings_uri: String?
         
         // A computer-readable designation for this card’s layout. See the layout article.
-        public let layout: String?
+        public let layout: String
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
         public let cmc: Double?
