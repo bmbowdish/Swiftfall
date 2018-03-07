@@ -235,7 +235,7 @@ public class Swiftfall {
         public let layout: String?
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
-        public let cmc: String?
+        public let cmc: Double?
 
         // The type line of this card.
         public let type_line: String?
