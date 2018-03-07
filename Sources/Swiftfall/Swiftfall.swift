@@ -226,7 +226,7 @@ public class Swiftfall {
         public let card_faces: [Face]?
         
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        public let prints_search_uri: String?
+        public let prints_search_uri: String
         
         // A link to this card’s rulings on Scryfall’s API.
         public let rulings_uri: String
