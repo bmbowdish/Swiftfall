@@ -229,7 +229,7 @@ public class Swiftfall {
         public let prints_search_uri: String?
         
         // A link to this card’s rulings on Scryfall’s API.
-        public let rulings_uri: String?
+        public let rulings_uri: String
         
         // A computer-readable designation for this card’s layout. See the layout article.
         public let layout: String
