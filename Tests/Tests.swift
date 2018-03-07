@@ -22,71 +22,93 @@ class Tests: XCTestCase {
     func testRulingList() throws {
         do {
             let rulings = try Swiftfall.getRulingList(code: "ima", number: 65)
-            // print(rulings)
             _ = rulings.data[1]
         } catch {
+            print(error)
             XCTFail("\(error)")
         }
     }
     
     func testRandomCard() throws {
         do {
-            let card = try Swiftfall.getRandomCard()
-            print(card)
+            _ = try Swiftfall.getRandomCard()
         } catch {
+            print(error)
             XCTFail("\(error)")
         }
     }
     
+    func testFractionalManaCost() throws {
+        do {
+            _ = try Swiftfall.getCard(exact: "Little Girl")
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testFuzzySpellSimpleSingleWord() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let fuzzy = "Shock"
-        let card = try Swiftfall.getCard(fuzzy: fuzzy)
-        //card?.simplePrint()
-        XCTAssertTrue(nil != card.name)
+        do {
+            _ = try Swiftfall.getCard(fuzzy: "Shock")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testFuzzySpellSimpleMultiWord() throws {
-        let fuzzy = "Fatal Push"
-        let card = try Swiftfall.getCard(fuzzy: fuzzy)
-        //card?.simplePrint()
-        XCTAssertTrue(nil != card.name)
+        do {
+            _ = try Swiftfall.getCard(fuzzy: "Fatal Push")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testFuzzySpellApostrophe() throws {
-        let fuzzy = "Gaea's Blessing"
-        let card = try Swiftfall.getCard(fuzzy: fuzzy)
-        //card?.simplePrint()
-        XCTAssertTrue(nil != card.name)
+        do {
+            _ = try Swiftfall.getCard(fuzzy: "Gaea's Blessing")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testExactSpellSimpleSingleWord() throws {
-        let exact = "Shock"
-        let card = try Swiftfall.getCard(exact: exact)
-        //card?.simplePrint()
-        XCTAssertTrue(exact == card.name)
+        do {
+        _ = try Swiftfall.getCard(exact: "Shock")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testExactSpellSimpleMultiWord() throws {
-        let exact = "Fatal Push"
-        let card = try Swiftfall.getCard(exact: exact)
-        //card?.simplePrint()
-        XCTAssertTrue(exact == card.name)
+        do {
+            let exact = "Fatal Push"
+            _ = try Swiftfall.getCard(exact: exact)
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testExactSpellApostrophe() throws {
-        let exact = "Gaea's Blessing"
-        let card = try Swiftfall.getCard(exact: exact)
-        //card?.simplePrint()
-        XCTAssertTrue(exact == card.name)
+        do {
+            _ = try Swiftfall.getCard(exact: "Gaea's Blessing")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testFuzzyCreatureSimpleSingleWordStringPowerStringTough() throws {
-        let fuzzy = "Tarmogoyf"
-        let card = try Swiftfall.getCard(fuzzy: fuzzy)
-        //card?.simplePrint()
-        XCTAssert((card.power != nil))
+        do {
+            _ = try Swiftfall.getCard(fuzzy: "Tarmogoyf")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testFuzzyCreatureSimpleSingleWord() throws {
@@ -107,6 +129,7 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getCard(exact: "Flash")
         } catch {
+            print(error)
             XCTFail()
         }
 
@@ -116,29 +139,41 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getCard(fuzzy: "austere")
         } catch {
+            print(error)
             XCTFail()
         }
     }
     
     func testExactVsFuzzy() throws {
-        let exact = "Austere Command"
-        let fuzzy = "Aust Com"
-        let cardF = try Swiftfall.getCard(fuzzy: fuzzy)
-        let cardE = try Swiftfall.getCard(exact: exact)
-        XCTAssertTrue(cardF.name == cardE.name)
+        do {
+            let exact = "Austere Command"
+            let fuzzy = "Aust Com"
+            let cardF = try Swiftfall.getCard(fuzzy: fuzzy)
+            let cardE = try Swiftfall.getCard(exact: exact)
+            if(!(cardF.name == cardE.name)){
+                XCTFail()
+            }
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testPurchaseURI() throws {
-        let fuzzy = "Black Lotus"
-        let card = try Swiftfall.getCard(fuzzy: fuzzy)
-        //cardF?.simplePrint()
-        XCTAssertTrue(card.purchase_uris["ebay"] != nil)
+        do {
+            let fuzzy = "Black Lotus"
+            _ = try Swiftfall.getCard(fuzzy: fuzzy)
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testSetCode() throws {
         do {
             _ = try Swiftfall.getSet(code: "KTK")
         } catch {
+            print(error)
             XCTFail()
         }
     }
@@ -147,6 +182,7 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getSet(code: "EMA")
         } catch {
+            print(error)
             XCTFail()
         }
     }
@@ -155,6 +191,7 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getSetList()
         } catch {
+            print(error)
             XCTFail()
         }
     }
@@ -163,6 +200,7 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getCardList()
         } catch {
+            print(error)
             XCTFail()
         }
     }
@@ -171,6 +209,7 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getCardList(page:2)
         } catch {
+            print(error)
             XCTFail()
         }
     }
@@ -179,20 +218,28 @@ class Tests: XCTestCase {
         do {
             _ = try Swiftfall.getCard(exact: "Jace Beleren")
         } catch {
+            print(error)
             XCTFail()
         }
     }
     
     func testImageURIs() throws {
-        let card = try Swiftfall.getRandomCard()
-        XCTAssert(card.image_uris != nil)
+        do {
+            _ = try Swiftfall.getRandomCard()
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testDoubleFaced() throws {
-        let card = try Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
-        let faces = card.card_faces
-        print(faces![0])
-        XCTAssertTrue((faces != nil))
+        do {
+            let card = try Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
+            _ = card.card_faces
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
 
     func testPerformanceExample() throws {
