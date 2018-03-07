@@ -202,7 +202,7 @@ public class Swiftfall {
         public let id: String
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        public let oracle_id: String?
+        public let oracle_id: String
         
         // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
         public let multiverse_ids: [Int]
