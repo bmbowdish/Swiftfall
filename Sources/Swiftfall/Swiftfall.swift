@@ -220,7 +220,7 @@ public class Swiftfall {
         public let uri: String?
         
         // A link to this card’s permapage on Scryfall’s website.
-        public let scryfall_uri: String?
+        public let scryfall_uri: String
         
         // If the card has multiple face this is an array of the card faces
         public let card_faces: [Face]?
