@@ -199,7 +199,7 @@ public class Swiftfall {
         }
         
         // A unique ID for this card in Scryfall’s database.
-        public let id: String?
+        public let id: String
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
         public let oracle_id: String?
@@ -268,7 +268,10 @@ public class Swiftfall {
         public let illustration_id: String?
         
         // uris of the images
-        public let image_uris:[String:String]?
+        public let image_uris: [String:String]?
+        
+        // legality in different formats
+        public let legalities: [String:String]
         
         // return string when self is used as a parameter for print
         public var description: String{

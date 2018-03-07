@@ -242,6 +242,15 @@ class Tests: XCTestCase {
         }
     }
 
+    func testLegalities() throws {
+        do {
+            let card = try Swiftfall.getCard(exact: "Black Lotus")
+            _ = card.legalities
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
