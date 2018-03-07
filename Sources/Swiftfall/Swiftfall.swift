@@ -331,34 +331,26 @@ public class Swiftfall {
                 return
             }
             
-            //print("\(String(data: content,encoding: .utf8))")
-            
             let decoder = JSONDecoder()
+            let httpStatus = (response as! HTTPURLResponse).statusCode
             do {
-                // Decode JSON file starting from Response struct.
-                let decoded:ResultType = try decoder.decode(ResultType.self, from: content)
-                completion(.success(decoded))
-            }
-            catch {
-                // Known Issues:
-                //  * Too broad of a request (needs handler)
-                //
-                // Present an alert if the JSON data cannot be decoded.
-                do {
+                if (200..<300).contains(httpStatus) {
+                    // Decode JSON file starting from Response struct.
+                    let decoded:ResultType = try decoder.decode(ResultType.self, from: content)
+                    completion(.success(decoded))
+                } else {
                     let decoded:ScryfallError = try decoder.decode(ScryfallError.self, from: content)
                     completion(.failure(decoded))
                 }
-                catch {
-                    //print("Error: \(error)")
-                    completion(.failure(error))
-                }
-                //completion(Result.failure(Error))
+            } catch {
+                //print("Error: \(error)")
+                completion(.failure(error))
             }
+            
+            //print("\(String(data: content,encoding: .utf8))")
         }
         task.resume()
     }
-    
-    
     
     // fuzzy
     public static func getCard(fuzzy: String) throws -> Card
