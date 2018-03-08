@@ -427,7 +427,6 @@ public class Swiftfall {
     public static func getCard(code: String, number: Int) throws -> Card
     {
         let call = "cards/\(code)/\(number)"
-        print(call)
         var card: Result<Card>?
         var stop = false
         parseResource(call: call){
