@@ -4,7 +4,7 @@ public class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
     
-    public struct RulingList: Codable, CustomStringConvertible{
+    public struct RulingList: Codable, CustomStringConvertible {
         public let data: [Ruling]
         
         public var description: String {
@@ -191,7 +191,7 @@ public class Swiftfall {
 
             public let image_uris: [String: String]?
             
-            public var description: String{
+            public var description: String {
                 var text = ""
                 // Each variable is tested to see if printing it makes sense.
                 text += "Name: \(name!)\n"
@@ -351,7 +351,7 @@ public class Swiftfall {
         public let eur: String?
         
         // return string when self is used as a parameter for print
-        public var description: String{
+        public var description: String {
             var text = ""
             // if the card has multiple faces, print them
             if (self.card_faces) != nil {
@@ -401,7 +401,7 @@ public class Swiftfall {
     }
     
     /// Retreives JSON data from URL and parses it with JSON decoder.
-    static func parseResource<ResultType: Decodable>(call:String, completion: @escaping (Result<ResultType>) -> ()) {
+    static func parseResource<ResultType: Decodable>(call: String, completion: @escaping (Result<ResultType>) -> ()) {
         
         let url = URL(string: "\(scryfall)\(call)")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
@@ -433,8 +433,7 @@ public class Swiftfall {
     }
     
     // gets a Card by using the code and id number
-    public static func getCard(code: String, number: Int) throws -> Card
-    {
+    public static func getCard(code: String, number: Int) throws -> Card {
         let call = "cards/\(code)/\(number)"
         var card: Result<Card>?
         var stop = false
@@ -452,21 +451,20 @@ public class Swiftfall {
     }
     
     // fuzzy
-    public static func getCard(fuzzy: String) throws -> Card
-    {
+    public static func getCard(fuzzy: String) throws -> Card {
         let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "cards/named?fuzzy=\(encodeFuzz)"
         
 
         var card: Result<Card>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newcard:Result<Card>) in
             card = newcard
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             // Do this until parseCard is done
         }
         
@@ -475,20 +473,19 @@ public class Swiftfall {
     
     
     // exact
-    public static func getCard(exact: String) throws -> Card
-    {
+    public static func getCard(exact: String) throws -> Card {
         let encodeExactly = exact.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "cards/named?exact=\(encodeExactly)"
         
         var card: Result<Card>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newcard: Result<Card>) in
             card = newcard
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             //Do this until parseCard is done
         }
         
@@ -496,19 +493,18 @@ public class Swiftfall {
     }
     
     // fuzzy
-    public static func getRandomCard() throws -> Card
-    {
+    public static func getRandomCard() throws -> Card {
         let call = "cards/random"
         
         var card: Result<Card>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newcard: Result<Card>) in
             card = newcard
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             // Do this until parseCard is done
         }
         
@@ -517,20 +513,19 @@ public class Swiftfall {
     
     
     // set
-    public static func getSet(code: String) throws -> ScryfallSet
-    {
+    public static func getSet(code: String) throws -> ScryfallSet {
         let encodeExactly = code.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "sets/\(encodeExactly)"
         
         var set: Result<ScryfallSet>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newset: Result<ScryfallSet>) in
             set = newset
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             //Do this until parseCard is done
         }
         
@@ -544,13 +539,13 @@ public class Swiftfall {
         
         var setlist: Result<SetList>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newsetlist: Result<SetList>) in
             setlist = newsetlist
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             //Do this until parseCard is done
         }
         
@@ -558,19 +553,18 @@ public class Swiftfall {
     }
     
     
-    public static func getCardList() throws -> CardList
-    {
+    public static func getCardList() throws -> CardList {
         let call = "cards/"
         
         var cardlist: Result<CardList>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newcardlist: Result<CardList>) in
             cardlist = newcardlist
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             //Do this until parseCard is done
         }
         
@@ -583,13 +577,13 @@ public class Swiftfall {
         
         var cardlist: Result<CardList>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newcardlist: Result<CardList>) in
             cardlist = newcardlist
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             //Do this until parseCard is done
         }
         
@@ -597,19 +591,18 @@ public class Swiftfall {
     }
     
     
-    public static func getRulingList(code:String,number:Int) throws -> RulingList
-    {
+    public static func getRulingList(code:String,number:Int) throws -> RulingList {
         let call = "cards/\(code)/\(number)/rulings"
         
         var rulelist: Result<RulingList>?
         var stop = false
-        parseResource(call: call){
+        parseResource(call: call) {
             (newrulelist: Result<RulingList>) in
             rulelist = newrulelist
             stop = true
         }
         
-        while(!stop){
+        while(!stop) {
             //Do this until parseCard is done
         }
         
