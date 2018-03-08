@@ -423,6 +423,25 @@ public class Swiftfall {
         task.resume()
     }
     
+    // gets a Card by using the code and id number
+    public static func getCard(code: String, number: Int) throws -> Card
+    {
+        let call = "cards/\(code)/\(number)"
+        var card: Result<Card>?
+        var stop = false
+        parseResource(call: call){
+            (newcard: Result<Card>) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return try card!.promote()
+    }
+    
     // fuzzy
     public static func getCard(fuzzy: String) throws -> Card
     {

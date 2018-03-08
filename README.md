@@ -34,6 +34,8 @@ Swiftfall.getCard(fuzzy:String) throws -> Card _(Fuzzy search)_
 
 Swiftfall.getCard(exact:String) throws -> Card _(Exact search)_
 
+Swiftfall.getCard(code: String, number: Int) throws -> Card _(Set Code, ID Number)_
+
 Swiftfall.getRandomCard() throws -> Card _(Random Card)_
 
 Ex.

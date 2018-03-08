@@ -38,6 +38,15 @@ class Tests: XCTestCase {
         }
     }
     
+    func testGetCardCodeNumber() throws {
+        do {
+            _ = try Swiftfall.getCard(code: "xln", number: 96)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testFractionalManaCost() throws {
         do {
             _ = try Swiftfall.getCard(exact: "Little Girl")
