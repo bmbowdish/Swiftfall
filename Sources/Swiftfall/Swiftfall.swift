@@ -167,6 +167,8 @@ public class Swiftfall {
         
         public struct Face: Codable, CustomStringConvertible {
             
+            // All of these variables are the same as a normal card.
+            
             public let name: String?
             
             public let mana_cost: String?
