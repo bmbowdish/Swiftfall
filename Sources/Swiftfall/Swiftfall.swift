@@ -333,6 +333,12 @@ public class Swiftfall {
         // This card’s border color: black, borderless, gold, silver, or white.
         public let border_color: String
         
+        // This card’s story spotlight number, if any.
+        public let story_spotlight_number: Int?
+        
+        // A URL to this cards’s story article, if any.
+        public let story_spotlight_uri: String?
+
         // return string when self is used as a parameter for print
         public var description: String{
             var text = ""
