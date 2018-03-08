@@ -167,6 +167,8 @@ public class Swiftfall {
         
         public struct Face: Codable, CustomStringConvertible {
             
+            // All of these variables are the same as a normal card.
+            
             public let name: String?
             
             public let mana_cost: String?
@@ -309,6 +311,36 @@ public class Swiftfall {
         // This card's artist
         public let artist: String?
         
+        // True if this is a digital card on Magic Online.
+        public let digital: Bool
+        
+        // True if this card’s imagery is high resolution.
+        public let highres_image: Bool
+        
+        // True if this card’s artwork is larger than normal.
+        public let full_art: Bool
+        
+        // This card’s watermark, if any.
+        public let watermark: String?
+        
+        // True if this card is timeshifted.
+        public let timeshifted: Bool
+        
+        // True if this card is colorshifted.
+        public let colorshifted: Bool
+        
+        // True if card is from the future
+        public let futureshifted: Bool
+        
+        // This card’s border color: black, borderless, gold, silver, or white.
+        public let border_color: String
+        
+        // This card’s story spotlight number, if any.
+        public let story_spotlight_number: Int?
+        
+        // A URL to this cards’s story article, if any.
+        public let story_spotlight_uri: String?
+
         // return string when self is used as a parameter for print
         public var description: String{
             var text = ""
