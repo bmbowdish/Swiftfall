@@ -340,7 +340,16 @@ public class Swiftfall {
         
         // A URL to this cards’s story article, if any.
         public let story_spotlight_uri: String?
-
+        
+        // Cost of the card in USD
+        public let usd: String?
+        
+        // Cost of the card in tickets
+        public let tix: String?
+        
+        // Cost of the card in euros
+        public let eur: String?
+        
         // return string when self is used as a parameter for print
         public var description: String{
             var text = ""
