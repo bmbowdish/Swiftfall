@@ -395,7 +395,6 @@ public class Swiftfall {
     static func parseResource<ResultType: Decodable>(call:String, completion: @escaping (Result<ResultType>) -> ()) {
         
         let url = URL(string: "\(scryfall)\(call)")
-        print(url)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
             guard let content = data else {
