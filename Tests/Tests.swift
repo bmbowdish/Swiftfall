@@ -251,10 +251,33 @@ class Tests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testEDHRECRank() throws {
+        do {
+            _ = try Swiftfall.getCard(exact: "Sensei's Divining Top").edhrec_rank
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testReserved() throws {
+        do {
+            _ = try Swiftfall.getCard(exact: "Black Lotus").reserved
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
+    
+
 }

@@ -273,6 +273,24 @@ public class Swiftfall {
         // legality in different formats
         public let legalities: [String:String]
         
+        // is or is not on the reserved list
+        public let reserved: Bool
+        
+        // This card’s overall rank/popularity on EDHREC. Not all carsd are ranked.
+        public let edhrec_rank: Int?
+        
+        // If this card is closely related to other cards, this property will be an array with.
+        //public let all_parts: [??]?
+        
+        // This card's set code
+        public let set: String
+        
+        // This card's set's full name
+        public let set_name: String
+        
+        // This card's rarity. This is not the same for all versions of the card.
+        public let rarity: String
+        
         // return string when self is used as a parameter for print
         public var description: String{
             var text = ""
