@@ -395,6 +395,7 @@ public class Swiftfall {
     static func parseResource<ResultType: Decodable>(call:String, completion: @escaping (Result<ResultType>) -> ()) {
         
         let url = URL(string: "\(scryfall)\(call)")
+        print(url)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
             guard let content = data else {
@@ -421,6 +422,26 @@ public class Swiftfall {
             //print("\(String(data: content,encoding: .utf8))")
         }
         task.resume()
+    }
+    
+    // gets a Card by using the code and id number
+    public static func getCard(code: String, number: Int) throws -> Card
+    {
+        let call = "cards/\(code)/\(number)"
+        print(call)
+        var card: Result<Card>?
+        var stop = false
+        parseResource(call: call){
+            (newcard: Result<Card>) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseCard is done
+        }
+        
+        return try card!.promote()
     }
     
     // fuzzy
