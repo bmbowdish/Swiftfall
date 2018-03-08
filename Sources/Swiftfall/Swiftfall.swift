@@ -149,6 +149,21 @@ public class Swiftfall {
     }
     
     public struct Card: Codable, CustomStringConvertible {
+        public struct RelatedCard: Codable, CustomStringConvertible {
+            
+            // An unique ID for this card in Scryfall’s database.
+            let id: String
+            
+            // The name of this particular related card.
+            let name: String
+            
+            // A URI where you can retrieve a full object describing this card on Scryfall’s API.
+            let uri: String
+            
+            public var description: String {
+                return "Name: \(name)\nURI: \(uri)"
+            }
+        }
         
         public struct Face: Codable, CustomStringConvertible {
             
@@ -199,10 +214,10 @@ public class Swiftfall {
         }
         
         // A unique ID for this card in Scryfall’s database.
-        public let id: String?
+        public let id: String
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        public let oracle_id: String?
+        public let oracle_id: String
         
         // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
         public let multiverse_ids: [Int]
@@ -220,19 +235,19 @@ public class Swiftfall {
         public let uri: String?
         
         // A link to this card’s permapage on Scryfall’s website.
-        public let scryfall_uri: String?
+        public let scryfall_uri: String
         
         // If the card has multiple face this is an array of the card faces
         public let card_faces: [Face]?
         
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        public let prints_search_uri: String?
+        public let prints_search_uri: String
         
         // A link to this card’s rulings on Scryfall’s API.
-        public let rulings_uri: String?
+        public let rulings_uri: String
         
         // A computer-readable designation for this card’s layout. See the layout article.
-        public let layout: String?
+        public let layout: String
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
         public let cmc: Double?
@@ -268,7 +283,31 @@ public class Swiftfall {
         public let illustration_id: String?
         
         // uris of the images
-        public let image_uris:[String:String]?
+        public let image_uris: [String:String]?
+        
+        // legality in different formats
+        public let legalities: [String:String]
+        
+        // is or is not on the reserved list
+        public let reserved: Bool
+        
+        // This card’s overall rank/popularity on EDHREC. Not all carsd are ranked.
+        public let edhrec_rank: Int?
+        
+        // If this card is closely related to other cards, this property will be an array with.
+        public let all_parts: [RelatedCard]?
+        
+        // This card's set code
+        public let set: String
+        
+        // This card's set's full name
+        public let set_name: String
+        
+        // This card's rarity. This is not the same for all versions of the card.
+        public let rarity: String
+        
+        // This card's artist
+        public let artist: String?
         
         // return string when self is used as a parameter for print
         public var description: String{
