@@ -149,6 +149,21 @@ public class Swiftfall {
     }
     
     public struct Card: Codable, CustomStringConvertible {
+        public struct RelatedCard: Codable, CustomStringConvertible {
+            
+            // An unique ID for this card in Scryfall’s database.
+            let id: String
+            
+            // The name of this particular related card.
+            let name: String
+            
+            // A URI where you can retrieve a full object describing this card on Scryfall’s API.
+            let uri: String
+            
+            public var description: String {
+                return "Name: \(name)\nURI: \(uri)"
+            }
+        }
         
         public struct Face: Codable, CustomStringConvertible {
             
@@ -280,7 +295,7 @@ public class Swiftfall {
         public let edhrec_rank: Int?
         
         // If this card is closely related to other cards, this property will be an array with.
-        //public let all_parts: [??]?
+        public let all_parts: [RelatedCard]?
         
         // This card's set code
         public let set: String
@@ -290,6 +305,9 @@ public class Swiftfall {
         
         // This card's rarity. This is not the same for all versions of the card.
         public let rarity: String
+        
+        // This card's artist
+        public let artist: String?
         
         // return string when self is used as a parameter for print
         public var description: String{
