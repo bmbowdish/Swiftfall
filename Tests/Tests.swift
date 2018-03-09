@@ -56,6 +56,15 @@ class Tests: XCTestCase {
         }
     }
     
+    func testCatalog() throws {
+        do {
+            _ = try Swiftfall.getCatalog(catalog: "land-types")
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testFuzzySpellSimpleSingleWord() throws {
         do {
             _ = try Swiftfall.getCard(fuzzy: "Shock")
