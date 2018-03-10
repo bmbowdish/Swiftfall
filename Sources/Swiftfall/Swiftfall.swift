@@ -529,7 +529,6 @@ public class Swiftfall {
     public static func getCatalog(catalog: String) throws -> Catalog {
         let encodeCatalog = catalog.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "catalog/\(encodeCatalog)"
-        print(call)
         var cat: Result<Catalog>?
         var stop = false
         parseResource(call: call) {
