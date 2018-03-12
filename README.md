@@ -272,6 +272,10 @@ $ swift package generate-xcodeproj
 
 Now you're ready to use Swiftfall!
 
+If you are interested in checking out a project using Swiftfall you can checkout:
+
+https://github.com/bmbowdish/Test-Swiftfall
+
 # Catalog Examples
 card-names
 
