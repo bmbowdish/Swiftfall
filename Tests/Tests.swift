@@ -65,16 +65,7 @@ class Tests: XCTestCase {
             XCTFail()
         }
     }
-    
-    func testCatalog() throws {
-        do {
-            _ = try Swiftfall.getCatalog(catalog: "land-types")
-        } catch {
-            print(error)
-            XCTFail()
-        }
-    }
-    
+
     func testFuzzySpellSimpleSingleWord() throws {
         do {
             _ = try Swiftfall.getCard(fuzzy: "Shock")
@@ -298,7 +289,23 @@ class Tests: XCTestCase {
         }
     }
     
+    func testAutocomplete() throws {
+        do {
+            _ = try Swiftfall.autocomplete("Thal")
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
     
+    func testCatalog() throws {
+        do {
+            _ = try Swiftfall.getCatalog(catalog: "land-types").total_values
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

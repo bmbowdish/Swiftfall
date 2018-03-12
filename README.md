@@ -41,6 +41,8 @@ Swiftfall.getCard(code: String, number: Int) throws -> Card _(Set Code, ID Numbe
 
 Swiftfall.getRandomCard() throws -> Card _(Random Card)_
 
+... and more! 
+
 Ex.
 ``` 
 import Swiftfall
@@ -61,36 +63,6 @@ Oracle Text:
 ```
 
 #### Double-Sided Cards
-Ex.
-``` 
-import Swiftfall
-do {
-  let card = try Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
-  print(card)
-  } catch {
-    print(error)
-}
-```
-Out.
-```
-Name: Jace, Vryn's Prodigy
-Cost: {1}{U}
-Type Line: Legendary Creature — Human Wizard
-Oracle Text:
-{T}: Draw a card, then discard a card. If there are five or more cards in your graveyard, exile Jace, Vryn's Prodigy, then return him to the battlefield transformed under his owner's control.
-Power: 0
-Toughness: 2
-Name: Jace, Telepath Unbound
-Cost: 
-Type Line: Legendary Planeswalker — Jace
-Oracle Text:
-+1: Up to one target creature gets -2/-0 until your next turn.
-−3: You may cast target instant or sorcery card from your graveyard this turn. If that card would be put into your graveyard this turn, exile it instead.
-−9: You get an emblem with "Whenever you cast a spell, target opponent puts the top five cards of his or her library into his or her graveyard."
-Loyalty: 5
-```
-
-**OR** 
 
 Ex.
 ``` 
@@ -139,21 +111,7 @@ do {
   print(error)
 }
 ```
-Out.
-```
-Card Number: 0
 
-Name: Akroma's Vengeance
-Cost: {4}{W}{W}
-Type Line: Sorcery
-Oracle Text:
-Destroy all artifacts, creatures, and enchantments.
-Cycling {3} ({3}, Discard this card: Draw a card.)
-
-Card Number: 1
-...
-...
-```
 
 ### Get a ScryfallSet
 Swiftfall.getSet(code:String) throws -> Set _(String must be a three letter code)_
@@ -189,22 +147,7 @@ do {
   print(error)
 }
 ```
-Out.
-```
-Set Number: 0
-Name: Masters 25
-Number of Cards: 55
-Set Type:masters
 
-Set Number: 1
-Name: Masters 25 Tokens
-Number of Cards: 1
-Set Type:token
-
-Set Number: 2
-...
-...
-```
 ### Get a list of Rulings
 Swiftfall.getRulingList(code:String,number:Int) throws -> RulingList
 
@@ -217,17 +160,6 @@ do {
 } catch {
   print(error)
 }
-```
-Out. 
-```
-Source: wotc
-Comments: Mana Drain can target a spell that can’t be countered. When Mana Drain resolves, that spell won’t be countered, but you’ll still add mana to your mana pool at the beginning of your next main phase.
-
-Source: wotc
-Comments: If the target spell is an illegal target when Mana Drain tries to resolve, it will be countered and none of its effects will happen. You won’t get any mana.
-
-Source: wotc
-Comments: Mana Drain’s delayed triggered ability will usually trigger at the beginning of your precombat main phase. However, if you cast Mana Drain during your precombat main phase or during your combat phase, its delayed triggered ability will trigger at the beginning of that turn’s postcombat main phase.
 ```
 
 ### Get a Ruling
@@ -245,11 +177,6 @@ do {
 } catch {
   print(error)
 }
-```
-Out. 
-```
-Source: wotc
-Comments: If the target spell is an illegal target when Mana Drain tries to resolve, it will be countered and none of its effects will happen. You won’t get any mana.
 ```
 
 ### Get a Catalog
@@ -345,3 +272,25 @@ $ swift package generate-xcodeproj
 
 Now you're ready to use Swiftfall!
 
+# Catalog Examples
+card-names
+
+word-bank
+
+creature-types
+
+planeswalker-types
+
+land-types
+
+spell-types
+
+artifact-types
+
+powers
+
+toughnesses
+
+loyalties
+
+watermarks
