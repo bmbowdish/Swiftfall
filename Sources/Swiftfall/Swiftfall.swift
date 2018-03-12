@@ -73,9 +73,11 @@ public class Swiftfall {
         }
     }
     
+    // A Catalog object contains an array of Magic datapoints (words, card values, etc). Catalog objects are provided by the API as aids for building other Magic software and understanding possible values for a field on Card objects.
     public struct Catalog: Codable, CustomStringConvertible {
-        public let uri: String
-        public let total_values: Int
+        public let uri: String?
+        public let total_values: Int?
+        public let total_items: Int?
         public let data:[String]
         
         public var description: String {
@@ -103,6 +105,7 @@ public class Swiftfall {
         }
     }
     
+    // Sometimes we will cause and error and the API will tell us what it is.
     struct ScryfallError: Codable, Error, CustomStringConvertible {
         
         let code: String
@@ -231,6 +234,8 @@ public class Swiftfall {
     }
     
     public struct Card: Codable, CustomStringConvertible {
+        
+        // Some cards have cards closely related to them. They will contain an array of RelatedCards.
         public struct RelatedCard: Codable, CustomStringConvertible {
             
             // An unique ID for this card in Scryfall’s database.
@@ -464,7 +469,6 @@ public class Swiftfall {
             }
             
             return text
-            
         }
     }
     
@@ -505,11 +509,8 @@ public class Swiftfall {
                     completion(.failure(decoded))
                 }
             } catch {
-                //print("Error: \(error)")
                 completion(.failure(error))
             }
-            
-            //print("\(String(data: content,encoding: .utf8))")
         }
         task.resume()
     }
@@ -526,7 +527,7 @@ public class Swiftfall {
         }
         
         while(!stop){
-            //Do this until parseCard is done
+            //Do this until parseResouce is done
         }
         
         return try card!.promote()
@@ -547,7 +548,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            // Do this until parseCard is done
+            // Do this until parseResource is done
         }
         
         return try card!.promote()
@@ -568,7 +569,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try card!.promote()
@@ -587,7 +588,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            // Do this until parseCard is done
+            // Do this until parseResource is done
         }
         
         return try card!.promote()
@@ -606,7 +607,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try cat!.promote()
@@ -626,7 +627,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try set!.promote()
@@ -646,7 +647,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try setlist!.promote()
@@ -665,7 +666,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try cardlist!.promote()
@@ -684,7 +685,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try cardlist!.promote()
@@ -703,7 +704,7 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try rulelist!.promote()
@@ -722,11 +723,29 @@ public class Swiftfall {
         }
         
         while(!stop) {
-            //Do this until parseCard is done
+            //Do this until parseResource is done
         }
         
         return try symbollist!.promote()
+    }
+    
+    // give a search term and return a catalog of similar cards
+    public static func autocomplete(_ string: String) throws -> Catalog {
+        let call = "cards/autocomplete?q=\(string)"
         
+        var cat: Result<Catalog>?
+        var stop = false
+        parseResource(call: call) {
+            (newcat: Result<Catalog>) in
+            cat = newcat
+            stop = true
+        }
+        
+        while(!stop) {
+            //Do this until parseResource is done
+        }
+        
+        return try cat!.promote()
     }
 }
 
