@@ -4,8 +4,64 @@ public class Swiftfall {
     
     static let scryfall = "https://api.scryfall.com/"
     
+    public struct Symbol: Codable, CustomStringConvertible {
+        
+        // The plaintext symbol. Often surrounded with curly braces {}. Note that not all symbols are ASCII text (for example, {∞}).
+        public let symbol: String
+        
+        // An alternate version of this symbol, if it is possible to write it without curly braces.
+        public let loose_variant: String?
+        
+        // An English snippet that describes this symbol. Appropriate for use in alt text or other accessible communication formats.
+        public let english: String
+        
+        // True if it is possible to write this symbol “backwards”. For example, the official symbol {U/P} is sometimes written as {P/U} or {P\U} in informal settings. Note that the Scryfall API never writes symbols backwards in other responses. This field is provided for informational purposes.
+        public let transposable: Bool
+        
+        // True if this is a mana symbol.
+        public let represents_mana: Bool
+        
+        // True if this symbol appears in a mana cost on any Magic card. For example {20} has this field set to false because {20} only appears in Oracle text, not mana costs.
+        public let appears_in_mana_costs: Bool
+        
+        // A decimal number representing this symbol’s converted mana cost. Note that mana symbols from funny sets can have fractional converted mana costs.
+        public let cmc: Double?
+        
+        // True if this symbol is only used on funny cards or Un-cards.
+        public let funny: Bool
+        
+        // An array of colors that this symbol represents.
+        public let colors: [String]
+        
+        // String that is printed when print(self) is called.
+        public var description: String {
+            return "Symbol: \(symbol)\nEnglish: \(english)\n"
+        }
+    }
+    
+    public struct SymbolList: Codable, CustomStringConvertible {
+        
+        // if there are more pages, should always be false
+        public let has_more: Bool
+        
+        // the symbols
+        public let data: [Symbol]
+
+        public var description: String {
+            var text = ""
+            for sym in data {
+                text += sym.description
+                text += "\n"
+            }
+            return text
+        }
+    }
+    
     public struct RulingList: Codable, CustomStringConvertible {
+        // Contains rulings
         public let data: [Ruling]
+        
+        public let has_more: Bool
         
         public var description: String {
             var text = ""
@@ -64,6 +120,8 @@ public class Swiftfall {
         // data is an array of Sets
         public let data: [ScryfallSet]
         
+        public let has_more: Bool
+        
         // prints each set
         public var description: String {
             var text = ""
@@ -82,6 +140,8 @@ public class Swiftfall {
     public struct CardList: Codable, CustomStringConvertible {
         // an array of Cards
         public let data: [Card]
+        
+        public let has_more: Bool
         
         // prints each set
         public var description: String {
@@ -639,6 +699,25 @@ public class Swiftfall {
         }
         
         return try rulelist!.promote()
+        
+    }
+    
+    public static func getSymbols() throws -> SymbolList {
+        let call = "symbology"
+        
+        var symbollist: Result<SymbolList>?
+        var stop = false
+        parseResource(call: call) {
+            (newsym: Result<SymbolList>) in
+            symbollist = newsym
+            stop = true
+        }
+        
+        while(!stop) {
+            //Do this until parseCard is done
+        }
+        
+        return try symbollist!.promote()
         
     }
 }
