@@ -291,7 +291,7 @@ class Tests: XCTestCase {
     
     func testAutocomplete() throws {
         do {
-            print(try Swiftfall.autocomplete("Thal"))
+            _ = try Swiftfall.autocomplete("Thal")
         } catch {
             print(error)
             XCTFail()
