@@ -74,8 +74,9 @@ public class Swiftfall {
     }
     
     public struct Catalog: Codable, CustomStringConvertible {
-        public let uri: String
-        public let total_values: Int
+        public let uri: String?
+        public let total_values: Int?
+        public let total_items: Int?
         public let data:[String]
         
         public var description: String {
@@ -718,7 +719,24 @@ public class Swiftfall {
         }
         
         return try symbollist!.promote()
+    }
+    
+    public static func autocomplete(_ string: String) throws -> Catalog {
+        let call = "cards/autocomplete?q=\(string)"
         
+        var cat: Result<Catalog>?
+        var stop = false
+        parseResource(call: call) {
+            (newcat: Result<Catalog>) in
+            cat = newcat
+            stop = true
+        }
+        
+        while(!stop) {
+            //Do this until parseCard is done
+        }
+        
+        return try cat!.promote()
     }
 }
 
