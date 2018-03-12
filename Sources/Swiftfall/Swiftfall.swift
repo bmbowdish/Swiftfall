@@ -106,12 +106,20 @@ public class Swiftfall {
     struct ScryfallError: Codable, Error, CustomStringConvertible {
         
         let code: String
-        let type: String
+        let type: String?
         let status: Int
+        let warnings: [String]?
+        
         let details: String
         
         public var description: String {
-            return "Error: \(code)\nDetails: \(details)\n"
+            var text = "Error: \(code)\nDetails: \(details)\n"
+            if let warns = warnings {
+                for warning in warns {
+                    text += warning + "\n"
+                }
+            }
+            return text
         }
     }
     

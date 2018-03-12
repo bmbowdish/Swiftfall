@@ -298,6 +298,14 @@ class Tests: XCTestCase {
         }
     }
     
+    func testErrorWarning() throws {
+        do {
+            _ = try Swiftfall.getCatalog(catalog: "types")
+        } catch {
+            print(error)
+        }
+    }
+    
     
     
     func testPerformanceExample() throws {
