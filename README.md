@@ -19,6 +19,9 @@ All types are Structs and can be reach through a Swiftfall.get*().
  * named ScryfallSet due to Set already existing in Swift.
 #### Ruling
  * Struct containing data about a Magic Card's rulings. 
+#### Catalog
+ * Struct containing data about Magic. 
+ * Example: "land-types"
 ### Structs which contain Arrays of Types 
 #### CardList 
  * Struct containing a list of Cards.
@@ -45,7 +48,7 @@ do {
   let card = try Swiftfall.getCard(exact:"Black Lotus")
   print(card)
   } catch {
-    ...
+    print(error)
 }
 ```
 Out.
@@ -65,7 +68,7 @@ do {
   let card = try Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
   print(card)
   } catch {
-    ...
+    print(error)
 }
 ```
 Out.
@@ -100,7 +103,7 @@ do {
   print(front)
   print(back)
   } catch {
-    ...
+    print(error)
 }
 ```
 Out. 
@@ -133,7 +136,7 @@ do {
   let cardlist = try Swiftfall.getCardList(page:0) // this is the same as .getCardList()
   print(cardlist)
 } catch {
-  ... 
+  print(error)
 }
 ```
 Out.
@@ -162,7 +165,7 @@ do {
   let set = try Swiftfall.getSet(code: "KTK")
   print(set) 
 } catch {
-  ...
+  print(error)
 }
 ```
 Out.
@@ -183,7 +186,7 @@ do {
   let setlist = try Swiftfall.getSetList()
   print(setlist)
 } catch {
-  ...
+  print(error)
 }
 ```
 Out.
@@ -212,7 +215,7 @@ do {
   let rulings = try Swiftfall.getRulingList(code: "ima", number: 65)
   print(rulings)
 } catch {
-  ...
+  print(error)
 }
 ```
 Out. 
@@ -240,7 +243,7 @@ do {
   let ruling = rulings.data[1]
   print(ruling)
 } catch {
-  ...
+  print(error)
 }
 ```
 Out. 
@@ -248,6 +251,37 @@ Out.
 Source: wotc
 Comments: If the target spell is an illegal target when Mana Drain tries to resolve, it will be countered and none of its effects will happen. You won’t get any mana.
 ```
+
+### Get a Catalog
+Catalog objects are provided by the API as aids for building other Magic software and understanding possible values for a field on Card objects.
+Ex. 
+```
+import Swiftfall
+do {
+  let catalog = try Swiftfall.getCatalog(catalog: "land-types")
+  print(catalog)
+} catch {
+  print(error)
+}
+```
+Out. 
+```
+Desert
+Forest
+Gate
+Island
+Lair
+Locus
+Mine
+Mountain
+Plains
+Power-Plant
+Swamp
+Tower
+Urza’s
+
+```
+
 ## Testing 
 
 Testing allows for us to check certain scenarios quickly and determine the problems in a easy to understand and grasp manner. 
@@ -259,6 +293,7 @@ func testRandomCard(){
     do { 
       _ = try Swiftfall.getRandomCard()
     } catch {
+      print(error)
       XCTFail()
     }
 }

@@ -17,6 +17,20 @@ public class Swiftfall {
         }
     }
     
+    public struct Catalog: Codable, CustomStringConvertible {
+        public let uri: String
+        public let total_values: Int
+        public let data:[String]
+        
+        public var description: String {
+            var text = ""
+            for thing in data {
+                text += "\(thing)\n"
+            }
+            return text
+        }
+    }
+    
     public struct Ruling: Codable, CustomStringConvertible {
         //     A computer-readable string indicating which company produced this ruling, either wotc or scryfall.
         public let source: String
@@ -511,6 +525,24 @@ public class Swiftfall {
         return try card!.promote()
     }
     
+    // get a catalog
+    public static func getCatalog(catalog: String) throws -> Catalog {
+        let encodeCatalog = catalog.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "catalog/\(encodeCatalog)"
+        var cat: Result<Catalog>?
+        var stop = false
+        parseResource(call: call) {
+            (newcat: Result<Catalog>) in
+            cat = newcat
+            stop = true
+        }
+        
+        while(!stop) {
+            //Do this until parseCard is done
+        }
+        
+        return try cat!.promote()
+    }
     
     // set
     public static func getSet(code: String) throws -> ScryfallSet {
