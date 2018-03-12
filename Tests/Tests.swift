@@ -19,6 +19,16 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
+    func testSymbols() throws {
+        do {
+            let sym = try Swiftfall.getSymbols()
+            _ = sym.data[1]
+        } catch {
+            print(error)
+            XCTFail("\(error)")
+        }
+    }
+    
     func testRulingList() throws {
         do {
             let rulings = try Swiftfall.getRulingList(code: "ima", number: 65)
