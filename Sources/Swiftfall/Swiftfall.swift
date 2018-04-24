@@ -163,6 +163,7 @@ public class Swiftfall {
     // A Magic set is how cards are released in reality.
     // It contains no cards in Swiftfall or Scryfall.
     public struct ScryfallSet: Codable, CustomStringConvertible {
+        
         // The unique three or four-letter code for this set.
         public let code: String?
         
@@ -194,7 +195,7 @@ public class Swiftfall {
         public let digital: Bool
         
         // Bool for if the card is foil
-        public let foil: Bool
+        public let foil_only: Bool
         
         // Block code, like self.code but the for the block the set is a member of
         public let block_code: String?

@@ -197,6 +197,15 @@ class Tests: XCTestCase {
         }
     }
     
+    func testSetFoil() throws {
+        do {
+            print(try Swiftfall.getSet(code: "KTK").foil_only)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testSetCodeNoBlock() throws {
         do {
             _ = try Swiftfall.getSet(code: "EMA")
