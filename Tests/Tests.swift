@@ -316,6 +316,105 @@ class Tests: XCTestCase {
         }
     }
     
+    func testCardNames() throws {
+        do {
+            _ = try Swiftfall.card_names()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testWordBank() throws {
+        do {
+            _ = try Swiftfall.word_bank()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testCreatureTypes() throws {
+        do {
+            _ = try Swiftfall.creature_types()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testPlaneswalkerTypes() throws {
+        do {
+            _ = try Swiftfall.planeswalker_types()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testLandTypes() throws {
+        do {
+            _ = try Swiftfall.land_types()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testSpellTypes() throws {
+        do {
+            _ = try Swiftfall.spell_types()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testArtifactTypes() throws {
+        do {
+            _ = try Swiftfall.artifact_types()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testPowers() throws {
+        do {
+            _ = try Swiftfall.powers()
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testToughnesses() throws {
+        do {
+            print(try Swiftfall.toughnesses())
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testLoyalties() throws {
+        do {
+            print(try Swiftfall.loyalties())
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testWatermarks() throws {
+        do {
+            print(try Swiftfall.watermarks())
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
@@ -323,5 +422,6 @@ class Tests: XCTestCase {
         }
     }
     
+
 
 }
