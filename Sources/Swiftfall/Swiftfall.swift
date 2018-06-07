@@ -740,5 +740,54 @@ public class Swiftfall {
         
         return try cat!.promote()
     }
+    
+    // prints a list of all catalogs for the user
+    public static func catalogs() {
+        print("There are 11 catalogs.\n* card-names\n* word-bank\n* creature-types\n* planeswalker-types\n* land-types\n* spell-types\n* artifact-types\n* powers\n* toughnesses\n* loyalties\n* watermarks")
+    }
+    
+    public static func card_names() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "card-names")
+    }
+    
+    public static func word_bank() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "word-bank")
+    }
+    
+    public static func creature_types() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "creature-types")
+    }
+    
+    public static func planeswalker_types() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "planeswalker-types")
+    }
+    
+    public static func land_types() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "land-types")
+    }
+    
+    public static func spell_types() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "spell-types")
+    }
+    
+    public static func artifact_types() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "artifact-types")
+    }
+    
+    public static func powers() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "powers")
+    }
+    
+    public static func toughnesses() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "toughnesses")
+    }
+    
+    public static func loyalties() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "loyalties")
+    }
+    
+    public static func watermarks() throws -> Catalog {
+        return try Swiftfall.getCatalog(catalog: "watermarks")
+    }
 }
 
