@@ -390,7 +390,7 @@ class Tests: XCTestCase {
     
     func testToughnesses() throws {
         do {
-            print(try Swiftfall.toughnesses())
+            _ = try Swiftfall.toughnesses()
         } catch {
             print(error)
             XCTFail()
@@ -399,7 +399,7 @@ class Tests: XCTestCase {
     
     func testLoyalties() throws {
         do {
-            print(try Swiftfall.loyalties())
+            _ = try Swiftfall.loyalties()
         } catch {
             print(error)
             XCTFail()
@@ -408,7 +408,7 @@ class Tests: XCTestCase {
     
     func testWatermarks() throws {
         do {
-            print(try Swiftfall.watermarks())
+            _ = try Swiftfall.watermarks()
         } catch {
             print(error)
             XCTFail()
