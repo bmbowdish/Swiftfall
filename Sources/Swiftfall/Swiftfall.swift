@@ -741,6 +741,11 @@ public class Swiftfall {
         return try cat!.promote()
     }
     
+    // prints a list of all catalogs for the user
+    public static func catalogs() {
+        print("There are 11 catalogs./n* card-names/n* word-bank/n* creature-types/n* planeswalker-types/n* land-types/n* spell-types/n* artifact-types/n* powers/n* toughnesses/n* loyalties/n* watermarks")
+    }
+    
     public static func card_names() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "card-names")
     }
