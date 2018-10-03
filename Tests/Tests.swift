@@ -415,6 +415,15 @@ class Tests: XCTestCase {
         }
     }
     
+    func testArenaCode() throws {
+        do {
+            _ = try Swiftfall.getCard(arena: 67330)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {

@@ -526,6 +526,24 @@ public class Swiftfall {
         return try card!.promote()
     }
     
+    // gets a Card by using the arena code
+    public static func getCard(arena: Int) throws -> Card {
+        let call = "cards/arena/\(arena)"
+        var card: Result<Card>?
+        var stop = false
+        parseResource(call: call){
+            (newcard: Result<Card>) in
+            card = newcard
+            stop = true
+        }
+        
+        while(!stop){
+            //Do this until parseResouce is done
+        }
+        
+        return try card!.promote()
+    }
+    
     // fuzzy
     public static func getCard(fuzzy: String) throws -> Card {
         let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
