@@ -295,6 +295,37 @@ public class Swiftfall {
             }
         }
         
+        public struct Prices: Codable, CustomStringConvertible {
+            
+            public let usd: String?
+            
+            public let usd_foil: String?
+            
+            public let eur: String?
+
+            public let tix: String?
+
+            public var description: String {
+                var text = ""
+                if self.usd != nil {
+                    text += "usd: \(usd)"
+                }
+                if self.usd_foil != nil {
+                    text += "usd_foil: \(usd_foil)"
+                }
+                if self.eur != nil {
+                    text += "usd: \(eur)"
+                }
+                if self.tix != nil {
+                    text += "usd: \(tix)"
+                }
+                return text
+            }
+            
+        }
+        
+        public let prices: Prices?
+        
         // A unique ID for this card in Scryfall’s database.
         public let id: String
         
@@ -411,15 +442,6 @@ public class Swiftfall {
         
         // A URL to this cards’s story article, if any.
         public let story_spotlight_uri: String?
-        
-        // Cost of the card in USD
-        public let usd: String?
-        
-        // Cost of the card in tickets
-        public let tix: String?
-        
-        // Cost of the card in euros
-        public let eur: String?
         
         // return string when self is used as a parameter for print
         public var description: String {
