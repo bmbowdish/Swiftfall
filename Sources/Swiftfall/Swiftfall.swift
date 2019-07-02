@@ -307,16 +307,16 @@ public class Swiftfall {
 
             public var description: String {
                 var text = ""
-                if self.usd != nil {
+                if let usd = self.usd {
                     text += "usd: \(usd)"
                 }
-                if self.usd_foil != nil {
+                if let usd_foil = self.usd_foil {
                     text += "usd_foil: \(usd_foil)"
                 }
-                if self.eur != nil {
+                if let eur = self.eur {
                     text += "usd: \(eur)"
                 }
-                if self.tix != nil {
+                if let tix = self.tix {
                     text += "usd: \(tix)"
                 }
                 return text
