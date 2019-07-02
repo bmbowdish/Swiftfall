@@ -300,7 +300,7 @@ public class Swiftfall {
             public let usd: String?
             
             public let usdFoil: String?
-            
+          
             public let eur: String?
 
             public let tix: String?
