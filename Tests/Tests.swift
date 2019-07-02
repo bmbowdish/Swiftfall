@@ -426,8 +426,7 @@ class Tests: XCTestCase {
     
     func testPrices() throws {
         do {
-            let card = try Swiftfall.getCard(fuzzy: "Brainstorm")
-            print(card.prices?.usd!)
+            let _ = try Swiftfall.getCard(fuzzy: "Brainstorm")
         } catch {
             print(error)
             XCTFail()
