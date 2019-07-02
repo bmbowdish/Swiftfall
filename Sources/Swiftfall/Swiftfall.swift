@@ -526,16 +526,15 @@ public class Swiftfall {
     public static func getCard(code: String, number: Int) throws -> Card {
         let call = "cards/\(code)/\(number)"
         var card: Result<Card>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call){
             (newcard: Result<Card>) in
             card = newcard
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop){
-            //Do this until parseResouce is done
-        }
+        semaphore.wait()
         
         return try card!.promote()
     }
@@ -544,16 +543,15 @@ public class Swiftfall {
     public static func getCard(arena: Int) throws -> Card {
         let call = "cards/arena/\(arena)"
         var card: Result<Card>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call){
             (newcard: Result<Card>) in
             card = newcard
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop){
-            //Do this until parseResouce is done
-        }
+        semaphore.wait()
         
         return try card!.promote()
     }
@@ -565,16 +563,14 @@ public class Swiftfall {
         
 
         var card: Result<Card>?
-        var stop = false
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcard:Result<Card>) in
             card = newcard
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            // Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try card!.promote()
     }
@@ -586,16 +582,15 @@ public class Swiftfall {
         let call = "cards/named?exact=\(encodeExactly)"
         
         var card: Result<Card>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcard: Result<Card>) in
             card = newcard
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try card!.promote()
     }
@@ -605,16 +600,15 @@ public class Swiftfall {
         let call = "cards/random"
         
         var card: Result<Card>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcard: Result<Card>) in
             card = newcard
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            // Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try card!.promote()
     }
@@ -624,16 +618,15 @@ public class Swiftfall {
         let encodeCatalog = catalog.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let call = "catalog/\(encodeCatalog)"
         var cat: Result<Catalog>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcat: Result<Catalog>) in
             cat = newcat
-            stop = true
+            semaphore.signal()
+            
         }
-        
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try cat!.promote()
     }
@@ -644,16 +637,15 @@ public class Swiftfall {
         let call = "sets/\(encodeExactly)"
         
         var set: Result<ScryfallSet>?
-        var stop = false
+       
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newset: Result<ScryfallSet>) in
             set = newset
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try set!.promote()
     }
@@ -664,16 +656,15 @@ public class Swiftfall {
         let call = "sets/"
         
         var setlist: Result<SetList>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newsetlist: Result<SetList>) in
             setlist = newsetlist
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try setlist!.promote()
     }
@@ -683,16 +674,15 @@ public class Swiftfall {
         let call = "cards/"
         
         var cardlist: Result<CardList>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcardlist: Result<CardList>) in
             cardlist = newcardlist
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try cardlist!.promote()
     }
@@ -702,16 +692,15 @@ public class Swiftfall {
         let call = "cards?page=\(page)"
         
         var cardlist: Result<CardList>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcardlist: Result<CardList>) in
             cardlist = newcardlist
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try cardlist!.promote()
     }
@@ -721,16 +710,15 @@ public class Swiftfall {
         let call = "cards/\(code)/\(number)/rulings"
         
         var rulelist: Result<RulingList>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newrulelist: Result<RulingList>) in
             rulelist = newrulelist
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try rulelist!.promote()
         
@@ -740,16 +728,14 @@ public class Swiftfall {
         let call = "symbology"
         
         var symbollist: Result<SymbolList>?
-        var stop = false
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newsym: Result<SymbolList>) in
             symbollist = newsym
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try symbollist!.promote()
     }
@@ -759,16 +745,15 @@ public class Swiftfall {
         let call = "cards/autocomplete?q=\(string)"
         
         var cat: Result<Catalog>?
-        var stop = false
+        
+        let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newcat: Result<Catalog>) in
             cat = newcat
-            stop = true
+            semaphore.signal()
         }
         
-        while(!stop) {
-            //Do this until parseResource is done
-        }
+        semaphore.wait()
         
         return try cat!.promote()
     }
