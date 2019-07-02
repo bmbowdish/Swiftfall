@@ -69,7 +69,7 @@ Ex.
 import Swiftfall
 do {
   let card = try Swiftfall.getCard(exact:"Jace, Vryn's Prodigy")
-  let faces = card.card_faces
+  let faces = card.cardFaces
   let front = faces![0]
   let back = faces![1]
   print(front)

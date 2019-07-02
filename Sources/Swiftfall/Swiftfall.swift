@@ -10,7 +10,7 @@ public class Swiftfall {
         public let symbol: String
         
         // An alternate version of this symbol, if it is possible to write it without curly braces.
-        public let loose_variant: String?
+        public let looseVariant: String?
         
         // An English snippet that describes this symbol. Appropriate for use in alt text or other accessible communication formats.
         public let english: String
@@ -19,10 +19,10 @@ public class Swiftfall {
         public let transposable: Bool
         
         // True if this is a mana symbol.
-        public let represents_mana: Bool
+        public let representsMana: Bool?
         
         // True if this symbol appears in a mana cost on any Magic card. For example {20} has this field set to false because {20} only appears in Oracle text, not mana costs.
-        public let appears_in_mana_costs: Bool
+        public let appearsInManaCosts: Bool
         
         // A decimal number representing this symbol’s converted mana cost. Note that mana symbols from funny sets can have fractional converted mana costs.
         public let cmc: Double?
@@ -42,7 +42,7 @@ public class Swiftfall {
     public struct SymbolList: Codable, CustomStringConvertible {
         
         // if there are more pages, should always be false
-        public let has_more: Bool
+        public let hasMore: Bool
         
         // the symbols
         public let data: [Symbol]
@@ -61,7 +61,7 @@ public class Swiftfall {
         // Contains rulings
         public let data: [Ruling]
         
-        public let has_more: Bool
+        public let hasMore: Bool
         
         public var description: String {
             var text = ""
@@ -76,8 +76,8 @@ public class Swiftfall {
     // A Catalog object contains an array of Magic datapoints (words, card values, etc). Catalog objects are provided by the API as aids for building other Magic software and understanding possible values for a field on Card objects.
     public struct Catalog: Codable, CustomStringConvertible {
         public let uri: String?
-        public let total_values: Int?
-        public let total_items: Int?
+        public let totalValues: Int?
+        public let totalItems: Int?
         public let data:[String]
         
         public var description: String {
@@ -94,7 +94,7 @@ public class Swiftfall {
         public let source: String
 
         // The date when the ruling or note was published.
-        public let published_at: String
+        public let publishedAt: String
         
         // The text of the ruling.
         public let comment: String
@@ -123,7 +123,7 @@ public class Swiftfall {
         // data is an array of Sets
         public let data: [ScryfallSet]
         
-        public let has_more: Bool
+        public let hasMore: Bool
         
         // prints each set
         public var description: String {
@@ -144,7 +144,7 @@ public class Swiftfall {
         // an array of Cards
         public let data: [Card]
         
-        public let has_more: Bool
+        public let hasMore: Bool
         
         // prints each set
         public var description: String {
@@ -177,34 +177,34 @@ public class Swiftfall {
         public let uri: String
         
         // Scryfall API URI 
-        public let scryfall_uri: String
+        public let scryfallUri: String
         
         // A Scryfall API URI that you can request to begin paginating over the cards in this set.
-        public let search_uri: String
+        public let searchUri: String
         
         // the release date of the set
-        public let released_at: String?
+        public let releasedAt: String?
         
         // A computer-readable classification for this set. See below.
-        public let set_type: String
+        public let setType: String
         
         // The number of cards in this set.
-        public let card_count: Int
+        public let cardCount: Int
         
         // Bool for if the card is digital
         public let digital: Bool
         
         // Bool for if the card is foil
-        public let foil_only: Bool
+        public let foilOnly: Bool
         
         // Block code, like self.code but the for the block the set is a member of
-        public let block_code: String?
+        public let blockCode: String?
         
         // The block or group name code for this set, if any.
         public let block: String?
         
         //A URI to an SVG file for this set’s icon on Scryfall’s CDN. Hotlinking this image isn’t recommended, because it may change slightly over time. You should download it and use it locally for your particular user interface needs.
-        public let icon_svg_uri: String?
+        public let iconSvgUri: String?
         
         // prints the minimal data for the set
         public var description: String{
@@ -216,11 +216,11 @@ public class Swiftfall {
             if self.block != nil {
                 text += "Block: \(self.block!)\n"
             }
-            text += "Number of Cards: \(self.card_count)\n"
-            if self.released_at != nil {
-                text += "Release Date: \(self.released_at!)\n"
+            text += "Number of Cards: \(self.cardCount)\n"
+            if self.releasedAt != nil {
+                text += "Release Date: \(self.releasedAt!)\n"
             }
-            text += "Set Type: \(set_type)\n"
+            text += "Set Type: \(setType)\n"
             
             return text
         }                   
@@ -251,11 +251,11 @@ public class Swiftfall {
             
             public let name: String?
             
-            public let mana_cost: String?
+            public let manaCost: String?
             
-            public let type_line: String?
+            public let typeLine: String?
             
-            public let oracle_text: String?
+            public let oracleText: String?
             
             public let colors: [String]?
             
@@ -265,25 +265,25 @@ public class Swiftfall {
             
             public let loyalty: String?
             
-            public let flavor_text: String?
+            public let flavorText: String?
             
-            public let illustration_id: String?
+            public let illustrationId: String?
 
-            public let image_uris: [String: String]?
+            public let imageUris: [String: String]?
             
             public var description: String {
                 var text = ""
                 // Each variable is tested to see if printing it makes sense.
                 text += "Name: \(name!)\n"
                 
-                if self.mana_cost != nil {
-                    text += "Cost: \(mana_cost!)\n"
+                if self.manaCost != nil {
+                    text += "Cost: \(manaCost!)\n"
                 }
-                if self.type_line != nil {
-                    text += "Type Line: \(type_line!)\n"
+                if self.typeLine != nil {
+                    text += "Type Line: \(typeLine!)\n"
                 }
-                if self.oracle_text != nil {
-                    text += "Oracle Text:\n\(oracle_text!)\n"
+                if self.oracleText != nil {
+                    text += "Oracle Text:\n\(oracleText!)\n"
                 }
                 if self.power != nil && self.toughness != nil {
                     text += "Power: \(power!)\nToughness: \(toughness!)\n"
@@ -299,8 +299,8 @@ public class Swiftfall {
             
             public let usd: String?
             
-            public let usd_foil: String?
-            
+            public let usdFoil: String?
+          
             public let eur: String?
 
             public let tix: String?
@@ -310,8 +310,8 @@ public class Swiftfall {
                 if self.usd != nil {
                     text += "usd: \(usd)"
                 }
-                if self.usd_foil != nil {
-                    text += "usd_foil: \(usd_foil)"
+                if self.usdFoil != nil {
+                    text += "usd foil: \(usdFoil)"
                 }
                 if self.eur != nil {
                     text += "usd: \(eur)"
@@ -330,16 +330,16 @@ public class Swiftfall {
         public let id: String
         
         // A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-        public let oracle_id: String
+        public let oracleId: String
         
         // This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
-        public let multiverse_ids: [Int]
+        public let multiverseIds: [Int]
         
         // This card’s Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        public let mtgo_id: Int?
+        public let mtgoId: Int?
         
         // This card’s foil Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-        public let mtgo_foil_id: Int?
+        public let mtgoFoilId: Int?
         
         // The name of this card. If this card has multiple faces, this field will contain both names separated by ␣//␣.
         public let name: String?
@@ -348,16 +348,16 @@ public class Swiftfall {
         public let uri: String?
         
         // A link to this card’s permapage on Scryfall’s website.
-        public let scryfall_uri: String
+        public let scryfallUri: String
         
         // If the card has multiple face this is an array of the card faces
-        public let card_faces: [Face]?
+        public let cardFaces: [Face]?
         
         // A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-        public let prints_search_uri: String
+        public let printsSearchUri: String
         
         // A link to this card’s rulings on Scryfall’s API.
-        public let rulings_uri: String
+        public let rulingsUri: String
         
         // A computer-readable designation for this card’s layout. See the layout article.
         public let layout: String
@@ -366,13 +366,13 @@ public class Swiftfall {
         public let cmc: Double?
 
         // The type line of this card.
-        public let type_line: String?
+        public let typeLine: String?
         
         // The Oracle text for this card, if any.
-        public let oracle_text: String?
+        public let oracleText: String?
        
         // The mana cost for this card. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
-        public let mana_cost: String?
+        public let manaCost: String?
         
         // This card’s power, if any. Note that some cards have powers that are not numeric, such as *.
         public let power: String?
@@ -387,16 +387,16 @@ public class Swiftfall {
         public let colors: [String]?
         
         // Online listings for these cards names.
-        public let purchase_uris: [String:String]
+        public let purchaseUris: [String:String]
     
         // Flavor text on the card, if there is any
-        public let flavor_text: String?
+        public let flavorText: String?
         
         // id of the illustration
-        public let illustration_id: String?
+        public let illustrationId: String?
         
         // uris of the images
-        public let image_uris: [String:String]?
+        public let imageUris: [String:String]?
         
         // legality in different formats
         public let legalities: [String:String]
@@ -405,16 +405,16 @@ public class Swiftfall {
         public let reserved: Bool
         
         // This card’s overall rank/popularity on EDHREC. Not all carsd are ranked.
-        public let edhrec_rank: Int?
+        public let edhrecRank: Int?
         
         // If this card is closely related to other cards, this property will be an array with.
-        public let all_parts: [RelatedCard]?
+        public let allParts: [RelatedCard]?
         
         // This card's set code
         public let set: String
         
         // This card's set's full name
-        public let set_name: String
+        public let setName: String
         
         // This card's rarity. This is not the same for all versions of the card.
         public let rarity: String
@@ -426,29 +426,29 @@ public class Swiftfall {
         public let digital: Bool
         
         // True if this card’s imagery is high resolution.
-        public let highres_image: Bool
+        public let highresImage: Bool
         
         // True if this card’s artwork is larger than normal.
-        public let full_art: Bool
+        public let fullArt: Bool
         
         // This card’s watermark, if any.
         public let watermark: String?
         
         // This card’s border color: black, borderless, gold, silver, or white.
-        public let border_color: String
+        public let borderColor: String
         
         // This card’s story spotlight number, if any.
-        public let story_spotlight_number: Int?
+        public let storySpotlightNumber: Int?
         
         // A URL to this cards’s story article, if any.
-        public let story_spotlight_uri: String?
+        public let storySpotlightUri: String?
         
         // return string when self is used as a parameter for print
         public var description: String {
             var text = ""
             // if the card has multiple faces, print them
-            if (self.card_faces) != nil {
-                for face in card_faces! {
+            if (self.cardFaces) != nil {
+                for face in cardFaces! {
                     text += face.description
                     text += "\n"
                 }
@@ -458,14 +458,14 @@ public class Swiftfall {
             if self.name != nil {
                 text += "Name: \(name!)\n"
             }
-            if self.mana_cost != nil {
-                text += "Cost: \(mana_cost!)\n"
+            if self.manaCost != nil {
+                text += "Cost: \(manaCost!)\n"
             }
-            if self.type_line != nil {
-                text += "Type Line: \(type_line!)\n"
+            if self.typeLine != nil {
+                text += "Type Line: \(typeLine!)\n"
             }
-            if self.oracle_text != nil {
-                text += "Oracle Text:\n\(oracle_text!)\n"
+            if self.oracleText != nil {
+                text += "Oracle Text:\n\(oracleText!)\n"
             }
             if self.power != nil && self.toughness != nil {
                 text += "Power: \(power!)\nToughness: \(toughness!)\n"
@@ -504,6 +504,7 @@ public class Swiftfall {
             }
             
             let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             let httpStatus = (response as! HTTPURLResponse).statusCode
             do {
                 if (200..<300).contains(httpStatus) {
@@ -777,31 +778,31 @@ public class Swiftfall {
         print("There are 11 catalogs.\n* card-names\n* word-bank\n* creature-types\n* planeswalker-types\n* land-types\n* spell-types\n* artifact-types\n* powers\n* toughnesses\n* loyalties\n* watermarks")
     }
     
-    public static func card_names() throws -> Catalog {
+    public static func cardNames() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "card-names")
     }
     
-    public static func word_bank() throws -> Catalog {
+    public static func wordBank() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "word-bank")
     }
     
-    public static func creature_types() throws -> Catalog {
+    public static func creatureTypes() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "creature-types")
     }
     
-    public static func planeswalker_types() throws -> Catalog {
+    public static func planeswalkerTypes() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "planeswalker-types")
     }
     
-    public static func land_types() throws -> Catalog {
+    public static func landTypes() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "land-types")
     }
     
-    public static func spell_types() throws -> Catalog {
+    public static func spellTypes() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "spell-types")
     }
     
-    public static func artifact_types() throws -> Catalog {
+    public static func artifactTypes() throws -> Catalog {
         return try Swiftfall.getCatalog(catalog: "artifact-types")
     }
     
