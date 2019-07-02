@@ -21,8 +21,8 @@ class Tests: XCTestCase {
     
     func testSymbols() throws {
         do {
-            let sym = try Swiftfall.getSymbols()
-            _ = sym.data[1]
+            let syms = try Swiftfall.getSymbols()
+            _ = syms.data[1]
         } catch {
             print(error)
             XCTFail("\(error)")
@@ -199,7 +199,7 @@ class Tests: XCTestCase {
     
     func testSetFoil() throws {
         do {
-            print(try Swiftfall.getSet(code: "KTK").foil_only)
+            print(try Swiftfall.getSet(code: "KTK").foilOnly)
         } catch {
             print(error)
             XCTFail()
@@ -263,7 +263,7 @@ class Tests: XCTestCase {
     func testDoubleFaced() throws {
         do {
             let card = try Swiftfall.getCard(fuzzy: "Jace Vryn's Prodigy")
-            _ = card.card_faces
+            _ = card.cardFaces
         } catch {
             print(error)
             XCTFail()
@@ -282,7 +282,7 @@ class Tests: XCTestCase {
     
     func testEDHRECRank() throws {
         do {
-            _ = try Swiftfall.getCard(exact: "Sensei's Divining Top").edhrec_rank
+            _ = try Swiftfall.getCard(exact: "Sensei's Divining Top").edhrecRank
         } catch {
             print(error)
             XCTFail()
@@ -309,7 +309,7 @@ class Tests: XCTestCase {
     
     func testCatalog() throws {
         do {
-            _ = try Swiftfall.getCatalog(catalog: "land-types").total_values
+            _ = try Swiftfall.getCatalog(catalog: "land-types").totalValues
         } catch {
             print(error)
             XCTFail()
@@ -318,7 +318,7 @@ class Tests: XCTestCase {
     
     func testCardNames() throws {
         do {
-            _ = try Swiftfall.card_names()
+            _ = try Swiftfall.cardNames()
         } catch {
             print(error)
             XCTFail()
@@ -327,7 +327,7 @@ class Tests: XCTestCase {
     
     func testWordBank() throws {
         do {
-            _ = try Swiftfall.word_bank()
+            _ = try Swiftfall.wordBank()
         } catch {
             print(error)
             XCTFail()
@@ -336,7 +336,7 @@ class Tests: XCTestCase {
     
     func testCreatureTypes() throws {
         do {
-            _ = try Swiftfall.creature_types()
+            _ = try Swiftfall.creatureTypes()
         } catch {
             print(error)
             XCTFail()
@@ -345,7 +345,7 @@ class Tests: XCTestCase {
     
     func testPlaneswalkerTypes() throws {
         do {
-            _ = try Swiftfall.planeswalker_types()
+            _ = try Swiftfall.planeswalkerTypes()
         } catch {
             print(error)
             XCTFail()
@@ -354,7 +354,7 @@ class Tests: XCTestCase {
     
     func testLandTypes() throws {
         do {
-            _ = try Swiftfall.land_types()
+            _ = try Swiftfall.landTypes()
         } catch {
             print(error)
             XCTFail()
@@ -363,7 +363,7 @@ class Tests: XCTestCase {
     
     func testSpellTypes() throws {
         do {
-            _ = try Swiftfall.spell_types()
+            _ = try Swiftfall.spellTypes()
         } catch {
             print(error)
             XCTFail()
@@ -372,7 +372,7 @@ class Tests: XCTestCase {
     
     func testArtifactTypes() throws {
         do {
-            _ = try Swiftfall.artifact_types()
+            _ = try Swiftfall.artifactTypes()
         } catch {
             print(error)
             XCTFail()
@@ -426,7 +426,7 @@ class Tests: XCTestCase {
     
     func testPrices() throws {
         do {
-            _ = try Swiftfall.getCard(fuzzy: "Brainstorm")
+            let _ = try Swiftfall.getCard(fuzzy: "Brainstorm")
         } catch {
             print(error)
             XCTFail()
@@ -439,7 +439,4 @@ class Tests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-
-
 }
