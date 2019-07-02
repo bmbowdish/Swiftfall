@@ -311,7 +311,7 @@ public class Swiftfall {
                     text += "usd: \(usd)"
                 }
                 if let usdFoil = self.usdFoil {
-                    text += "usd_foil: \(usdFoil)"
+                    text += "usdFoil: \(usdFoil)"
                 }
                 if let eur = self.eur {
                     text += "usd: \(eur)"
