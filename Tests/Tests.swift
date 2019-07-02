@@ -424,6 +424,15 @@ class Tests: XCTestCase {
         }
     }
     
+    func testPrices() throws {
+        do {
+            _ = try Swiftfall.getCard(fuzzy: "Brainstorm")
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
