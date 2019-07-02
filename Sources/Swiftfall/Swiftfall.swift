@@ -403,9 +403,6 @@ public class Swiftfall {
         // This card’s watermark, if any.
         public let watermark: String?
         
-        // True if card is from the future
-        public let futureshifted: Bool
-        
         // This card’s border color: black, borderless, gold, silver, or white.
         public let border_color: String
         
