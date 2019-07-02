@@ -403,9 +403,6 @@ public class Swiftfall {
         // This card’s watermark, if any.
         public let watermark: String?
         
-        // True if this card is colorshifted.
-        public let colorshifted: Bool
-        
         // True if card is from the future
         public let futureshifted: Bool
         
