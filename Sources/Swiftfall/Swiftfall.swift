@@ -46,7 +46,7 @@ public class Swiftfall {
         
         // the symbols
         public let data: [Symbol]
-
+        
         public var description: String {
             var text = ""
             for sym in data {
@@ -92,7 +92,7 @@ public class Swiftfall {
     public struct Ruling: Codable, CustomStringConvertible {
         //     A computer-readable string indicating which company produced this ruling, either wotc or scryfall.
         public let source: String
-
+        
         // The date when the ruling or note was published.
         public let publishedAt: String
         
@@ -146,12 +146,14 @@ public class Swiftfall {
         
         public let hasMore: Bool
         
+        public let nextPage: String?
+        
         // prints each set
         public var description: String {
             var text = ""
             var i = 0
             for card in data {
-                text += "Card Number: \(i)\n"
+                text += "\n"
                 text += card.description
                 text += "\n"
                 i = i + 1
@@ -176,7 +178,7 @@ public class Swiftfall {
         //
         public let uri: String
         
-        // Scryfall API URI 
+        // Scryfall API URI
         public let scryfallUri: String
         
         // A Scryfall API URI that you can request to begin paginating over the cards in this set.
@@ -206,6 +208,63 @@ public class Swiftfall {
         //A URI to an SVG file for this set’s icon on Scryfall’s CDN. Hotlinking this image isn’t recommended, because it may change slightly over time. You should download it and use it locally for your particular user interface needs.
         public let iconSvgUri: String?
         
+        
+        private func getCards(searchURI:String) -> [CardList?] {
+            let call = searchURI
+            
+            var cardlist: Result<CardList>?
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            parseResource(call: call) {
+                (newcardlist: Result<CardList>) in
+                cardlist = newcardlist
+                semaphore.signal()
+            }
+            
+            semaphore.wait()
+            var cardListArray: [CardList?] = []
+            do {
+                if try cardlist!.promote().hasMore {
+                    cardListArray += (self.getCards(searchURI: try cardlist!.promote().nextPage!))
+                }
+                let newlist = try cardlist!.promote()
+                cardListArray.append(newlist)
+                return cardListArray
+            } catch {
+                return []
+            }
+        }
+        
+        public func getCards() -> [CardList?] {
+            let call = searchUri
+            
+            var cardlist: Result<CardList>?
+            
+            let semaphore = DispatchSemaphore(value: 0)
+            parseResource(call: call) {
+                (newcardlist: Result<CardList>) in
+                cardlist = newcardlist
+                semaphore.signal()
+            }
+            
+            semaphore.wait()
+            var cardListArray: [CardList?] = []
+            do {
+                if try cardlist!.promote().hasMore {
+                    let nextCardListArray = self.getCards(searchURI: try cardlist!.promote().nextPage!)
+                    for list in nextCardListArray {
+                        cardListArray.append(list)
+                    }
+                }
+                let newlist = try cardlist!.promote()
+                cardListArray.append(newlist)
+                
+                return cardListArray
+            } catch {
+                return []
+            }
+        }
+        
         // prints the minimal data for the set
         public var description: String{
             var text = ""
@@ -223,7 +282,7 @@ public class Swiftfall {
             text += "Set Type: \(setType)\n"
             
             return text
-        }                   
+        }
     }
     
     public struct Card: Codable, CustomStringConvertible {
@@ -268,7 +327,7 @@ public class Swiftfall {
             public let flavorText: String?
             
             public let illustrationId: String?
-
+            
             public let imageUris: [String: String]?
             
             public var description: String {
@@ -300,11 +359,11 @@ public class Swiftfall {
             public let usd: String?
             
             public let usdFoil: String?
-          
+            
             public let eur: String?
-
+            
             public let tix: String?
-
+            
             public var description: String {
                 var text = ""
                 if let usd = self.usd {
@@ -364,13 +423,13 @@ public class Swiftfall {
         
         // The card’s converted mana cost. Note that some funny cards have fractional mana costs.
         public let cmc: Double?
-
+        
         // The type line of this card.
         public let typeLine: String?
         
         // The Oracle text for this card, if any.
         public let oracleText: String?
-       
+        
         // The mana cost for this card. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
         public let manaCost: String?
         
@@ -379,7 +438,7 @@ public class Swiftfall {
         
         // This card’s toughness, if any. Note that some cards have toughnesses that are not numeric, such as *.
         public let toughness: String?
-       
+        
         // This loyalty if any. Note that some cards have loyalties that are not numeric, such as X.
         public let loyalty: String?
         
@@ -388,7 +447,7 @@ public class Swiftfall {
         
         // Online listings for these cards names.
         public let purchaseUris: [String:String]
-    
+        
         // Flavor text on the card, if there is any
         public let flavorText: String?
         
@@ -495,7 +554,8 @@ public class Swiftfall {
     /// Retreives JSON data from URL and parses it with JSON decoder.
     static func parseResource<ResultType: Decodable>(call: String, completion: @escaping (Result<ResultType>) -> ()) {
         
-        let url = URL(string: "\(scryfall)\(call)")
+        let url = URL(string: call)
+        print(url)
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
             guard let content = data else {
@@ -524,7 +584,7 @@ public class Swiftfall {
     
     // gets a Card by using the code and id number
     public static func getCard(code: String, number: Int) throws -> Card {
-        let call = "cards/\(code)/\(number)"
+        let call = "\(scryfall)cards/\(code)/\(number)"
         var card: Result<Card>?
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -541,7 +601,7 @@ public class Swiftfall {
     
     // gets a Card by using the arena code
     public static func getCard(arena: Int) throws -> Card {
-        let call = "cards/arena/\(arena)"
+        let call = "\(scryfall)cards/arena/\(arena)"
         var card: Result<Card>?
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -559,9 +619,9 @@ public class Swiftfall {
     // fuzzy
     public static func getCard(fuzzy: String) throws -> Card {
         let encodeFuzz = fuzzy.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let call = "cards/named?fuzzy=\(encodeFuzz)"
+        let call = "\(scryfall)cards/named?fuzzy=\(encodeFuzz)"
         
-
+        
         var card: Result<Card>?
         let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
@@ -579,7 +639,7 @@ public class Swiftfall {
     // exact
     public static func getCard(exact: String) throws -> Card {
         let encodeExactly = exact.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let call = "cards/named?exact=\(encodeExactly)"
+        let call = "\(scryfall)cards/named?exact=\(encodeExactly)"
         
         var card: Result<Card>?
         
@@ -597,7 +657,7 @@ public class Swiftfall {
     
     // fuzzy
     public static func getRandomCard() throws -> Card {
-        let call = "cards/random"
+        let call = "\(scryfall)cards/random"
         
         var card: Result<Card>?
         
@@ -616,7 +676,7 @@ public class Swiftfall {
     // get a catalog
     public static func getCatalog(catalog: String) throws -> Catalog {
         let encodeCatalog = catalog.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let call = "catalog/\(encodeCatalog)"
+        let call = "\(scryfall)catalog/\(encodeCatalog)"
         var cat: Result<Catalog>?
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -634,10 +694,10 @@ public class Swiftfall {
     // set
     public static func getSet(code: String) throws -> ScryfallSet {
         let encodeExactly = code.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let call = "sets/\(encodeExactly)"
+        let call = "\(scryfall)sets/\(encodeExactly)"
         
         var set: Result<ScryfallSet>?
-       
+        
         let semaphore = DispatchSemaphore(value: 0)
         parseResource(call: call) {
             (newset: Result<ScryfallSet>) in
@@ -653,7 +713,7 @@ public class Swiftfall {
     
     public static func getSetList() throws -> SetList
     {
-        let call = "sets/"
+        let call = "\(scryfall)sets/"
         
         var setlist: Result<SetList>?
         
@@ -671,7 +731,7 @@ public class Swiftfall {
     
     
     public static func getCardList() throws -> CardList {
-        let call = "cards/"
+        let call = "\(scryfall)cards/"
         
         var cardlist: Result<CardList>?
         
@@ -689,7 +749,7 @@ public class Swiftfall {
     
     public static func getCardList(page:Int) throws -> CardList
     {
-        let call = "cards?page=\(page)"
+        let call = "\(scryfall)cards?page=\(page)"
         
         var cardlist: Result<CardList>?
         
@@ -707,7 +767,7 @@ public class Swiftfall {
     
     
     public static func getRulingList(code:String,number:Int) throws -> RulingList {
-        let call = "cards/\(code)/\(number)/rulings"
+        let call = "\(scryfall)cards/\(code)/\(number)/rulings"
         
         var rulelist: Result<RulingList>?
         
@@ -725,7 +785,7 @@ public class Swiftfall {
     }
     
     public static func getSymbols() throws -> SymbolList {
-        let call = "symbology"
+        let call = "\(scryfall)symbology"
         
         var symbollist: Result<SymbolList>?
         let semaphore = DispatchSemaphore(value: 0)
@@ -742,7 +802,7 @@ public class Swiftfall {
     
     // give a search term and return a catalog of similar cards
     public static func autocomplete(_ string: String) throws -> Catalog {
-        let call = "cards/autocomplete?q=\(string)"
+        let call = "\(scryfall)cards/autocomplete?q=\(string)"
         
         var cat: Result<Catalog>?
         
