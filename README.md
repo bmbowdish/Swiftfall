@@ -96,6 +96,7 @@ Oracle Text:
 −9: You get an emblem with "Whenever you cast a spell, target opponent puts the top five cards of his or her library into his or her graveyard."
 Loyalty: 5
 ```
+
 ### Get a list of Cards
 Swiftfall.getCardList() throws -> CardList _(The first page)_
 
@@ -134,6 +135,22 @@ Number of Cards: 269
 Release Date: 2014-09-26
 Set Type: expansion
 ```
+
+### Get a list of Cards in a Set
+
+Set.getCards() -> \[CardList?\] _(an array of CardLists which each contain a portion of a set)_
+
+Ex. 
+```
+import Swiftfall
+do {
+    let set = try Swiftfall.getSet(code: "PRM")
+    let cards = set.getCards()
+} catch {
+    print(error)
+}
+```
+
 ### Get a list of ScryfallSets
 Swiftfall.getSetList() throws -> SetList _(All Sets)_
 
