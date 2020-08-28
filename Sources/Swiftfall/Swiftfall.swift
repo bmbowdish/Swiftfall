@@ -446,7 +446,7 @@ public class Swiftfall {
         public let colors: [String]?
         
         // Online listings for these cards names.
-        public let purchaseUris: [String:String]
+        public let purchaseUris: [String:String]?
         
         // Flavor text on the card, if there is any
         public let flavorText: String?
