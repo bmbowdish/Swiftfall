@@ -802,7 +802,8 @@ public class Swiftfall {
     
     // give a search term and return a catalog of similar cards
     public static func autocomplete(_ string: String) throws -> Catalog {
-        let call = "\(scryfall)cards/autocomplete?q=\(string)"
+        let encodedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let call = "\(scryfall)cards/autocomplete?q=\(encodedString)"
         
         var cat: Result<Catalog>?
         
