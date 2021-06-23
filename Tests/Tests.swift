@@ -307,6 +307,15 @@ class Tests: XCTestCase {
         }
     }
     
+    func testAutocompleteEncoding() throws {
+        do {
+            _ = try Swiftfall.autocomplete("Omnath, the")
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
     func testCatalog() throws {
         do {
             _ = try Swiftfall.getCatalog(catalog: "land-types").totalValues
